@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Web Browser</title>
+
+    <!-- WinJS references -->
+    <link href="/WinJS/css/ui-dark.css" rel="stylesheet" />
+    <script src="/WinJS/js/WinJS.js"></script>
+    <!--<script src="//Microsoft.WinJS.2.0/js/ui.js"></script>-->
+
+    <!-- WebBrowser.Windows references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+<body>
+    <div id="navbar" class="navbar">
+        <button id="backButton" class="navButton backButton">
+            <span class="buttonLabel">Back</span>
+        </button>
+        <button id="forwardButton" class="navButton forwardButton">
+            <span class="buttonLabel">Forward</span>
+        </button>
+        <input id="urlInput" type="text" />
+        <button id="stopButton" class="navButton stopButton">
+            <span class="buttonLabel">Stop</span>
+        </button>
+        <button id="favButton" class="navButton favButton">
+            <span class="buttonLabel">Favorites</span>
+        </button>
+        <button id="cacheButton" class="navButton textButton cacheButton">
+            <span class="buttonLabel">Clear Cache</span>
+        </button>
+    </div>
+    <x-ms-webview id="WebView" src="http://microsoft.com"></x-ms-webview>
+    <div class="modal modalEffect-1" id="favorites">
+        <div class="favContent">
+            <h3>Favorites</h3>
+            <ul id="favoritesList"></ul>
+            <button id="addFavButton">Add Favorite</button>
+            <br />
+            <button id="modalClose">Close</button>
+            <br />
+        </div>
+    </div>
+    <div class="modal-overlay"></div>
+
+</body>
+</html>

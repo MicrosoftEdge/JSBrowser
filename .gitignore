@@ -1,0 +1,9 @@
+*.pfx
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.jsproj.user
+
+bld/
+bin/
