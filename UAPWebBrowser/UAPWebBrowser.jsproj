@@ -63,6 +63,7 @@
     <Content Include="images\storelogo.scale-100.png" />
     <Content Include="js\default.js" />
     <Content Include="css\default.css" />
+    <Content Include="pages\page.html" />
     <Content Include="WinJS\css\ui-dark.css" />
     <Content Include="WinJS\css\ui-light.css" />
     <Content Include="WinJS\fonts\Symbols.ttf" />
