@@ -14,11 +14,11 @@ html {
 body {
   font-size: 100%;
   font-family: "Segoe UI Webfont", "Segoe UI", sans-serif;
-  background: #0078D7;
+  background: #fff;
   color: #1a1a1a;
 }
 
-@media (min-width: 37.5em) /* 600px */ {
+@media (min-width: 56.25em) /* 900px */ {
 
   html {
   	font-size: 112.5%;
@@ -36,6 +36,7 @@ a {
 a:link, a:visited {
   color: #0072c6;
   text-decoration: none;
+  transition: all 0.3s ease-in-out;
 }
 a:hover {
   color: #005293;
@@ -48,7 +49,7 @@ ul, ol {
   margin-left: 1.25em;
 }
 li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.5rem;
@@ -72,19 +73,15 @@ button, .button:link, .button:visited {
   font-size: 1rem;
   background: #0072c6;
   color: #fff;
+  transition: background-color 0.3s ease-in-out;
 }
 button:hover, .button:hover {
   background: #0065b5;
+  color: #005293;
   cursor: pointer;
 }
-button:active, .button:active {
-  background: #4b4b4b;
-}
-.pageTitle {
-  color: #fff;
-}
 
-@media (min-width: 37.5em) /* 600px */ {
+@media (min-width: 56.25em) /* 900px */ {
 
   p, ul, ol,
   button, .button:link, .button:visited {
@@ -105,30 +102,98 @@ button:active, .button:active {
   width: 100%;
   max-width: 1400px;
 }
+
+ 
+@media (min-width: 56.25em) /* 900px */ {
+
+  .pageWrap {
+  	margin: 4rem;
+  }
+
+}
+
+
+/* CARDS
+--------------------------------------------- */
+
 .cards {
   flex-wrap: wrap;
   margin: 0 -1.25rem;
 }
 .card {
-  padding: 0 1rem 2rem;
+  padding: 0 0.5rem 1rem;
   width: 100%;
 }
 .cardContent {
   display: block;
   padding: 1.25rem 1.25rem 0.5rem;
   width: 100%;
-  background: #fff;
-  box-shadow: 0.325rem 0.325rem 0 0 rgba(0,0,0,0.15);
+  background: #0078D7;
+  color: #fff;
 }
 .cardTitle {
   word-wrap: break-word;
 }
+.cardContent a:link, .cardContent a:visited {
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.cardContent a:hover {
+  border-bottom-color: #fff;
+}
+.cardContent button, .cardContent .button:link, .cardContent .button:visited {
+  border: 0 none;
+  background: #fff;
+  color: #0078D7;
+}
+.cardContent button:hover, .cardContent .button:hover {
+  background: #f4f4f4;
+  color: #005293;
+}
+
+/* ALTERNATING CARD COLORS */
+.card:nth-child(2n) .cardContent {
+  background: #007e92;
+}
+.card:nth-child(2n) .button:link,
+.card:nth-child(2n) .button:visited {
+  color: #007e92;
+}
+.card:nth-child(2n) .button:hover {
+  color: #00515f;
+}
+
+.card:nth-child(3n) .cardContent {
+  background: #008272;
+}
+.card:nth-child(3n) .button:link,
+.card:nth-child(3n) .button:visited {
+  color: #008272;
+}
+.card:nth-child(3n) .button:hover {
+  color: #004f45;
+}
+
+/* INDIVIDUAL CARDS */
+
+.addedList {
+  margin-left: 0;
+  list-style: none;
+}
+.addedList li a {
+  display: block;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+.addedList li a:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '\2192';
+}
  
 @media (min-width: 37.5em) /* 600px */ {
 
-  .pageWrap {
-  	margin: 4rem;
-  }
   .cards {
   	display: flex;
   	flex-wrap: wrap;
@@ -149,15 +214,4 @@ button:active, .button:active {
   	width: 33%;
   }
 
-}
-
-/* INDIVIDUAL CARDS
---------------------------------------------- */
-
-.addedList {
-  margin-left: 0;
-  list-style: none;
-}
-.addedList li:before {
-  content: '+';
 }
