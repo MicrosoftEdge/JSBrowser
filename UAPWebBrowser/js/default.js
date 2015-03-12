@@ -67,6 +67,12 @@
                     stopButton.innerHTML = "<span class=\"buttonLabel\">Stop</span>";
                     urlInput.value = e.uri;
                     currentUrl = e.uri;
+                    console.log("This is the current URI: " + currentUrl);
+                    var protocol = currentUrl.split(':');
+                    if (protocol[0] === "ms-appx-web") {
+                        var communicationWinRT = new TostWinRT.ToastClass();
+                        webview.addWebAllowedObject("CommunicatorWinRT", communicationWinRT);
+                    }
                 }, false);
 
                 webview.addEventListener("MSWebViewNavigationCompleted", function (e) {
@@ -144,6 +150,7 @@
     function navigateTo(loc) {
         if (webview) {
             try {
+                console.log("navigating to: " + loc);
                 webview.navigate(loc);
             } catch (e) {
                 console.log(e);
