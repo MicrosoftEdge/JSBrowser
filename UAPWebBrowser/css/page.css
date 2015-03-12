@@ -64,7 +64,7 @@ h1 {
 }
 button, .button:link, .button:visited {
   display: inline-block;
-  margin-bottom: 0.75rem;
+  margin: 0.75rem 0;
   border: 0 none;
   outline: none;
   padding: 0.75rem 1rem;
@@ -126,7 +126,7 @@ button:hover, .button:hover {
 }
 .cardContent {
   display: block;
-  padding: 1.25rem 1.25rem 0.5rem;
+  padding: 1.5rem 1.5rem 0.75rem;
   width: 100%;
   background: #0078D7;
   color: #fff;
