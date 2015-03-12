@@ -67,8 +67,9 @@ button, .button:link, .button:visited {
   border: 0 none;
   outline: none;
   padding: 0.75rem;
-  font-size: 1rem;
   word-wrap: break-word;
+  max-width: 100%;
+  font-size: 1rem;
   background: #0072c6;
   color: #fff;
 }
