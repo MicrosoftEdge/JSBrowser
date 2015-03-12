@@ -1,29 +1,48 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+	<meta charset="utf-8" />
+    <title>Windows 10 WebView Demos</title>
+	<link href="../css/page.css" rel="stylesheet" />
 </head>
 <body>
-    <h2>AddWebAllowedObject</h2>
-    <div>
-        <button id="notify_btn">Notify</button>
-    </div>
-    <h2>Clear Data Api Demo</h2>
-    <div>
-        <a href='http://ie.microsoft.com/testdrive/HTML5/newyearslist/'>ClearTempWebDataAsync</a>
-    </div>
-    <h2>New Events Added to WebView</h2>
-    <div>
-        <a href='http://go.microsoft.com/fwlink/?LinkID=522449' target="_blank">New Window Requested</a>
-    </div>
-    <div>
-        <a href="http://html5demos.com/geo">Permission Requested: Geolocation</a>
-    </div>
-    <div>
-        <a href="mailto:kiseksen@microsoft.com">Unsupported URI Scheme: mailto</a>
-    </div>
-    <div>
-        <a href="http://www.freepatentsonline.com/5162150.pdf">Unviewable Content: pdf</a>
-    </div>
+	<div class="pageWrap">
+		<div class="container">
+			<h1 class="pageTitle">Windows 10 WebView Demos</h1>
+			<div class="cards">
+				<div class="card">
+					<div class="cardContent">
+						<h2 class="cardTitle">AddWebAllowedObject</h2>
+						<button id="notify_btn">Notify</button>
+					</div>
+		    	</div>
+		    	<div class="card">
+					<div class="cardContent">
+						<h2 class="cardTitle">Clear Data Api Demo</h2>
+					    <a class="button" href='http://ie.microsoft.com/testdrive/HTML5/newyearslist/' target="_blank">ClearTempWebDataAsync</a>
+					</div>
+		    	</div>
+		    	<div class="card">
+					<div class="cardContent">
+						<h2 class="cardTitle">New Events Added to WebView</h2>
+					    <ul class="addedList">
+					    	<li>
+					        	<a href='http://go.microsoft.com/fwlink/?LinkID=522449' target="_blank">New Window Requested</a>
+					        </li>
+							<li>
+					        	<a href="http://html5demos.com/geo" target="_blank">Permission Requested: Geolocation</a>
+					        </li>
+							<li>
+					        	<a href="mailto:kiseksen@microsoft.com">Unsupported URI Scheme: mailto</a>
+					        </li>
+							<li>
+					        	<a href="http://www.freepatentsonline.com/5162150.pdf" target="_blank">Unviewable Content: pdf</a>
+					        </li>
+					    </ul>
+					</div>
+		    	<div>
+		    </div>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,0 +1,162 @@
+﻿/* BASE STYLES
+--------------------------------------------- */
+
+*, *:before, *:after {
+	margin: 0;
+	padding: 0;
+  	box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+body {
+  font-size: 100%;
+  font-family: "Segoe UI Webfont", "Segoe UI", sans-serif;
+  background: #0078D7;
+  color: #1a1a1a;
+}
+
+@media (min-width: 37.5em) /* 600px */ {
+
+  html {
+  	font-size: 112.5%;
+  }
+
+}
+
+/* TYPOGRAPHY
+--------------------------------------------- */
+@font-face{font-family:'wf_segoe-ui_normal';src:url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.eot');src:url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.eot?#iefix') format('embedded-opentype'),url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.woff') format('woff'),url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.ttf') format('truetype'),url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.svg#web') format('svg');font-weight:normal;font-style:normal}
+
+a {
+  outline: none;
+}
+a:link, a:visited {
+  color: #0072c6;
+  text-decoration: none;
+}
+a:hover {
+  color: #005293;
+}
+p, ul, ol {
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+ul, ol {
+  margin-left: 1.25em;
+}
+li {
+  margin-bottom: 0.25rem;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  font-size: 1.325rem;
+  line-height: 1;
+}
+h1 {
+  margin-bottom: 1em;
+  font-weight: 200;
+  font-size: 2.5rem;
+}
+button, .button:link, .button:visited {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  border: 0 none;
+  outline: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  word-wrap: break-word;
+  background: #0072c6;
+  color: #fff;
+}
+button:hover, .button:hover {
+  background: #0065b5;
+  cursor: pointer;
+}
+button:active, .button:active {
+  background: #4b4b4b;
+}
+.pageTitle {
+  color: #fff;
+}
+
+@media (min-width: 37.5em) /* 600px */ {
+
+  p, ul, ol,
+  button, .button:link, .button:visited {
+    font-size: 0.888888rem;
+  }
+
+}
+
+/* LAYOUT
+--------------------------------------------- */
+
+.pageWrap {
+  margin: 2rem;
+}
+	
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+}
+.cards {
+  flex-wrap: wrap;
+  margin: 0 -1.25rem;
+}
+.card {
+  padding: 0 1rem 2rem;
+  width: 100%;
+}
+.cardContent {
+  display: block;
+  padding: 1.25rem 1.25rem 0.5rem;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0.325rem 0.325rem 0 0 rgba(0,0,0,0.15);
+}
+.cardTitle {
+  word-wrap: break-word;
+}
+ 
+@media (min-width: 37.5em) /* 600px */ {
+
+  .pageWrap {
+  	margin: 4rem;
+  }
+  .cards {
+  	display: flex;
+  	flex-wrap: wrap;
+  	margin: 0 -1.25rem;
+  }
+  .card {
+  	display: flex;
+  	float: left;
+  	padding: 0 1rem 2rem;
+  	width: 50%;
+  }
+
+}
+
+@media (min-width: 56.25em) /* 900px */ {
+
+  .card {
+  	width: 33%;
+  }
+
+}
+
+/* INDIVIDUAL CARDS
+--------------------------------------------- */
+
+.addedList {
+  margin-left: 0;
+  list-style: none;
+}
+.addedList li:before {
+  content: '+';
+}
