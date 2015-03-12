@@ -146,7 +146,7 @@ button:hover, .button:hover {
   color: #007e92;
 }
 .cardContent button:hover, .cardContent .button:hover {
-  background: #f4f4f4;
+  background: rgba(255,255,255,0.9);
   color: #00515f;
 }
 
