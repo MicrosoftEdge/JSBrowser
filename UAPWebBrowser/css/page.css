@@ -10,12 +10,15 @@ html {
   box-sizing: border-box;
   font-size: 100%;
 }
-
 body {
   font-size: 100%;
   font-family: "Segoe UI Webfont", "Segoe UI", sans-serif;
   background: #fff;
   color: #1a1a1a;
+}
+::selection {
+  background: #1a1a1a;
+  color: #fff;
 }
 
 @media (min-width: 68.75em) /* 1100px */ {
