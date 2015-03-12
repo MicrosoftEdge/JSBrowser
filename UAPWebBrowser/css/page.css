@@ -67,7 +67,7 @@ button, .button:link, .button:visited {
   margin-bottom: 0.75rem;
   border: 0 none;
   outline: none;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   word-wrap: break-word;
   max-width: 100%;
   font-size: 1rem;
