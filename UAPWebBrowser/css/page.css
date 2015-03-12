@@ -18,7 +18,7 @@ body {
   color: #1a1a1a;
 }
 
-@media (min-width: 56.25em) /* 900px */ {
+@media (min-width: 68.75em) /* 1100px */ {
 
   html {
   	font-size: 112.5%;
@@ -81,7 +81,7 @@ button:hover, .button:hover {
   cursor: pointer;
 }
 
-@media (min-width: 56.25em) /* 900px */ {
+@media (min-width: 68.75em) /* 1100px */ {
 
   p, ul, ol,
   button, .button:link, .button:visited {
@@ -104,7 +104,7 @@ button:hover, .button:hover {
 }
 
  
-@media (min-width: 56.25em) /* 900px */ {
+@media (min-width: 68.75em) /* 1100px */ {
 
   .pageWrap {
   	margin: 4rem;
@@ -116,12 +116,8 @@ button:hover, .button:hover {
 /* CARDS
 --------------------------------------------- */
 
-.cards {
-  flex-wrap: wrap;
-  margin: 0 -1.25rem;
-}
 .card {
-  padding: 0 0.5rem 1rem;
+  margin: 0 0 1rem;
   width: 100%;
 }
 .cardContent {
@@ -197,18 +193,18 @@ button:hover, .button:hover {
   .cards {
   	display: flex;
   	flex-wrap: wrap;
-  	margin: 0 -1.25rem;
+  	margin: 0 -0.5rem;
   }
   .card {
   	display: flex;
   	float: left;
-  	padding: 0 1rem 2rem;
+  	padding: 0 0.5rem;
   	width: 50%;
   }
 
 }
 
-@media (min-width: 56.25em) /* 900px */ {
+@media (min-width: 68.75em) /* 1100px */ {
 
   .card {
   	width: 33%;
