@@ -127,7 +127,7 @@ button:hover, .button:hover {
   display: block;
   padding: 1.5rem 1.5rem 0.75rem;
   width: 100%;
-  background: #0078D7;
+  background: #007e92;
   color: #fff;
 }
 .cardTitle {
@@ -143,33 +143,33 @@ button:hover, .button:hover {
 .cardContent button, .cardContent .button:link, .cardContent .button:visited {
   border: 0 none;
   background: #fff;
-  color: #0078D7;
+  color: #007e92;
 }
 .cardContent button:hover, .cardContent .button:hover {
   background: #f4f4f4;
-  color: #005293;
-}
-
-/* ALTERNATING CARD COLORS */
-.card:nth-child(2n) .cardContent {
-  background: #007e92;
-}
-.card:nth-child(2n) .button:link,
-.card:nth-child(2n) .button:visited {
-  color: #007e92;
-}
-.card:nth-child(2n) .button:hover {
   color: #00515f;
 }
 
-.card:nth-child(3n) .cardContent {
+/* ALTERNATING CARD COLORS */
+.card:nth-child(3n+1) .cardContent {
+  background: #0078D7;
+}
+.card:nth-child(3n+1) .button:link,
+.card:nth-child(3n+1) .button:visited {
+  color: #0078D7;
+}
+.card:nth-child(3n+1) .button:hover {
+  color: #005293;
+}
+
+.card:nth-child(3n+3) .cardContent {
   background: #008272;
 }
-.card:nth-child(3n) .button:link,
-.card:nth-child(3n) .button:visited {
+.card:nth-child(3n+3) .button:link,
+.card:nth-child(3n+3) .button:visited {
   color: #008272;
 }
-.card:nth-child(3n) .button:hover {
+.card:nth-child(3n+3) .button:hover {
   color: #004f45;
 }
 
