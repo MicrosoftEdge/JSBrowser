@@ -30,6 +30,7 @@ html {
     height: 30px;
     width: 30px;
     min-width: 0;
+    min-height: 0;
     box-shadow: 0 4px 3px -3px #000;
     color: #dedede;
 }
@@ -126,6 +127,13 @@ button.navButton:focus {
 }
 .favButton:hover, .favButton:active {
     background-position: -30px -120px;
+}
+
+.settingsButton {
+    background-position: 0 -150px;
+}
+.settingsButton:hover, .settingsButton:active {
+    background-position: -30px -150px;
 }
 
 #WebView {

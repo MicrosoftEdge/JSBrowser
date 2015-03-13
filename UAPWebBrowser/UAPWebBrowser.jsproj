@@ -55,6 +55,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="css\page.css" />
     <Content Include="default.html" />
     <Content Include="images\icons.png" />
     <Content Include="images\logo.scale-100.png" />

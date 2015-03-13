@@ -12,7 +12,7 @@
             //log('found');
             object.toastMessage('Hello World', 0);
         } else {
-            log('Error');
+            console.log('Error');
         }
 
     }

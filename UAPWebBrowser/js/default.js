@@ -40,7 +40,7 @@
                 var loading = true;
 
                 modal = document.getElementById("favorites");
-                var closeButton = document.getElementById("modalClose");
+                var favCloseButton = document.getElementById("modalFavClose");
                 oldclass = modal.className;
 
                 // Get button elements
@@ -114,7 +114,7 @@
                     modal.className += " modal-show";
                 }, false);
 
-                closeButton.addEventListener("click", function () {
+                favCloseButton.addEventListener("click", function () {
                     modal.className = oldclass;
                 }, false);
 
