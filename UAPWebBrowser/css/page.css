@@ -176,7 +176,7 @@ button:hover, .button:hover {
 /* INDIVIDUAL CARDS */
 
 .linkList {
-  margin-left: 0;
+  margin: 0;
   list-style: none;
 }
 .linkList li {
@@ -186,6 +186,9 @@ button:hover, .button:hover {
   display: block;
   position: relative;
   padding: 0.75rem 0;
+}
+.linkList li:last-of-type a {
+  border-bottom: 0;
 }
 .linkList li .arrow {
   position: absolute;
