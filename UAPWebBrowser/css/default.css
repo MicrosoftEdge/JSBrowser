@@ -27,6 +27,7 @@ html {
 .navButton {
     margin-left: 4px;
     border-radius: 3px;    
+    min-height: 0;
     height: 30px;
     width: 30px;
     min-width: 0;
