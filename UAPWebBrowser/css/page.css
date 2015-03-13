@@ -135,7 +135,7 @@ button:hover, .button:hover {
 }
 .cardContent a:link, .cardContent a:visited {
   color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.33);
 }
 .cardContent a:hover {
   border-bottom-color: #fff;
@@ -175,22 +175,38 @@ button:hover, .button:hover {
 
 /* INDIVIDUAL CARDS */
 
-.addedList {
+.linkList {
   margin-left: 0;
   list-style: none;
 }
-.addedList li a {
+.linkList li {
+  margin: 0;
+}
+.linkList li a {
   display: block;
   position: relative;
-  padding-bottom: 0.5rem;
+  padding: 0.75rem 0;
 }
-.addedList li a:after {
+.linkList li .arrow {
   position: absolute;
-  top: 0;
+  top: 50%;
+  margin-top: -12px;
   right: 0;
-  content: '\2192';
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  background: #fff;
+  text-align: center;
 }
- 
+.linkList .arrowGlyph {
+  height: 11px;
+  width: 13px;
+  stroke: #0078D7;
+}
+.card:nth-child(3n+3) .arrowGlyph {
+  color: #008272;
+}
+
 @media (min-width: 37.5em) /* 600px */ {
 
   .cards {
