@@ -154,10 +154,12 @@ button:hover, .button:hover {
 .card:nth-child(3n+1) .cardContent {
   background: #0078D7;
 }
+.card:nth-child(3n+1) button,
 .card:nth-child(3n+1) .button:link,
 .card:nth-child(3n+1) .button:visited {
   color: #0078D7;
 }
+.card:nth-child(3n+1) button,
 .card:nth-child(3n+1) .button:hover {
   color: #005293;
 }
@@ -165,10 +167,12 @@ button:hover, .button:hover {
 .card:nth-child(3n+3) .cardContent {
   background: #008272;
 }
+.card:nth-child(3n+3) button,
 .card:nth-child(3n+3) .button:link,
 .card:nth-child(3n+3) .button:visited {
   color: #008272;
 }
+.card:nth-child(3n+3) button:hover,
 .card:nth-child(3n+3) .button:hover {
   color: #004f45;
 }
