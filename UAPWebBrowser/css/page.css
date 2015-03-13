@@ -199,12 +199,19 @@ button:hover, .button:hover {
   text-align: center;
 }
 .linkList .arrowGlyph {
+  transition: margin 0.1s ease-in-out;
   height: 11px;
   width: 13px;
   stroke: #0078D7;
 }
+.linkList li a:hover .arrowGlyph {
+  margin-left: 3px;
+}
+.card:nth-child(3n+1) .arrowGlyph {
+  stroke: #0078D7;
+}
 .card:nth-child(3n+3) .arrowGlyph {
-  color: #008272;
+  stroke: #008272;
 }
 
 @media (min-width: 37.5em) /* 600px */ {
