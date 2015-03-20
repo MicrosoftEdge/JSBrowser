@@ -14,7 +14,7 @@
     var keys = [];
 
 
-    var webview, forwardButton, backButton, stopButton, favButton, favMenu, favContainer, addFavButton, favList;
+    var webview, forwardButton, backButton, stopButton, favButton, favMenu, favContainer, addFavButton, settingsButton, clearCacheButton, favList;
     var documentTitle = "";
     var currentUrl = "";
 
@@ -32,7 +32,7 @@
             args.setPromise(WinJS.UI.processAll().then(function completed() {
                 applicationCache.addEventListener("datachanged", dataChangedHandler);
 
-                readFavorites();
+                //readFavorites();
                 console.log(document.getElementById("navbar").clientHeight);
                 webview = document.getElementById("WebView");
 
@@ -45,7 +45,7 @@
                 oldclass = favModal.className;
 
                 settingsModal = document.getElementById("settings");
-                var favCloseButton = document.getElementById("modalSettingsClose");
+                var settingsCloseButton = document.getElementById("modalSettingsClose");
                 oldclass = settingsModal.className;
 
                 // Get button elements
@@ -54,6 +54,8 @@
                 backButton = document.getElementById("backButton");
                 favButton = document.getElementById("favButton");
                 addFavButton = document.getElementById("addFavButton");
+                settingsButton = document.getElementById("settingsButton");
+                clearCacheButton = document.getElementById("clearCacheButton");
                 favList = document.getElementById("favoritesList");
 
                 favContainer = document.getElementById("favContainer");
