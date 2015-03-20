@@ -36,8 +36,10 @@
         Description="UAPWebBrowser"
         ForegroundText="light"
         BackgroundColor="#464646"
+        ToastCapable="true"
         Square150x150Logo="images\Logo.png"
         Square44x44Logo="images\SmallLogo.png">
+        
 
         <uap:SplashScreen Image="images\splashscreen.png" />
 

@@ -9,10 +9,9 @@
         var object = window.CommunicatorWinRT;
 
         if (object) {
-            //log('found');
             object.toastMessage('Hello World', 0);
         } else {
-            console.log('Error');
+            console.log('Error injected object not found');
         }
 
     }

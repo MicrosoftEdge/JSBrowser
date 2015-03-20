@@ -18,7 +18,7 @@
     var documentTitle = "";
     var currentUrl = "";
 
-    var modal, oldclass;
+    var favModal, settingsModal, oldclass;
 
     app.onactivated = function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
@@ -39,9 +39,14 @@
                 documentTitle = webview.documentTitle;
                 var loading = true;
 
-                modal = document.getElementById("favorites");
+                // Set up the modals (favorites and settings)
+                favModal = document.getElementById("favorites");
                 var favCloseButton = document.getElementById("modalFavClose");
-                oldclass = modal.className;
+                oldclass = favModal.className;
+
+                settingsModal = document.getElementById("settings");
+                var favCloseButton = document.getElementById("modalSettingsClose");
+                oldclass = settingsModal.className;
 
                 // Get button elements
                 stopButton = document.getElementById("stopButton");
@@ -71,6 +76,7 @@
                     var protocol = currentUrl.split(':');
                     if (protocol[0] === "ms-appx-web") {
                         var communicationWinRT = new TostWinRT.ToastClass();
+                        var a = communicationWinRT.getValue();
                         webview.addWebAllowedObject("CommunicatorWinRT", communicationWinRT);
                     }
                 }, false);
@@ -83,6 +89,11 @@
                     backButton.disabled = !webview.canGoBack;
                     forwardButton.disabled = !webview.canGoForward;
                 }, false);
+                //New Events!
+                webview.addEventListener("MSWebViewUnviewableContentIdentified", unviewableContent, false);
+                webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified", unsupportedUriScheme, false);
+                webview.addEventListener("MSWebViewNewWindowRequested", newWindowRequested, false);
+                webview.addEventListener("MSWebViewPermissionRequested", permissionRequested, false);
 
                 stopButton.addEventListener("click", function () {
                     if (loading) {
@@ -111,11 +122,11 @@
                 }, false);
 
                 favButton.addEventListener("click", function () {
-                    modal.className += " modal-show";
+                    favModal.className += " modal-show";
                 }, false);
 
                 favCloseButton.addEventListener("click", function () {
-                    modal.className = oldclass;
+                    favModal.className = oldclass;
                 }, false);
 
                 addFavButton.addEventListener("click", function () {
@@ -181,7 +192,7 @@
                     favEntry.innerHTML = entry.name + " | " + entry.url;
                     favEntry.addEventListener("click", function () {
                         navigateTo(entry.url);
-                        modal.className = oldclass;
+                        favModal.className = oldclass;
                     }, false);
                     favList.appendChild(favEntry);
                 });
@@ -202,6 +213,51 @@
 
     function keysReleased(e) {
         keys[e.keyCode] = false;
+    }
+
+    function unviewableContent(e) {
+        console.log("unviewableContent");
+        console.log(e);
+        if (e.mediaType == "application/pdf") {
+
+            var uri = new Windows.Foundation.Uri(e.uri);
+
+            Windows.System.Launcher.launchUriAsync(uri);
+
+        }
+    }
+
+    function unsupportedUriScheme(e) {
+        console.log("unsupportedUriScheme");
+        console.log(e);
+    }
+
+    function permissionRequested(e) {
+        console.log("permissionRequested");
+        console.log(e);
+        if (e.permissionRequest.type === 'geolocation') {
+            e.permissionRequest.allow();
+        }
+    }
+
+    function newWindowRequested(e) {
+        console.log("newWindowRequested");
+        console.log(e);
+        e.preventDefault();
+        var webview = document.getElementById('WebView');
+        webview.navigate(e.uri);
+    }
+
+    function clearCache() {
+        console.log("Clear Cache called");
+        var op = MSApp.clearTemporaryWebDataAsync();
+        op.oncomplete = function () {
+            console.log("Temporary web data cleared successfully");
+            var wv = document.getElementById("myWebView");
+            wv.refresh();
+        };
+        op.onerror = function () { console.log("A failure occurred in clearing the temporary web data") };
+        op.start();
     }
 
     app.start();

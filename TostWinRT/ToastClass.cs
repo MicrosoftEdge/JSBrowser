@@ -25,8 +25,6 @@ namespace TostWinRT
             toastTextElements[0].AppendChild(toastXml.CreateTextNode(message));
 
             XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
-            //((XmlElement)toastImageAttributes[0]).SetAttribute("src", "http://microsoft-chat.com/wp-content/uploads/2014/05/Microsoft_0-300x168.jpg");
-            //((XmlElement)toastImageAttributes[0]).SetAttribute("src", "https://raw.githubusercontent.com/seksenov/grouppost/master/images/AddNote.png");
             ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "https://raw.githubusercontent.com/seksenov/grouppost/master/images/logo.png");
             ((XmlElement)toastImageAttributes[0]).SetAttribute("alt", "red graphic");
 
@@ -43,6 +41,12 @@ namespace TostWinRT
 
             await Task.Delay(delay);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+
+        //Simple test function to try calling the WinRT component
+        public int getValue()
+        {
+            return 5;
         }
     }
 
