@@ -32,7 +32,7 @@
             args.setPromise(WinJS.UI.processAll().then(function completed() {
                 applicationCache.addEventListener("datachanged", dataChangedHandler);
 
-                //readFavorites();
+                readFavorites();
                 console.log(document.getElementById("navbar").clientHeight);
                 webview = document.getElementById("WebView");
 
@@ -46,7 +46,6 @@
 
                 settingsModal = document.getElementById("settings");
                 var settingsCloseButton = document.getElementById("modalSettingsClose");
-                oldclass = settingsModal.className;
 
                 // Get button elements
                 stopButton = document.getElementById("stopButton");
@@ -129,6 +128,14 @@
 
                 favCloseButton.addEventListener("click", function () {
                     favModal.className = oldclass;
+                }, false);
+
+                settingsButton.addEventListener("click", function () {
+                    settingsModal.className += " modal-show";
+                }, false);
+
+                settingsCloseButton.addEventListener("click", function () {
+                    settingsModal.className = oldclass;
                 }, false);
 
                 addFavButton.addEventListener("click", function () {
