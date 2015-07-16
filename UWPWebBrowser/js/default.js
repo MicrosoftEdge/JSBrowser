@@ -76,7 +76,7 @@
                     console.log("This is the current URI: " + currentUrl);
                     var protocol = currentUrl.split(':');
                     if (protocol[0] === "ms-appx-web") {
-                        var communicationWinRT = new TostWinRT.ToastClass();
+                        var communicationWinRT = new ToastWinRT.ToastClass();
                         var a = communicationWinRT.getValue();
                         webview.addWebAllowedObject("CommunicatorWinRT", communicationWinRT);
                     }

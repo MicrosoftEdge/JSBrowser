@@ -76,6 +76,7 @@
     <Content Include="images\storelogo.scale-100.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="js\AddWebAllowedObject.js" />
+    <Content Include="js\appBarColor.js" />
     <Content Include="js\default.js" />
     <Content Include="js\page.js" />
     <Content Include="pages\page.html" />
