@@ -4,6 +4,7 @@
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
 html {
   box-sizing: border-box;
 }
@@ -13,7 +14,6 @@ html {
     align-items: center;
     padding: 4px;
     width: 100%;
-    background: #333333; /* Old browsers */
     background: linear-gradient(to bottom,  #3b3b3b 0%,#222 100%);
 }
 
@@ -22,6 +22,33 @@ html {
     border-radius: 3px;
     height: 32px;
     flex-grow: 1;
+    padding-left: 35px;
+}
+
+.icon,
+.icon img {
+    width: 16px;
+    height: 16px;
+}
+
+.icon {
+    position: absolute;
+    top: 10px;
+    left: 80px;
+}
+
+.icon img {
+    margin: 2px 0 0 2px;
+}
+
+.icon progress.win-ring {
+    position: relative;
+    color: #fff;
+    display: none;
+}
+
+#urlInput:focus + .icon progress.win-ring {
+    color: #000;
 }
 
 .navButton {
@@ -35,10 +62,12 @@ html {
     box-shadow: 0 4px 3px -3px #000;
     color: #dedede;
 }
+
 .navButton, .navButton:disabled {
     border: 0;
     background: rgba(255,255,255,0.15) url('../images/icons.png') no-repeat;
 }
+
 .navButton:hover {
     border-color: #000;
     cursor: pointer;
@@ -52,9 +81,11 @@ button.navButton:focus {
     background-color: rgba(255,255,255,0.35);
     color: #fff;
 }
+
 .navButton:disabled {
     cursor: default;
 }
+
 .navButton:disabled:hover,
 .navButton:disabled:active,
 .navButton:disabled:focus {
@@ -74,6 +105,7 @@ button.navButton:focus {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+
 .textButton .buttonLabel {
     display: inline-block;
 }
@@ -83,25 +115,30 @@ button.navButton:focus {
     margin-left: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    background-position: -1px 0;
 }
+
 .backButton:hover, .backButton:active {
-    background-position: -30px 0;
+    background-position: -31px 0;
 }
+
 .backButton:disabled {
-    background-position: -60px 0;
+    background-position: -61px 0;
 }
 
 .forwardButton {
     margin-left: 2px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    background-position: 0 -30px;
+    background-position: 1px -30px;
 }
+
 .forwardButton:hover, .forwardButton:active {
-    background-position: -30px -30px;
+    background-position: -29px -30px;
 }
+
 .forwardButton:disabled {
-    background-position: -60px -30px;
+    background-position: -59px -30px;
 }
 
 .goButton {
@@ -112,6 +149,7 @@ button.navButton:focus {
 .stopButton {
     background-position: 0 -60px;
 }
+
 .stopButton:hover, .stopButton:active {
     background-position: -30px -60px;
 }
@@ -119,6 +157,7 @@ button.navButton:focus {
 .refreshButton {
     background-position: 0 -90px;
 }
+
 .refreshButton:hover, .refreshButton:active {
     background-position: -30px -90px;
 }

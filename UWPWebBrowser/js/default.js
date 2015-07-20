@@ -6,19 +6,26 @@
     // Windows Web App 
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
-
     var applicationData = Windows.Storage.ApplicationData.current;
     var roamingSettings = applicationData.roamingSettings;
     var roamingFolder = applicationData.roamingFolder;
     var favorites = [];
     var keys = [];
-
-
-    var webview, forwardButton, backButton, stopButton, favButton, favMenu, favContainer, addFavButton, settingsButton, clearCacheButton, favList;
+    var webview, forwardButton, backButton, stopButton, favButton, favMenu, favContainer, addFavButton, settingsButton, clearCacheButton, favList, favModal, settingsModal, oldclass;
     var documentTitle = "";
     var currentUrl = "";
 
-    var favModal, settingsModal, oldclass;
+    function fileExists (url) {
+        var http = new XMLHttpRequest();
+        try {
+            http.open("HEAD", url, false);
+            http.send();
+            return http.status !== 404;
+        }
+        catch (e) {
+            return false;
+        }
+    }
 
     app.onactivated = function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
@@ -56,10 +63,8 @@
                 settingsButton = document.getElementById("settingsButton");
                 clearCacheButton = document.getElementById("clearCacheButton");
                 favList = document.getElementById("favoritesList");
-
                 favContainer = document.getElementById("favContainer");
                 favMenu = document.getElementById("favMenu");
-
 
                 var urlInput = document.getElementById("urlInput");
 
@@ -69,12 +74,20 @@
 
                 webview.addEventListener("MSWebViewNavigationStarting", function (e) {
                     loading = true;
+                    urlInput.blur();
+
+                    // Hide favicon
+                    document.querySelector("#favicon").src = "";
+
+                    // Show progress ring
+                    document.querySelector(".win-ring").style.display = "block";
+
                     stopButton.className = "navButton stopButton";
                     stopButton.innerHTML = "<span class=\"buttonLabel\">Stop</span>";
                     urlInput.value = e.uri;
                     currentUrl = e.uri;
                     console.log("This is the current URI: " + currentUrl);
-                    var protocol = currentUrl.split(':');
+                    var protocol = currentUrl.split(":");
                     if (protocol[0] === "ms-appx-web") {
                         var communicationWinRT = new ToastWinRT.ToastClass();
                         var a = communicationWinRT.getValue();
@@ -84,6 +97,21 @@
 
                 webview.addEventListener("MSWebViewNavigationCompleted", function (e) {
                     loading = false;
+
+                    // Check to ensure the protocol is either http or https
+                    var currentUrl = e.uri;
+                    var protocol = currentUrl.split(":");
+                    if (protocol[0].substring(0, 4) === "http") {
+                        var host = currentUrl.match(/:\/\/(.[^/]+)/)[1].split(".");
+                        var favicon = protocol[0] + "://" + host[host.length - 2] + "." + host[host.length - 1] + "/favicon.ico";
+                        if (fileExists(favicon)) {
+                            document.querySelector("#favicon").src = favicon;
+                        }
+                    }
+
+                    // Hide progress ring
+                    document.querySelector(".win-ring").style.display = "none";
+
                     documentTitle = webview.documentTitle;
                     stopButton.className = "navButton refreshButton";
                     stopButton.innerHTML = "<span class=\"buttonLabel\">Refresh</span>";
@@ -102,41 +130,52 @@
                     } else {
                         webview.refresh();
                     }
-                }, false)
+                });
 
                 urlInput.addEventListener("keypress", function (e) {
                     if (e.keyCode == 13) {
                         navigateTo(urlInput.value);
                     }
-                }, false);
+                });
+
+                urlInput.addEventListener("focus", function (e) {
+                    // Workaround to circumvent the text from being unselected
+                    setTimeout(function () {
+                        this.select();
+                    }.bind(this), 10);
+                });
+
+                urlInput.addEventListener("blur", function () {
+                    window.getSelection().removeAllRanges();
+                });
 
                 backButton.addEventListener("click", function () {
                     if (webview.canGoBack) {
                         webview.goBack();
                     }
-                }, false);
+                });
 
                 forwardButton.addEventListener("click", function () {
                     if (webview.canGoForward) {
                         webview.goForward();
                     }
-                }, false);
+                });
 
                 favButton.addEventListener("click", function () {
                     favModal.className += " modal-show";
-                }, false);
+                });
 
                 favCloseButton.addEventListener("click", function () {
                     favModal.className = oldclass;
-                }, false);
+                });
 
                 settingsButton.addEventListener("click", function () {
                     settingsModal.className += " modal-show";
-                }, false);
+                });
 
                 settingsCloseButton.addEventListener("click", function () {
                     settingsModal.className = oldclass;
-                }, false);
+                });
 
                 addFavButton.addEventListener("click", function () {
                     favorites.push({ name: documentTitle, url: currentUrl });
@@ -149,10 +188,10 @@
                             readFavorites();
 
                         });
-                }, false);
+                });
 
-                window.addEventListener("keydown", keysPressed, false);
-                window.addEventListener("keyup", keysReleased, false);
+                window.addEventListener("keydown", keysPressed);
+                window.addEventListener("keyup", keysReleased);
 
             }));
         }
@@ -172,9 +211,14 @@
             try {
                 console.log("navigating to: " + loc);
                 webview.navigate(loc);
-            } catch (e) {
-                console.log(e);
-                webview.navigate('http://' + loc);
+            }
+            catch (e) {
+                try {
+                    webview.navigate('http://' + loc);
+                }
+                catch (e) {
+                    return false;
+                }
                 console.log("appended http");
             }
         }
@@ -182,7 +226,6 @@
 
     function dataChangedHandler(event) {
         //Refresh data
-
     }
 
     function readFavorites() {
@@ -226,11 +269,9 @@
 
     function unviewableContent(e) {
         console.log("unviewableContent");
-        console.log(e);
+        console.log(e.toString());
         if (e.mediaType == "application/pdf") {
-
             var uri = new Windows.Foundation.Uri(e.uri);
-
             Windows.System.Launcher.launchUriAsync(uri);
 
         }
@@ -238,12 +279,12 @@
 
     function unsupportedUriScheme(e) {
         console.log("unsupportedUriScheme");
-        console.log(e);
+        console.log(e.toString());
     }
 
     function permissionRequested(e) {
         console.log("permissionRequested");
-        console.log(e);
+        console.log(e.toString());
         if (e.permissionRequest.type === 'geolocation') {
             e.permissionRequest.allow();
         }
@@ -251,7 +292,7 @@
 
     function newWindowRequested(e) {
         console.log("newWindowRequested");
-        console.log(e);
+        console.log(e.toString());
         e.preventDefault();
         var webview = document.getElementById('WebView');
         webview.navigate(e.uri);

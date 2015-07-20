@@ -13,42 +13,44 @@
 
 "use strict";
 
-function setAppBarColors(brandColorHex, brandColorInactiveHex) {
+function setAppBarColors () {
     // Detect if the Windows namespace exists in the global object
     if (typeof Windows !== 'undefined' &&
              typeof Windows.UI !== 'undefined' &&
              typeof Windows.UI.ViewManagement !== 'undefined') {
-        var brandColor = hexStrToRGBA(brandColorHex);
-        var brandColorInactive = hexStrToRGBA(brandColorInactiveHex);
         // Get a reference to the App Title Bar
         var appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
 
+        // Set your brand color
+        var brand = hexStrToRGBA('#3B3B3B');
+
         var black = hexStrToRGBA('#000');
         var white = hexStrToRGBA('#FFF');
+        var gray = hexStrToRGBA('#666');
 
-        appTitleBar.foregroundColor = brandColor;
-        appTitleBar.backgroundColor = brandColor;
+        appTitleBar.foregroundColor = white;
+        appTitleBar.backgroundColor = brand;
 
         appTitleBar.buttonForegroundColor = white;
-        appTitleBar.buttonBackgroundColor = brandColor;
+        appTitleBar.buttonBackgroundColor = brand;
 
         appTitleBar.buttonHoverForegroundColor = white;
-        appTitleBar.buttonHoverBackgroundColor = brandColor;
+        appTitleBar.buttonHoverBackgroundColor = gray;
 
-        appTitleBar.buttonPressedForegroundColor = brandColor;
+        appTitleBar.buttonPressedForegroundColor = brand;
         appTitleBar.buttonPressedBackgroundColor = white;
 
-        appTitleBar.inactiveBackgroundColor = brandColorInactive;
-        appTitleBar.inactiveForegroundColor = brandColor;
+        appTitleBar.inactiveForegroundColor = gray;
+        appTitleBar.inactiveBackgroundColor = brand;
 
-        appTitleBar.buttonInactiveForegroundColor = brandColor;
-        appTitleBar.buttonInactiveBackgroundColor = brandColorInactive;
+        appTitleBar.buttonInactiveForegroundColor = gray;
+        appTitleBar.buttonInactiveBackgroundColor = brand;
 
-        appTitleBar.buttonInactiveHoverForegroundColor = brandColor;
-        appTitleBar.buttonInactiveHoverBackgroundColor = brandColorInactive;
+        appTitleBar.buttonInactiveHoverForegroundColor = white;
+        appTitleBar.buttonInactiveHoverBackgroundColor = brand;
 
-        appTitleBar.buttonPressedForegroundColor = brandColor;
-        appTitleBar.buttonPressedBackgroundColor = brandColorInactive;
+        appTitleBar.buttonPressedForegroundColor = brand;
+        appTitleBar.buttonPressedBackgroundColor = brand;
     }
 }
 // Helper function to support HTML hexColor Strings
@@ -86,8 +88,4 @@ function hexStrToRGBA(hexStr) {
 }
 
 // Initialize when the Window loads
-addEventListener('load', function () {
-    var brandColor = '#333333';
-    var brandColorInactive = '#333333';
-    setAppBarColors(brandColor, brandColorInactive);
-});
+addEventListener('load', setAppBarColors);
