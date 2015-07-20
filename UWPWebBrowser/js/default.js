@@ -98,19 +98,22 @@
                 webview.addEventListener("MSWebViewNavigationCompleted", function (e) {
                     loading = false;
 
+                    // Hide progress ring
+                    document.querySelector(".win-ring").style.display = "none";
+
                     // Check to ensure the protocol is either http or https
                     var currentUrl = e.uri;
                     var protocol = currentUrl.split(":");
-                    if (protocol[0].substring(0, 4) === "http") {
-                        var host = currentUrl.match(/:\/\/(.[^/]+)/)[1].split(".");
-                        var favicon = protocol[0] + "://" + host[host.length - 2] + "." + host[host.length - 1] + "/favicon.ico";
-                        if (fileExists(favicon)) {
-                            document.querySelector("#favicon").src = favicon;
+                    if (protocol[0].slice(0, 4) === "http") {
+                        var host = currentUrl.match(/:\/\/([^\/]+)/);
+                        if (host !== null) {
+                            var favicon = protocol[0] + "://" + host[1] + "/favicon.ico";
+                            console.log(favicon);
+                            if (fileExists(favicon)) {
+                                document.querySelector("#favicon").src = favicon;
+                            }
                         }
                     }
-
-                    // Hide progress ring
-                    document.querySelector(".win-ring").style.display = "none";
 
                     documentTitle = webview.documentTitle;
                     stopButton.className = "navButton refreshButton";
