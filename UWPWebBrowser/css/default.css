@@ -23,6 +23,14 @@ html {
     height: 32px;
     flex-grow: 1;
     padding-left: 35px;
+    background-color: #eee;
+    color: #666;
+}
+
+#urlInput:hover,
+#urlInput:focus {
+    background-color: #fff;
+    color: #333;
 }
 
 .icon,
@@ -43,12 +51,8 @@ html {
 
 .icon progress.win-ring {
     position: relative;
-    color: #fff;
+    color: #333;
     display: none;
-}
-
-#urlInput:focus + .icon progress.win-ring {
-    color: #000;
 }
 
 .navButton {
