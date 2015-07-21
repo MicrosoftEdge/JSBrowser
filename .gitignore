@@ -7,3 +7,5 @@
 
 bld/
 bin/
+.vs/
+packages/

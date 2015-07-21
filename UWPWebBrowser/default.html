@@ -9,7 +9,7 @@
     <script src="WinJS/js/base.js"></script>
     <script src="WinJS/js/ui.js"></script>
 
-    <!-- WebBrowser.Windows references -->
+    <!-- App references -->
     <link href="/css/default.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
     <script src="js/appBarColor.js"></script>
@@ -38,25 +38,12 @@
         </button>
     </div>
     <x-ms-webview id="WebView" src="http://microsoft.com"></x-ms-webview>
-    <div class="modal modalEffect-1" id="favorites">
-        <div class="favContent">
-            <h3>Favorites</h3>
-            <ul id="favoritesList"></ul>
-            <button id="addFavButton" class="win-button">Add Favorite</button>
-            <br />
-            <button id="modalFavClose" class="win-button">Close</button>
-            <br />
-        </div>
+    <div id="favMenu" data-win-control="WinJS.UI.Menu" data-win-options="{alignment: 'right'}">
+        <button id="addFavButton" data-win-control="WinJS.UI.MenuCommand" data-win-options="{label: 'Add favorite', type: 'button'}"></button>
     </div>
-    <div class="modal modalEffect-1" id="settings">
-        <div class="favContent">
-            <h3>Settings</h3>
-            <button id="clearCacheButton" class="win-button">Clear Cache</button>
-            <br />
-            <button id="modalSettingsClose" class="win-button">Close</button>
-            <br />
-        </div>
+    <div id="settingsMenu" data-win-control="WinJS.UI.Menu" data-win-options="{alignment: 'right'}">
+        <button id="clearCacheButton" data-win-control="WinJS.UI.MenuCommand" data-win-options="{label: 'Clear cache'}"></button>
+        <button id="clearFavButton" data-win-control="WinJS.UI.MenuCommand" data-win-options="{label: 'Clear favorites', type: 'button'}"></button>
     </div>
-    <div class="modal-overlay"></div>
 </body>
 </html>

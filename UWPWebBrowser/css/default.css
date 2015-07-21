@@ -1,7 +1,6 @@
-﻿body {
-}
-
-*, *:before, *:after {
+﻿*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -14,7 +13,7 @@ html {
     align-items: center;
     padding: 4px;
     width: 100%;
-    background: linear-gradient(to bottom,  #3b3b3b 0%,#222 100%);
+    background: linear-gradient(to bottom, #3b3b3b 0%, #222 100%);
 }
 
 #urlInput {
@@ -30,7 +29,7 @@ html {
 #urlInput:hover,
 #urlInput:focus {
     background-color: #fff;
-    color: #333;
+    color: #222;
 }
 
 .icon,
@@ -47,6 +46,7 @@ html {
 
 .icon img {
     margin: 2px 0 0 2px;
+    cursor: pointer;
 }
 
 .icon progress.win-ring {
@@ -67,7 +67,8 @@ html {
     color: #dedede;
 }
 
-.navButton, .navButton:disabled {
+.navButton,
+.navButton:disabled {
     border: 0;
     background: rgba(255,255,255,0.15) url('../images/icons.png') no-repeat;
 }
@@ -79,9 +80,8 @@ html {
     color: #fff;
 }
 
-/* 'button' added to this selector to override WinJS CSS */
-button.navButton:active,
-button.navButton:focus {
+.navButton:active,
+.navButton.open {
     background-color: rgba(255,255,255,0.35);
     color: #fff;
 }
@@ -100,21 +100,6 @@ button.navButton:focus {
     display: none;
 }
 
-.textButton {
-    padding: 9px 10px 10px;
-    width: auto;
-    background-image: none;
-    font-size: 11px;
-    line-height: 1;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.textButton .buttonLabel {
-    display: inline-block;
-}
-
-
 .backButton {
     margin-left: 0;
     border-top-right-radius: 0;
@@ -122,7 +107,8 @@ button.navButton:focus {
     background-position: -1px 0;
 }
 
-.backButton:hover, .backButton:active {
+.backButton:hover,
+.backButton:active {
     background-position: -31px 0;
 }
 
@@ -137,7 +123,8 @@ button.navButton:focus {
     background-position: 1px -30px;
 }
 
-.forwardButton:hover, .forwardButton:active {
+.forwardButton:hover,
+.forwardButton:active {
     background-position: -29px -30px;
 }
 
@@ -154,7 +141,8 @@ button.navButton:focus {
     background-position: 0 -60px;
 }
 
-.stopButton:hover, .stopButton:active {
+.stopButton:hover,
+.stopButton:active {
     background-position: -30px -60px;
 }
 
@@ -162,119 +150,41 @@ button.navButton:focus {
     background-position: 0 -90px;
 }
 
-.refreshButton:hover, .refreshButton:active {
+.refreshButton:hover,
+.refreshButton:active {
     background-position: -30px -90px;
 }
 
 .favButton {
     background-position: 0 -120px;
 }
-.favButton:hover, .favButton:active {
+
+.favButton:hover,
+.favButton:active {
     background-position: -30px -120px;
 }
 
 .settingsButton {
     background-position: 0 -150px;
 }
-.settingsButton:hover, .settingsButton:active {
+
+.settingsButton:hover,
+.settingsButton:active {
     background-position: -30px -150px;
+}
+
+#favMenu,
+#settingsMenu {
+    background-color: #3b3b3b;
+    border-color: #999;
+}
+
+#favMenu .url {
+    font-size: 12px;
+    color: #999;
 }
 
 #WebView {
     width: 100%;
     height: calc(100% - 40px);
-}
-
-.modal {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	width: 50%;
-	max-width: 640px;
-	min-width: 320px;
-	height: auto;
-	z-index: 200;
-	visibility: hidden;
-	backface-visibility: hidden;
-	transform: translateX(-50%) translateY(-50%);
-	opacity: 0;
-}
-
-.modal-show {
-	visibility: visible;
-	opacity: 1;
-}
-
-.modal-overlay {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	visibility: hidden;
-	top: 0;
-	left: 0;
-	z-index: 100;
-	opacity: 0;
-	background: rgba(0, 0, 0, 0.8);
-	transition: all 0.3s;
-}
-
-.modal-show ~ .modal-overlay {
-	opacity: .5;
-	visibility: visible;
-}
-
-.favContent {
-	color: #fff;
-	background: black;
-	position: relative;
-	border-radius: 3px;
-	margin: 0 auto;
-}
-
-.favContent h3 {
-	margin: 0;
-	padding: 0.4em;
-	text-align: center;
-	font-size: 2.4em;
-	font-weight: 300;
-	opacity: 0.8;
-	border-radius: 3px 3px 0 0;
-}
-
-.favContent > div {
-	padding: 15px 40px 30px;
-	margin: 0;
-	font-weight: 300;
-	font-size: 1.15em;
-}
-
-.favContent > div p {
-	margin: 0;
-	padding: 10px 0;
-}
-
-.favContent > div ul {
-	margin: 0;
-	padding: 0 0 30px 20px;
-}
-
-.favContent > div ul li {
-	padding: 5px 0;
-}
-
-.favContent button {
-	display: block;
-	margin: 0 auto;
-	font-size: 0.8em;
-}
-
-.modalEffect-1 .favContent {
-	transform: scale(1.15);
-	opacity: 0;
-	transition: all .3s;
-}
-
-.modal-show.modalEffect-1 .favContent {
-	transform: scale(1);
-	opacity: 1;
 }

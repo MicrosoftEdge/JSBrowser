@@ -21,9 +21,8 @@ function setAppBarColors () {
         // Get a reference to the App Title Bar
         var appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
 
-        // Set your brand color
+        // Set your default colors
         var brand = hexStrToRGBA('#3B3B3B');
-
         var black = hexStrToRGBA('#000');
         var white = hexStrToRGBA('#FFF');
         var gray = hexStrToRGBA('#666');
@@ -53,6 +52,7 @@ function setAppBarColors () {
         appTitleBar.buttonPressedBackgroundColor = brand;
     }
 }
+
 // Helper function to support HTML hexColor Strings
 function hexStrToRGBA(hexStr) {
     // RGBA color object
@@ -87,5 +87,5 @@ function hexStrToRGBA(hexStr) {
     return colorObject;
 }
 
-// Initialize when the Window loads
+// Initialize when the window loads
 addEventListener('load', setAppBarColors);
