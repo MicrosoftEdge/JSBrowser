@@ -123,7 +123,7 @@
                     forwardButton.disabled = !webview.canGoForward;
                 });
                 
-                // Listen for
+                // Listen for any miscellaneous events
                 webview.addEventListener("MSWebViewUnviewableContentIdentified", unviewableContent);
                 webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified", unsupportedUriScheme);
                 webview.addEventListener("MSWebViewNewWindowRequested", newWindowRequested);
