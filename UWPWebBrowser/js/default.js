@@ -6,7 +6,6 @@
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var applicationData = Windows.Storage.ApplicationData.current;
-    var roamingSettings = applicationData.roamingSettings;
     var roamingFolder = applicationData.roamingFolder;
     var favorites = new Map;
     var documentTitle = "";
