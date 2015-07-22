@@ -22,7 +22,7 @@
                 // TODO: This application has been reactivated from suspension.
                 // Restore application state here.
             }
-            args.setPromise(WinJS.UI.processAll().then(function completed() {
+            args.setPromise(WinJS.UI.processAll().then(function completed () {
                 // Refresh the data
                 readFavorites();
                 applicationCache.addEventListener("datachanged", dataChangedHandler);
