@@ -132,11 +132,6 @@ html {
     background-position: -59px -30px;
 }
 
-.goButton {
-    width: auto;
-    background-image: none;
-}
-
 .stopButton {
     background-position: 0 -60px;
 }
