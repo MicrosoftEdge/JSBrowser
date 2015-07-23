@@ -11,7 +11,7 @@
     var documentTitle = "";
     var currentUrl = "";
     var loading = true;
-    var webview, forwardButton, backButton, stopButton, favButton, favMenu, addFavButton, settingsButton, clearCacheButton, settingsMenu, urlInput;
+    var webview, forwardButton, backButton, stopButton, favButton, favMenu, addFavButton, clearFavButton, settingsButton, clearCacheButton, settingsMenu, urlInput;
 
     app.onactivated = function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
@@ -35,6 +35,7 @@
                 backButton = document.getElementById("backButton");
                 favButton = document.getElementById("favButton");
                 addFavButton = document.getElementById("addFavButton");
+                clearFavButton = document.getElementById("clearFavButton");
                 settingsButton = document.getElementById("settingsButton");
                 clearCacheButton = document.getElementById("clearCacheButton");
                 favMenu = document.getElementById("favMenu");
