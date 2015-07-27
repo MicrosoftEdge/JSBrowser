@@ -114,7 +114,7 @@
             backButton.disabled = !webview.canGoBack;
             forwardButton.disabled = !webview.canGoForward;
         });
-                
+        
         // Listen for any miscellaneous events
         webview.addEventListener("MSWebViewUnviewableContentIdentified", unviewableContent);
         webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified", unsupportedUriScheme);
@@ -165,12 +165,14 @@
             }
         });
 
+        // Open the menu
         var openMenu = function (e) {
             e.stopPropagation();
             e.preventDefault();
             browser.classList.add("modalview");
             setTimeout(function () {
                 browser.classList.add("animate");
+                // Adjust AppBar colors to match new background color
                 setOpenMenuAppBarColors();
             }, 25);
         }
@@ -187,6 +189,7 @@
             openMenu(e);
         });
 
+        // Close the menu
         var closeMenu = function () {
             if (browser.className.includes("animate")) {
                 var onTransitionEnd = function () {
@@ -198,10 +201,12 @@
                 };
                 browser.addEventListener("transitionend", onTransitionEnd);
                 browser.classList.remove("animate");
+                // Reset the AppBar colors to the default
                 setDefaultAppBarColors();
             }
         }
 
+        // Listen for a click on the skewed container to close the menu
         container.addEventListener("click", closeMenu);
 
         // Listen for the clear cache button to clear the cache

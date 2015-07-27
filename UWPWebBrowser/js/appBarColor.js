@@ -1,20 +1,5 @@
 ﻿"use strict";
 
-function padColor(val) {
-    return '0'.repeat(6 - val.length) + val;
-}
-
-function increment(color, step) {
-    var colorToInt = parseInt(color.slice(1), 16);
-    colorToInt += step;
-    var ncolor = colorToInt.toString(16);
-    return "#" + padColor(ncolor);
-}
-
-function fadeColor(oldColor, newColor, duration) {
-
-}
-
 // Set your default colors
 var brand = hexStrToRGBA('#3B3B3B');
 var bgAppColor = hexStrToRGBA("#f4f3f1");
@@ -22,6 +7,7 @@ var black = hexStrToRGBA('#000');
 var white = hexStrToRGBA('#FFF');
 var gray = hexStrToRGBA('#666');
 
+// Set the AppBar colors when a menu is open
 function setOpenMenuAppBarColors() {
     // Detect if the Windows namespace exists in the global object
     if (typeof Windows !== 'undefined' &&
@@ -53,6 +39,7 @@ function setOpenMenuAppBarColors() {
     }
 }
 
+// Set the default AppBar colors
 function setDefaultAppBarColors () {
     // Detect if the Windows namespace exists in the global object
     if (typeof Windows !== 'undefined' &&
