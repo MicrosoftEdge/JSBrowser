@@ -10,7 +10,7 @@
     var documentTitle = "";
     var currentUrl = "";
     var loading = true;
-    var webview, forwardButton, backButton, stopButton, favButton, favMenu, addFavButton, clearFavButton, settingsButton, clearCacheButton, settingsMenu, urlInput, browser, container, wrapper;
+    var webview, forwardButton, backButton, stopButton, favButton, favMenu, addFavButton, clearFavButton, settingsButton, clearCacheButton, settingsMenu, urlInput, browser, container;
 
     document.addEventListener("DOMContentLoaded", function () {
         // Refresh the data
@@ -33,7 +33,6 @@
         urlInput = document.getElementById("urlInput");
         browser = document.getElementById("browser");
         container = document.querySelector(".container")
-        wrapper = document.querySelector(".wrapper");
 
         // Set the initial navigation state
         forwardButton.disabled = true;
@@ -169,7 +168,6 @@
         var openMenu = function (e) {
             e.stopPropagation();
             e.preventDefault();
-            wrapper.style.top = window.pageYOffset * -1 + "px";
             browser.classList.add("modalview");
             setTimeout(function () {
                 browser.classList.add("animate");
@@ -194,7 +192,6 @@
                 var onTransitionEnd = function () {
                     browser.removeEventListener("transitionend", onTransitionEnd);
                     browser.classList.remove("modalview");
-                    wrapper.style.top = "0px";
                     favMenu.style.display = "block";
                     document.getElementById("favorites").scrollTop = 0;
                     settingsMenu.style.display = "block";
