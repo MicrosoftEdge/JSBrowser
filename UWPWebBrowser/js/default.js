@@ -196,6 +196,7 @@
                     browser.classList.remove("modalview");
                     wrapper.style.top = "0px";
                     favMenu.style.display = "block";
+                    document.getElementById("favorites").scrollTop = 0;
                     settingsMenu.style.display = "block";
                 };
                 browser.addEventListener("transitionend", onTransitionEnd);
@@ -305,14 +306,13 @@
                                 navigateTo(url);
                             });
                             favEntry.textContent = entry.title;
-                            var delay = 0.06 + 0.03 * i;
+                            var delay = 0.06 + 0.03 * i++;
                             favEntry.style.transitionDelay = delay + "s";
                             document.getElementById("favorites").appendChild(favEntry);
                             var alt = document.createElement("div");
                             alt.className = "url";
                             alt.textContent = url;
                             favEntry.appendChild(alt);
-                            i++;
                         });
                     }
                 },
