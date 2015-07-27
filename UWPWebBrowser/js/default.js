@@ -3,315 +3,368 @@
 (function () {
     "use strict";
 
-    // Windows Web App 
-    var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var applicationData = Windows.Storage.ApplicationData.current;
-    var roamingSettings = applicationData.roamingSettings;
     var roamingFolder = applicationData.roamingFolder;
-    var favorites = [];
-    var keys = [];
-    var webview, forwardButton, backButton, stopButton, favButton, favMenu, favContainer, addFavButton, settingsButton, clearCacheButton, favList, favModal, settingsModal, oldclass;
-    var documentTitle = "";
+    var favorites = new Map;
     var currentUrl = "";
+    var loading = true;
 
-    function fileExists (url) {
-        var http = new XMLHttpRequest();
-        try {
-            http.open("HEAD", url, false);
-            http.send();
-            return http.status !== 404;
-        }
-        catch (e) {
-            return false;
-        }
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        // Refresh the data
+        readFavorites();
+        applicationCache.addEventListener("datachanged", dataChangedHandler);
 
-    app.onactivated = function (args) {
-        if (args.detail.kind === activation.ActivationKind.launch) {
-            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
-                // TODO: This application has been newly launched. Initialize
-                // your application here.
-            } else {
-                // TODO: This application has been reactivated from suspension.
-                // Restore application state here.
+        // Get the UI elements
+        var webview = document.getElementById("WebView");
+        var documentTitle = webview.documentTitle;
+        var stopButton = document.getElementById("stopButton");
+
+        var backButton = document.getElementById("backButton");
+        var favButton = document.getElementById("favButton");
+        var addFavButton = document.getElementById("addFavButton");
+        var clearFavButton = document.getElementById("clearFavButton");
+        var settingsButton = document.getElementById("settingsButton");
+        var clearCacheButton = document.getElementById("clearCacheButton");
+        var favMenu = document.getElementById("favMenu");
+        var settingsMenu = document.getElementById("settingsMenu");
+        var urlInput = document.getElementById("urlInput");
+        var browser = document.getElementById("browser");
+        var container = document.querySelector(".container")
+        var wrapper = document.querySelector(".wrapper");
+
+        // Set the initial navigation state
+        var forwardButton = document.getElementById("forwardButton");
+        forwardButton.disabled = true;
+
+        var backButton = document.getElementById("backButton");
+        backButton.disabled = true;
+
+        // Listen for the navigation start
+        webview.addEventListener("MSWebViewNavigationStarting", function (e) {
+            loading = true;
+
+            // Update the address bar
+            currentUrl = e.uri;
+            urlInput.value = currentUrl;
+            urlInput.blur();
+            console.log("Navigating to", currentUrl);
+
+            // Hide the favicon
+            document.querySelector("#favicon").src = "";
+
+            // Show the progress ring
+            document.querySelector(".ring").style.display = "inline-block";
+
+            // Show the stop button
+            stopButton.className = "navButton stopButton";
+            stopButton.innerHTML = "<span class=\"buttonLabel\">Stop</span>";
+
+            // If local protocol, inject custom WinRT component (for demo purposes only)
+            var protocol = currentUrl.split(":");
+            if (protocol[0] === "ms-appx-web") {
+                var communicationWinRT = new ToastWinRT.ToastClass();
+                var a = communicationWinRT.getValue();
+                webview.addWebAllowedObject("CommunicatorWinRT", communicationWinRT);
             }
-            args.setPromise(WinJS.UI.processAll().then(function completed() {
-                applicationCache.addEventListener("datachanged", dataChangedHandler);
+        });
 
-                readFavorites();
-                console.log(document.getElementById("navbar").clientHeight);
-                webview = document.getElementById("WebView");
+        // Listen for the navigation completion
+        webview.addEventListener("MSWebViewNavigationCompleted", function (e) {
+            loading = false;
 
-                documentTitle = webview.documentTitle;
-                var loading = true;
+            // Hide the progress ring
+            document.querySelector(".ring").style.display = "none";
 
-                // Set up the modals (favorites and settings)
-                favModal = document.getElementById("favorites");
-                var favCloseButton = document.getElementById("modalFavClose");
-                oldclass = favModal.className;
-
-                settingsModal = document.getElementById("settings");
-                var settingsCloseButton = document.getElementById("modalSettingsClose");
-
-                // Get button elements
-                stopButton = document.getElementById("stopButton");
-                forwardButton = document.getElementById("forwardButton");
-                backButton = document.getElementById("backButton");
-                favButton = document.getElementById("favButton");
-                addFavButton = document.getElementById("addFavButton");
-                settingsButton = document.getElementById("settingsButton");
-                clearCacheButton = document.getElementById("clearCacheButton");
-                favList = document.getElementById("favoritesList");
-                favContainer = document.getElementById("favContainer");
-                favMenu = document.getElementById("favMenu");
-
-                var urlInput = document.getElementById("urlInput");
-
-                // Set initial nav button state
-                forwardButton.disabled = true;
-                backButton.disabled = true;
-
-                webview.addEventListener("MSWebViewNavigationStarting", function (e) {
-                    loading = true;
-                    urlInput.blur();
-
-                    // Hide favicon
-                    document.querySelector("#favicon").src = "";
-
-                    // Show progress ring
-                    document.querySelector(".win-ring").style.display = "block";
-
-                    stopButton.className = "navButton stopButton";
-                    stopButton.innerHTML = "<span class=\"buttonLabel\">Stop</span>";
-                    urlInput.value = e.uri;
-                    currentUrl = e.uri;
-                    console.log("This is the current URI: " + currentUrl);
-                    var protocol = currentUrl.split(":");
-                    if (protocol[0] === "ms-appx-web") {
-                        var communicationWinRT = new ToastWinRT.ToastClass();
-                        var a = communicationWinRT.getValue();
-                        webview.addWebAllowedObject("CommunicatorWinRT", communicationWinRT);
+            // Check if there is a favicon in the root directory
+            var currentUrl = e.uri;
+            var protocol = currentUrl.split(":");
+            if (protocol[0].slice(0, 4) === "http") {
+                var host = currentUrl.match(/:\/\/([^\/]+)/);
+                if (host !== null) {
+                    var favicon = protocol[0] + "://" + host[1] + "/favicon.ico";
+                    if (fileExists(favicon)) {
+                        console.log("Favicon found:", favicon);
+                        document.querySelector("#favicon").src = favicon;
                     }
-                }, false);
+                    else {
+                        // Asynchronously check for a favicon in the web page markup
+                        console.log("Favicon not found in root. Checking the markup...");
+                        var script = "(function () {var n = document.getElementsByTagName('link'); for (var i = 0; i < n.length; i++) { if (n[i].getAttribute('rel').includes('icon')) { return n[i].href; }}})();";
 
-                webview.addEventListener("MSWebViewNavigationCompleted", function (e) {
-                    loading = false;
+                        var asyncOp = webview.invokeScriptAsync("eval", script);
+                        asyncOp.oncomplete = function (e) {
+                            var path = e.target.result;
+                            console.log("Found favicon in markup:", path);
+                            document.querySelector("#favicon").src = path;
+                        };
 
-                    // Hide progress ring
-                    document.querySelector(".win-ring").style.display = "none";
+                        asyncOp.onerror = function (e) {
+                            console.error(e, "Unable to find favicon in markup");
+                        };
 
-                    // Check to ensure the protocol is either http or https
-                    var currentUrl = e.uri;
-                    var protocol = currentUrl.split(":");
-                    if (protocol[0].slice(0, 4) === "http") {
-                        var host = currentUrl.match(/:\/\/([^\/]+)/);
-                        if (host !== null) {
-                            var favicon = protocol[0] + "://" + host[1] + "/favicon.ico";
-                            console.log(favicon);
-                            if (fileExists(favicon)) {
-                                document.querySelector("#favicon").src = favicon;
-                            }
-                        }
+                        asyncOp.start();
                     }
+                }
+            }
 
-                    documentTitle = webview.documentTitle;
-                    stopButton.className = "navButton refreshButton";
-                    stopButton.innerHTML = "<span class=\"buttonLabel\">Refresh</span>";
-                    backButton.disabled = !webview.canGoBack;
-                    forwardButton.disabled = !webview.canGoForward;
-                }, false);
-                //New Events!
-                webview.addEventListener("MSWebViewUnviewableContentIdentified", unviewableContent, false);
-                webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified", unsupportedUriScheme, false);
-                webview.addEventListener("MSWebViewNewWindowRequested", newWindowRequested, false);
-                webview.addEventListener("MSWebViewPermissionRequested", permissionRequested, false);
+            // Update the page title
+            documentTitle = webview.documentTitle;
 
-                stopButton.addEventListener("click", function () {
-                    if (loading) {
-                        webview.stop();
-                    } else {
-                        webview.refresh();
-                    }
-                });
+            // Show the refresh button
+            stopButton.className = "navButton refreshButton";
+            stopButton.innerHTML = "<span class=\"buttonLabel\">Refresh</span>";
 
-                urlInput.addEventListener("keypress", function (e) {
-                    if (e.keyCode == 13) {
-                        navigateTo(urlInput.value);
-                    }
-                });
+            // Update the navigation state
+            backButton.disabled = !webview.canGoBack;
+            forwardButton.disabled = !webview.canGoForward;
+        });
 
-                urlInput.addEventListener("focus", function (e) {
-                    // Workaround to circumvent the text from being unselected
-                    setTimeout(function () {
-                        this.select();
-                    }.bind(this), 10);
-                });
+        // Listen for any miscellaneous events
+        webview.addEventListener("MSWebViewUnviewableContentIdentified", unviewableContent);
+        webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified", unsupportedUriScheme);
+        webview.addEventListener("MSWebViewNewWindowRequested", newWindowRequested);
+        webview.addEventListener("MSWebViewPermissionRequested", permissionRequested);
 
-                urlInput.addEventListener("blur", function () {
-                    window.getSelection().removeAllRanges();
-                });
+        // Listen for the stop/refresh button to stop navigation/refresh the page
+        stopButton.addEventListener("click", function () {
+            if (loading) {
+                webview.stop();
+            }
+            else {
+                webview.refresh();
+            }
+        });
 
-                backButton.addEventListener("click", function () {
-                    if (webview.canGoBack) {
-                        webview.goBack();
-                    }
-                });
+        // Listen for the Enter key in the address bar to navigate to the specified URL
+        urlInput.addEventListener("keypress", function (e) {
+            if (e.keyCode == 13) {
+                navigateTo(urlInput.value);
+            }
+        });
 
-                forwardButton.addEventListener("click", function () {
-                    if (webview.canGoForward) {
-                        webview.goForward();
-                    }
-                });
+        // Listen for focus on the address bar to auto-select the text
+        urlInput.addEventListener("focus", function (e) {
+            // Workaround to prevent the text from being immediately unselected
+            setTimeout(function () {
+                this.select();
+            }.bind(this), 10);
+        });
 
-                favButton.addEventListener("click", function () {
-                    favModal.className += " modal-show";
-                });
+        // Listen for the loss of focus on the address bar to unselect the text
+        urlInput.addEventListener("blur", function () {
+            window.getSelection().removeAllRanges();
+        });
 
-                favCloseButton.addEventListener("click", function () {
-                    favModal.className = oldclass;
-                });
+        // Listen for the back button to navigate backwards
+        backButton.addEventListener("click", function () {
+            if (webview.canGoBack) {
+                webview.goBack();
+            }
+        });
 
-                settingsButton.addEventListener("click", function () {
-                    settingsModal.className += " modal-show";
-                });
+        // Listen for the forward button to navigate forwards
+        forwardButton.addEventListener("click", function () {
+            if (webview.canGoForward) {
+                webview.goForward();
+            }
+        });
 
-                settingsCloseButton.addEventListener("click", function () {
-                    settingsModal.className = oldclass;
-                });
-
-                addFavButton.addEventListener("click", function () {
-                    favorites.push({ name: documentTitle, url: currentUrl });
-                    roamingFolder.createFileAsync("favorites.json", Windows.Storage.CreationCollisionOption.replaceExisting)
-                        .then(function (favFile) {
-                            var favJSON = JSON.stringify(favorites);
-                            return Windows.Storage.FileIO.writeTextAsync(favFile, favJSON);
-                        }).done(function () {
-                            //console.log(favorites);
-                            readFavorites();
-
-                        });
-                });
-
-                window.addEventListener("keydown", keysPressed);
-                window.addEventListener("keyup", keysReleased);
-
-            }));
+        var openMenu = function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            wrapper.style.top = window.pageYOffset * -1 + "px";
+            browser.classList.add("modalview");
+            setTimeout(function () {
+                browser.classList.add("animate");
+                setOpenMenuAppBarColors();
+            }, 25);
         }
-    };
 
-    app.oncheckpoint = function (args) {
-        // TODO: This application is about to be suspended. Save any state
-        // that needs to persist across suspensions here. You might use the
-        // WinJS.Application.sessionState object, which is automatically
-        // saved and restored across suspension. If you need to complete an
-        // asynchronous operation before your application is suspended, call
-        // args.setPromise().
-    };
+        // Listen for the favorites button to open the favorites menu
+        favButton.addEventListener("click", function (e) {
+            settingsMenu.style.display = "none";
+            openMenu(e);
+        });
 
-    function navigateTo(loc) {
-        if (webview) {
+        // Listen for the settings button to open the settings menu
+        settingsButton.addEventListener("click", function (e) {
+            favMenu.style.display = "none";
+            openMenu(e);
+        });
+
+        var closeMenu = function () {
+            if (browser.className.includes("animate")) {
+                var onTransitionEnd = function () {
+                    browser.removeEventListener("transitionend", onTransitionEnd);
+                    browser.classList.remove("modalview");
+                    wrapper.style.top = "0px";
+                    favMenu.style.display = "block";
+                    settingsMenu.style.display = "block";
+                };
+                browser.addEventListener("transitionend", onTransitionEnd);
+                browser.classList.remove("animate");
+                setDefaultAppBarColors();
+            }
+        }
+
+        container.addEventListener("click", closeMenu);
+
+        // Listen for the clear cache button to clear the cache
+        clearCacheButton.addEventListener("click", function () {
+            clearCache();
+            closeMenu();
+        });
+
+        // Listen for the add favorite button to save the current page to the list of favorites
+        addFavButton.addEventListener("click", function () {
+            favorites.set(currentUrl, { 'title': documentTitle });
+            saveFavorites(favorites);
+        });
+
+        // Listen for the clear favorites button to empty the list of favorites
+        clearFavButton.addEventListener("click", function () {
+            favorites.clear();
+            saveFavorites(favorites);
+            closeMenu();
+        });
+
+        // Check if a file exists at the specified URL
+        function fileExists (url) {
+            var http = new XMLHttpRequest();
             try {
-                console.log("navigating to: " + loc);
-                webview.navigate(loc);
+                http.open("HEAD", url, false);
+                http.send();
+                return http.status !== 404;
             }
             catch (e) {
-                try {
-                    webview.navigate('http://' + loc);
-                }
-                catch (e) {
-                    return false;
-                }
-                console.log("appended http");
+                console.error("Unsuccessful XMLHttpRequest:", e.toString());
             }
         }
-    }
 
-    function dataChangedHandler(event) {
-        //Refresh data
-    }
-
-    function readFavorites() {
-        roamingFolder.getFileAsync("favorites.json")
+        // Save the list of favorites to file
+        function saveFavorites (favorites) {
+            roamingFolder.createFileAsync("favorites.json", Windows.Storage.CreationCollisionOption.replaceExisting)
             .then(function (favFile) {
-                return Windows.Storage.FileIO.readTextAsync(favFile);
-            }).done(function (favJSON) {
-                var updatedFavs = JSON.parse(favJSON);
-                favorites = updatedFavs;
-                console.log(updatedFavs);
-                while (favList.firstChild) {
-                    favList.removeChild(favList.firstChild);
-                }
-                favorites.forEach(function (entry) {
-                    var favEntry = document.createElement("li");
-                    favEntry.innerHTML = entry.name + " | " + entry.url;
-                    favEntry.addEventListener("click", function () {
-                        navigateTo(entry.url);
-                        favModal.className = oldclass;
-                    }, false);
-                    favList.appendChild(favEntry);
-                });
-            }, function () {
-                console.log("error");
+                var favJSON = JSON.stringify(Array.from(favorites));
+                return Windows.Storage.FileIO.writeTextAsync(favFile, favJSON);
+            })
+            .done(function () {
+                readFavorites();
             });
-    }
+        }
 
-    function keysPressed(e) {
-        keys[e.keyCode] = true;
-        if (keys[17] && keys[76]) {
-            var urlInput = document.getElementById("urlInput");
-            urlInput.select();
+        // Navigate to the specified URL
+        function navigateTo (loc) {
+            if (webview) {
+                try {
+                    webview.navigate(loc);
+                }
+                catch (e) {
+                    // Auto-add a protocol for convenience
+                    console.log("Unable to navigate to '" + loc + "'\nAttemping to prepend http:// to URI...");
+                    loc = "http://" + loc;
+                    try {
+                        webview.navigate(loc);
+                    }
+                    catch (e) {
+                        console.error(e.toString(), "\nPrepend unsuccessful", "\nUnable to navigate to", loc);
+                    }
+                }
+            }
+        }
+
+        // Listen for a change in data
+        function dataChangedHandler (e) {
+            // Refresh the data
+        }
+
+        // Retrieve the list of favorites and add them to the UI
+        function readFavorites() {
+            roamingFolder.getFileAsync("favorites.json")
+                .then(function (favFile) {
+                    return Windows.Storage.FileIO.readTextAsync(favFile);
+                })
+                .done(function (favJSON) {
+                    // Read the list of favorites from file
+                    var updatedFavs = JSON.parse(favJSON);
+                    var favList = document.querySelectorAll("#favMenu .favorite");
+                    favorites = new Map;
+                    updatedFavs.forEach(function (pair) {
+                        favorites.set(pair[0], pair[1]);
+                    });
+                    // Clear the favorites menu
+                    for (var i = 0; i < favList.length; i++) {
+                        var favNode = favList[i];
+                        favNode.parentNode.removeChild(favNode);
+                    }
+                    // Propagate the favorites menu with the new list
+                    if (favorites.size > 0) {
+                        var i = 1;
+                        favorites.forEach(function (entry, url) {
+                            var favEntry = document.createElement("a");
+                            favEntry.className = "favorite";
+                            favEntry.addEventListener("click", function () {
+                                closeMenu();
+                                navigateTo(url);
+                            });
+                            favEntry.textContent = entry.title;
+                            var delay = 0.06 + 0.03 * i;
+                            favEntry.style.transitionDelay = delay + "s";
+                            document.getElementById("favorites").appendChild(favEntry);
+                            var alt = document.createElement("div");
+                            alt.className = "url";
+                            alt.textContent = url;
+                            favEntry.appendChild(alt);
+                            i++;
+                        });
+                    }
+                },
+                function (e) {
+                    console.error(e.toString(), "\nUnable to get favorites");
+                });
+        }
+
+        // Listen for unviewable content
+        function unviewableContent (e) {
+            console.error("Unviewable content:", e.toString());
+            if (e.mediaType == "application/pdf") {
+                var uri = new Windows.Foundation.Uri(e.uri);
+                Windows.System.Launcher.launchUriAsync(uri);
+            }
+        }
+
+        // Listen for an unsupported URI scheme
+        function unsupportedUriScheme (e) {
+            console.error(e.toString(), "\nUnsupported URI scheme:");
+        }
+
+        // Listen for a permission request
+        function permissionRequested (e) {
+            console.log("Permission requested");
+            if (e.permissionRequest.type === 'geolocation') {
+                e.permissionRequest.allow();
+            }
+        }
+
+        // Listen for a new window
+        function newWindowRequested (e) {
+            console.log("New window requested");
             e.preventDefault();
-            keys = [];
+            var webview = document.getElementById('WebView');
+            webview.navigate(e.uri);
         }
-    }
 
-    function keysReleased(e) {
-        keys[e.keyCode] = false;
-    }
-
-    function unviewableContent(e) {
-        console.log("unviewableContent");
-        console.log(e.toString());
-        if (e.mediaType == "application/pdf") {
-            var uri = new Windows.Foundation.Uri(e.uri);
-            Windows.System.Launcher.launchUriAsync(uri);
-
+        // Clear the cache of temporary web data
+        function clearCache () {
+            var op = MSApp.clearTemporaryWebDataAsync();
+            op.oncomplete = function () {
+                console.log("Temporary web data cleared successfully");
+                var wv = document.getElementById("WebView");
+                wv.refresh();
+            };
+            op.onerror = function (e) { console.error(e.toString(), "\nUnable to clear web data"); };
+            op.start();
         }
-    }
-
-    function unsupportedUriScheme(e) {
-        console.log("unsupportedUriScheme");
-        console.log(e.toString());
-    }
-
-    function permissionRequested(e) {
-        console.log("permissionRequested");
-        console.log(e.toString());
-        if (e.permissionRequest.type === 'geolocation') {
-            e.permissionRequest.allow();
-        }
-    }
-
-    function newWindowRequested(e) {
-        console.log("newWindowRequested");
-        console.log(e.toString());
-        e.preventDefault();
-        var webview = document.getElementById('WebView');
-        webview.navigate(e.uri);
-    }
-
-    function clearCache() {
-        console.log("Clear Cache called");
-        var op = MSApp.clearTemporaryWebDataAsync();
-        op.oncomplete = function () {
-            console.log("Temporary web data cleared successfully");
-            var wv = document.getElementById("myWebView");
-            wv.refresh();
-        };
-        op.onerror = function () { console.log("A failure occurred in clearing the temporary web data") };
-        op.start();
-    }
-
-    app.start();
+    });
 })();

@@ -1,7 +1,6 @@
-﻿body {
-}
-
-*, *:before, *:after {
+﻿*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -9,12 +8,16 @@ html {
   box-sizing: border-box;
 }
 
+#browser {
+    min-width: 480px;
+}
+
 .navbar {
     display: inline-flex;
     align-items: center;
     padding: 4px;
     width: 100%;
-    background: linear-gradient(to bottom,  #3b3b3b 0%,#222 100%);
+    background: linear-gradient(to bottom, #3b3b3b 0%, #222 100%);
 }
 
 #urlInput {
@@ -22,15 +25,26 @@ html {
     border-radius: 3px;
     height: 32px;
     flex-grow: 1;
-    padding-left: 35px;
     background-color: #eee;
     color: #666;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.333;
+    padding: 3px 6px 5px 35px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#urlInput:focus {
+    border-color: #0078D7;
 }
 
 #urlInput:hover,
 #urlInput:focus {
     background-color: #fff;
-    color: #333;
+    color: #222;
 }
 
 .icon,
@@ -47,12 +61,22 @@ html {
 
 .icon img {
     margin: 2px 0 0 2px;
+    cursor: pointer;
 }
 
-.icon progress.win-ring {
+.icon .ring {
     position: relative;
-    color: #333;
     display: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 .navButton {
@@ -67,7 +91,8 @@ html {
     color: #dedede;
 }
 
-.navButton, .navButton:disabled {
+.navButton,
+.navButton:disabled {
     border: 0;
     background: rgba(255,255,255,0.15) url('../images/icons.png') no-repeat;
 }
@@ -79,9 +104,8 @@ html {
     color: #fff;
 }
 
-/* 'button' added to this selector to override WinJS CSS */
-button.navButton:active,
-button.navButton:focus {
+.navButton:active,
+.navButton.open {
     background-color: rgba(255,255,255,0.35);
     color: #fff;
 }
@@ -100,21 +124,6 @@ button.navButton:focus {
     display: none;
 }
 
-.textButton {
-    padding: 9px 10px 10px;
-    width: auto;
-    background-image: none;
-    font-size: 11px;
-    line-height: 1;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.textButton .buttonLabel {
-    display: inline-block;
-}
-
-
 .backButton {
     margin-left: 0;
     border-top-right-radius: 0;
@@ -122,7 +131,8 @@ button.navButton:focus {
     background-position: -1px 0;
 }
 
-.backButton:hover, .backButton:active {
+.backButton:hover,
+.backButton:active {
     background-position: -31px 0;
 }
 
@@ -137,7 +147,8 @@ button.navButton:focus {
     background-position: 1px -30px;
 }
 
-.forwardButton:hover, .forwardButton:active {
+.forwardButton:hover,
+.forwardButton:active {
     background-position: -29px -30px;
 }
 
@@ -145,16 +156,12 @@ button.navButton:focus {
     background-position: -59px -30px;
 }
 
-.goButton {
-    width: auto;
-    background-image: none;
-}
-
 .stopButton {
     background-position: 0 -60px;
 }
 
-.stopButton:hover, .stopButton:active {
+.stopButton:hover,
+.stopButton:active {
     background-position: -30px -60px;
 }
 
@@ -162,22 +169,53 @@ button.navButton:focus {
     background-position: 0 -90px;
 }
 
-.refreshButton:hover, .refreshButton:active {
+.refreshButton:hover,
+.refreshButton:active {
     background-position: -30px -90px;
 }
 
 .favButton {
     background-position: 0 -120px;
 }
-.favButton:hover, .favButton:active {
+
+.favButton:hover,
+.favButton:active {
     background-position: -30px -120px;
 }
 
 .settingsButton {
     background-position: 0 -150px;
 }
-.settingsButton:hover, .settingsButton:active {
+
+.settingsButton:hover,
+.settingsButton:active {
     background-position: -30px -150px;
+}
+
+#favMenu .url {
+    font-size: 12px;
+    color: #666;
+}
+
+#favMenu hr {
+    height: 1px;
+    width: auto;
+    border: 0;
+    padding: 0;
+    margin: 9px 4px;
+    background-color: #ccc;
+    vertical-align: top;
+}
+
+.favorite {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#favorites {
+    height: calc(100% - 168px);
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #WebView {
@@ -185,96 +223,239 @@ button.navButton:focus {
     height: calc(100% - 40px);
 }
 
-.modal {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	width: 50%;
-	max-width: 640px;
-	min-width: 320px;
-	height: auto;
-	z-index: 200;
-	visibility: hidden;
-	backface-visibility: hidden;
-	transform: translateX(-50%) translateY(-50%);
-	opacity: 0;
+.perspective {
+	background: #aaa;
+	position: relative;
+    width: 100%;
+    height: 100%;
 }
 
-.modal-show {
-	visibility: visible;
-	opacity: 1;
+.container {
+    height: 100%;
+	background: #fff;
+	min-height: 100%;
+	position: relative;
+	outline: 1px solid rgba(0,0,0,0);
+	z-index: 10;
+	transform: translateZ(0) translateX(0) rotateY(0deg);
 }
 
-.modal-overlay {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	visibility: hidden;
+.container::after {
+	content: '';
+	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 100;
+	width: 100%;
+	height: 0px;
 	opacity: 0;
-	background: rgba(0, 0, 0, 0.8);
-	transition: all 0.3s;
+	background: rgba(0,0,0,0.2);
+	transition: opacity 0.4s, height 0s 0.4s;
 }
 
-.modal-show ~ .modal-overlay {
-	opacity: .5;
-	visibility: visible;
-}
-
-.favContent {
-	color: #fff;
-	background: black;
+.wrapper {
 	position: relative;
-	border-radius: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.component {
 	margin: 0 auto;
+	width: 60%;
+	text-align: justify;
+	font-size: 1.5em;
 }
 
-.favContent h3 {
-	margin: 0;
-	padding: 0.4em;
-	text-align: center;
-	font-size: 2.4em;
-	font-weight: 300;
-	opacity: 0.8;
-	border-radius: 3px 3px 0 0;
+/* Modal view */
+.perspective.modalview {
+	position: fixed;
+	perspective: 1500px;
 }
 
-.favContent > div {
-	padding: 15px 40px 30px;
-	margin: 0;
-	font-weight: 300;
-	font-size: 1.15em;
+.modalview .container {
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
 }
 
-.favContent > div p {
-	margin: 0;
-	padding: 10px 0;
-}
-
-.favContent > div ul {
-	margin: 0;
-	padding: 0 0 30px 20px;
-}
-
-.favContent > div ul li {
-	padding: 5px 0;
-}
-
-.favContent button {
-	display: block;
-	margin: 0 auto;
-	font-size: 0.8em;
-}
-
-.modalEffect-1 .favContent {
-	transform: scale(1.15);
-	opacity: 0;
-	transition: all .3s;
-}
-
-.modal-show.modalEffect-1 .favContent {
-	transform: scale(1);
+.animate .container::after {
 	opacity: 1;
+	height: 100%;
+	transition: opacity 0.3s;
 }
+
+/* Outer Nav */
+.outer-nav {
+	position: absolute;
+    height: 550px;
+	font-size: 2em;
+    font-family: Segoe UI, sans-serif;
+}
+
+.outer-nav.vertical {
+	top: 50%;
+	transform: translateY(-50%);
+	transform-style: preserve-3d;
+}
+
+.outer-nav.horizontal {
+	left: 50%;
+	width: 75%;
+	max-width: 1000px;
+	text-align: center;
+	transform: translateX(-50%);
+}
+
+.outer-nav.left {
+	left: 25%;
+}
+
+.outer-nav.right {
+	right: 8%;
+    font-size: 15px;
+    width: 50%;
+    height: 75%;
+}
+
+.outer-nav.top {
+	top: 25%;
+}
+
+.outer-nav.bottom {
+	bottom: 25%;
+}
+
+.outer-nav h1 {
+    font-family: Segoe UI Light, sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    margin: 10px 0;
+}
+
+.outer-nav a {
+	display: inline-block;
+	white-space: nowrap;
+	font-weight: normal;
+	margin: 0 0 30px 0;
+	color: #fff;
+	transition: color 0.3s;
+	transform-style: preserve-3d;
+}
+
+.outer-nav a:hover {
+	color: #ffdccd;
+}
+
+.outer-nav.vertical a {
+	display: block;
+}
+
+.outer-nav.horizontal a {
+	margin: 15px 20px;
+}
+
+.effect-moveleft {
+    background: #f4f3f1;
+}
+
+.effect-moveleft .container {
+    transition: transform 0.4s;
+    transform-origin: 50% 50%;
+}
+
+.effect-moveleft .container::after {
+    background: rgba(255,255,255,0.6);
+}
+
+.effect-moveleft.animate .container {
+    transform: translateX(-50%) rotateY(45deg) translateZ(-50px);
+}
+
+.effect-moveleft.animate .container .wrapper {
+    border: 1px solid #f4f3f1;
+}
+
+.effect-moveleft.animate x-ms-webview {
+    /* Workaround for WebView re-layout bug */
+    transform: rotateY(0deg);
+}
+
+.effect-moveleft .outer-nav * {
+    opacity: 0;
+    transform: translateX(100px) translateZ(-1000px);
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+.effect-moveleft .outer-nav a {
+    color: #666;
+    padding: 15px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.effect-moveleft .outer-nav a:hover {
+    color: #222;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.effect-moveleft.animate .outer-nav * {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(2) {
+    transition-delay: 0.03s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(3) {
+    transition-delay: 0.06s;
+}
+
+/*
+
+.effect-moveleft.animate .outer-nav *:nth-child(4) {
+    transition-delay: 0.09s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(5) {
+    transition-delay: 0.12s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(6) {
+    transition-delay: 0.15s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(7) {
+    transition-delay: 0.18s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(8) {
+    transition-delay: 0.21s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(9) {
+    transition-delay: 0.23s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(10) {
+    transition-delay: 0.26s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(11) {
+    transition-delay: 0.29s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(12) {
+    transition-delay: 0.32s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(13) {
+    transition-delay: 0.35s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(14) {
+    transition-delay: 0.38s;
+}
+
+*/

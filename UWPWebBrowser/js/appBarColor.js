@@ -1,19 +1,13 @@
-﻿/*
-    This function expects two hexStrings and relies on hexStrToRGBA to convert
-    to a JSON object that represents RGBA for the underlying Windows API to 
-    understand.
+﻿"use strict";
 
-    Examples of valid values: 
-    setAppBarColors('#FFFFFF','#000000');
-    setAppBarColors('#FFF','#000');
-    setAppBarColors('FFFFFF','000000');
-    setAppBarColors('FFF','000');
+// Set your default colors
+var brand = hexStrToRGBA('#3B3B3B');
+var bgAppColor = hexStrToRGBA("#f4f3f1");
+var black = hexStrToRGBA('#000');
+var white = hexStrToRGBA('#FFF');
+var gray = hexStrToRGBA('#666');
 
-*/
-
-"use strict";
-
-function setAppBarColors () {
+function setOpenMenuAppBarColors() {
     // Detect if the Windows namespace exists in the global object
     if (typeof Windows !== 'undefined' &&
              typeof Windows.UI !== 'undefined' &&
@@ -21,21 +15,42 @@ function setAppBarColors () {
         // Get a reference to the App Title Bar
         var appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
 
-        // Set your brand color
-        var brand = hexStrToRGBA('#3B3B3B');
+        appTitleBar.foregroundColor = black;
+        appTitleBar.backgroundColor = bgAppColor;
 
-        var black = hexStrToRGBA('#000');
-        var white = hexStrToRGBA('#FFF');
-        var gray = hexStrToRGBA('#666');
+        appTitleBar.buttonForegroundColor = black;
+        appTitleBar.buttonBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonHoverForegroundColor = white;
+        appTitleBar.buttonHoverBackgroundColor = gray;
+
+        appTitleBar.buttonPressedForegroundColor = bgAppColor;
+        appTitleBar.buttonPressedBackgroundColor = black;
+
+        appTitleBar.inactiveBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonInactiveBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonInactiveHoverBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonPressedForegroundColor = bgAppColor;
+        appTitleBar.buttonPressedBackgroundColor = bgAppColor;
+    }
+}
+
+function setDefaultAppBarColors () {
+    // Detect if the Windows namespace exists in the global object
+    if (typeof Windows !== 'undefined' &&
+             typeof Windows.UI !== 'undefined' &&
+             typeof Windows.UI.ViewManagement !== 'undefined') {
+        // Get a reference to the App Title Bar
+        var appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
 
         appTitleBar.foregroundColor = white;
         appTitleBar.backgroundColor = brand;
 
         appTitleBar.buttonForegroundColor = white;
         appTitleBar.buttonBackgroundColor = brand;
-
-        appTitleBar.buttonHoverForegroundColor = white;
-        appTitleBar.buttonHoverBackgroundColor = gray;
 
         appTitleBar.buttonPressedForegroundColor = brand;
         appTitleBar.buttonPressedBackgroundColor = white;
@@ -53,12 +68,13 @@ function setAppBarColors () {
         appTitleBar.buttonPressedBackgroundColor = brand;
     }
 }
+
 // Helper function to support HTML hexColor Strings
-function hexStrToRGBA(hexStr) {
+function hexStrToRGBA (hexStr) {
     // RGBA color object
     var colorObject = { r: 255, g: 255, b: 255, a: 255 };
 
-    // remove hash if it exists
+    // Remove hash if it exists
     hexStr = hexStr.replace('#', '');
 
     if (hexStr.length === 6) {
@@ -67,13 +83,15 @@ function hexStrToRGBA(hexStr) {
         colorObject.g = parseInt(hexStr.slice(2, 4), 16);
         colorObject.b = parseInt(hexStr.slice(4, 6), 16);
         colorObject.a = parseInt('0xFF', 16);
-    } else if (hexStr.length === 8) {
+    }
+    else if (hexStr.length === 8) {
         // Alpha
         colorObject.r = parseInt(hexStr.slice(0, 2), 16);
         colorObject.g = parseInt(hexStr.slice(2, 4), 16);
         colorObject.b = parseInt(hexStr.slice(4, 6), 16);
         colorObject.a = parseInt(hexStr.slice(6, 8), 16);
-    } else if (hexStr.length === 3) {
+    }
+    else if (hexStr.length === 3) {
         // Shorthand hex color
         var rVal = hexStr.slice(0, 1);
         var gVal = hexStr.slice(1, 2);
@@ -81,11 +99,12 @@ function hexStrToRGBA(hexStr) {
         colorObject.r = parseInt(rVal + rVal, 16);
         colorObject.g = parseInt(gVal + gVal, 16);
         colorObject.b = parseInt(bVal + bVal, 16);
-    } else {
+    }
+    else {
         throw new Error('Invalid HexString length. Expected either 8, 6, or 3. The actual length was ' + hexStr.length);
     }
     return colorObject;
 }
 
-// Initialize when the Window loads
-addEventListener('load', setAppBarColors);
+// Initialize when the window loads
+addEventListener('load', setDefaultAppBarColors);
