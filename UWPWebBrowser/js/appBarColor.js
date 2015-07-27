@@ -1,20 +1,5 @@
 ﻿"use strict";
 
-function padColor(val) {
-    return '0'.repeat(6 - val.length) + val;
-}
-
-function increment(color, step) {
-    var colorToInt = parseInt(color.slice(1), 16);
-    colorToInt += step;
-    var ncolor = colorToInt.toString(16);
-    return "#" + padColor(ncolor);
-}
-
-function fadeColor(oldColor, newColor, duration) {
-
-}
-
 // Set your default colors
 var brand = hexStrToRGBA('#3B3B3B');
 var bgAppColor = hexStrToRGBA("#f4f3f1");

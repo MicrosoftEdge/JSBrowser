@@ -7,10 +7,8 @@
     var applicationData = Windows.Storage.ApplicationData.current;
     var roamingFolder = applicationData.roamingFolder;
     var favorites = new Map;
-    var documentTitle = "";
     var currentUrl = "";
     var loading = true;
-    var webview, forwardButton, backButton, stopButton, favButton, favMenu, addFavButton, clearFavButton, settingsButton, clearCacheButton, settingsMenu, urlInput, browser, container, wrapper;
 
     document.addEventListener("DOMContentLoaded", function () {
         // Refresh the data
@@ -18,25 +16,28 @@
         applicationCache.addEventListener("datachanged", dataChangedHandler);
 
         // Get the UI elements
-        webview = document.getElementById("WebView");
-        documentTitle = webview.documentTitle;
-        stopButton = document.getElementById("stopButton");
-        forwardButton = document.getElementById("forwardButton");
-        backButton = document.getElementById("backButton");
-        favButton = document.getElementById("favButton");
-        addFavButton = document.getElementById("addFavButton");
-        clearFavButton = document.getElementById("clearFavButton");
-        settingsButton = document.getElementById("settingsButton");
-        clearCacheButton = document.getElementById("clearCacheButton");
-        favMenu = document.getElementById("favMenu");
-        settingsMenu = document.getElementById("settingsMenu");
-        urlInput = document.getElementById("urlInput");
-        browser = document.getElementById("browser");
-        container = document.querySelector(".container")
-        wrapper = document.querySelector(".wrapper");
+        var webview = document.getElementById("WebView");
+        var documentTitle = webview.documentTitle;
+        var stopButton = document.getElementById("stopButton");
+
+        var backButton = document.getElementById("backButton");
+        var favButton = document.getElementById("favButton");
+        var addFavButton = document.getElementById("addFavButton");
+        var clearFavButton = document.getElementById("clearFavButton");
+        var settingsButton = document.getElementById("settingsButton");
+        var clearCacheButton = document.getElementById("clearCacheButton");
+        var favMenu = document.getElementById("favMenu");
+        var settingsMenu = document.getElementById("settingsMenu");
+        var urlInput = document.getElementById("urlInput");
+        var browser = document.getElementById("browser");
+        var container = document.querySelector(".container")
+        var wrapper = document.querySelector(".wrapper");
 
         // Set the initial navigation state
+        var forwardButton = document.getElementById("forwardButton");
         forwardButton.disabled = true;
+
+        var backButton = document.getElementById("backButton");
         backButton.disabled = true;
 
         // Listen for the navigation start
@@ -90,15 +91,18 @@
                         // Asynchronously check for a favicon in the web page markup
                         console.log("Favicon not found in root. Checking the markup...");
                         var script = "(function () {var n = document.getElementsByTagName('link'); for (var i = 0; i < n.length; i++) { if (n[i].getAttribute('rel').includes('icon')) { return n[i].href; }}})();";
+
                         var asyncOp = webview.invokeScriptAsync("eval", script);
                         asyncOp.oncomplete = function (e) {
                             var path = e.target.result;
                             console.log("Found favicon in markup:", path);
                             document.querySelector("#favicon").src = path;
                         };
+
                         asyncOp.onerror = function (e) {
                             console.error(e, "Unable to find favicon in markup");
-                        }
+                        };
+
                         asyncOp.start();
                     }
                 }
@@ -115,7 +119,7 @@
             backButton.disabled = !webview.canGoBack;
             forwardButton.disabled = !webview.canGoForward;
         });
-                
+
         // Listen for any miscellaneous events
         webview.addEventListener("MSWebViewUnviewableContentIdentified", unviewableContent);
         webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified", unsupportedUriScheme);
