@@ -79,7 +79,6 @@
     <Content Include="js\appBarColor.js" />
     <Content Include="js\default.js" />
     <Content Include="js\page.js" />
-    <Content Include="packages.config" />
     <Content Include="pages\page.html" />
     <None Include="UWPWebBrowser_TemporaryKey.pfx" />
   </ItemGroup>
