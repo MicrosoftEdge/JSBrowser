@@ -32,8 +32,6 @@ function setOpenMenuAppBarColors() {
 
         appTitleBar.buttonInactiveBackgroundColor = bgAppColor;
 
-        appTitleBar.buttonInactiveHoverBackgroundColor = bgAppColor;
-
         appTitleBar.buttonPressedForegroundColor = bgAppColor;
         appTitleBar.buttonPressedBackgroundColor = bgAppColor;
     }
@@ -53,6 +51,9 @@ function setDefaultAppBarColors () {
 
         appTitleBar.buttonForegroundColor = white;
         appTitleBar.buttonBackgroundColor = brand;
+
+        appTitleBar.buttonHoverForegroundColor = white;
+        appTitleBar.buttonHoverBackgroundColor = gray;
 
         appTitleBar.buttonPressedForegroundColor = brand;
         appTitleBar.buttonPressedBackgroundColor = white;
