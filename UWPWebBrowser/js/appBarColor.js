@@ -1,19 +1,28 @@
-﻿/*
-    This function expects two hexStrings and relies on hexStrToRGBA to convert
-    to a JSON object that represents RGBA for the underlying Windows API to 
-    understand.
+﻿"use strict";
 
-    Examples of valid values: 
-    setAppBarColors('#FFFFFF','#000000');
-    setAppBarColors('#FFF','#000');
-    setAppBarColors('FFFFFF','000000');
-    setAppBarColors('FFF','000');
+function padColor(val) {
+    return '0'.repeat(6 - val.length) + val;
+}
 
-*/
+function increment(color, step) {
+    var colorToInt = parseInt(color.slice(1), 16);
+    colorToInt += step;
+    var ncolor = colorToInt.toString(16);
+    return "#" + padColor(ncolor);
+}
 
-"use strict";
+function fadeColor(oldColor, newColor, duration) {
 
-function setAppBarColors () {
+}
+
+// Set your default colors
+var brand = hexStrToRGBA('#3B3B3B');
+var bgAppColor = hexStrToRGBA("#f4f3f1");
+var black = hexStrToRGBA('#000');
+var white = hexStrToRGBA('#FFF');
+var gray = hexStrToRGBA('#666');
+
+function setOpenMenuAppBarColors() {
     // Detect if the Windows namespace exists in the global object
     if (typeof Windows !== 'undefined' &&
              typeof Windows.UI !== 'undefined' &&
@@ -21,20 +30,42 @@ function setAppBarColors () {
         // Get a reference to the App Title Bar
         var appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
 
-        // Set your default colors
-        var brand = hexStrToRGBA('#3B3B3B');
-        var black = hexStrToRGBA('#000');
-        var white = hexStrToRGBA('#FFF');
-        var gray = hexStrToRGBA('#666');
+        appTitleBar.foregroundColor = black;
+        appTitleBar.backgroundColor = bgAppColor;
+
+        appTitleBar.buttonForegroundColor = black;
+        appTitleBar.buttonBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonHoverForegroundColor = white;
+        appTitleBar.buttonHoverBackgroundColor = gray;
+
+        appTitleBar.buttonPressedForegroundColor = bgAppColor;
+        appTitleBar.buttonPressedBackgroundColor = black;
+
+        appTitleBar.inactiveBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonInactiveBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonInactiveHoverBackgroundColor = bgAppColor;
+
+        appTitleBar.buttonPressedForegroundColor = bgAppColor;
+        appTitleBar.buttonPressedBackgroundColor = bgAppColor;
+    }
+}
+
+function setDefaultAppBarColors () {
+    // Detect if the Windows namespace exists in the global object
+    if (typeof Windows !== 'undefined' &&
+             typeof Windows.UI !== 'undefined' &&
+             typeof Windows.UI.ViewManagement !== 'undefined') {
+        // Get a reference to the App Title Bar
+        var appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
 
         appTitleBar.foregroundColor = white;
         appTitleBar.backgroundColor = brand;
 
         appTitleBar.buttonForegroundColor = white;
         appTitleBar.buttonBackgroundColor = brand;
-
-        appTitleBar.buttonHoverForegroundColor = white;
-        appTitleBar.buttonHoverBackgroundColor = gray;
 
         appTitleBar.buttonPressedForegroundColor = brand;
         appTitleBar.buttonPressedBackgroundColor = white;
@@ -91,4 +122,4 @@ function hexStrToRGBA (hexStr) {
 }
 
 // Initialize when the window loads
-addEventListener('load', setAppBarColors);
+addEventListener('load', setDefaultAppBarColors);

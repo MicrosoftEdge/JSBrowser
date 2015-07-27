@@ -4,46 +4,55 @@
     <meta charset="utf-8" />
     <title>Simple Web Browser</title>
 
-    <!-- WinJS references -->
-    <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
-    <script src="WinJS/js/base.js"></script>
-    <script src="WinJS/js/ui.js"></script>
-
     <!-- App references -->
     <link href="/css/default.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
     <script src="js/appBarColor.js"></script>
 </head>
-<body class="win-type-body">
-    <div id="navbar" class="navbar">
-        <button id="backButton" class="navButton backButton">
-            <span class="buttonLabel">Back</span>
-        </button>
-        <button id="forwardButton" class="navButton forwardButton">
-            <span class="buttonLabel">Forward</span>
-        </button>
-        <input id="urlInput" type="text" class="win-textbox" />
-        <label class="icon" for="urlInput">
-            <progress class="win-ring"></progress>
-            <img id="favicon" src="" />
-        </label>
-        <button id="stopButton" class="navButton stopButton">
-            <span class="buttonLabel">Stop</span>
-        </button>
-        <button id="favButton" class="navButton favButton">
-            <span class="buttonLabel">Favorites</span>
-        </button>
-        <button id="settingsButton" class="navButton settingsButton">
-            <span class="buttonLabel">Settings</span>
-        </button>
-    </div>
-    <x-ms-webview id="WebView" src="http://microsoft.com"></x-ms-webview>
-    <div id="favMenu" data-win-control="WinJS.UI.Menu" data-win-options="{alignment: 'right'}">
-        <button id="addFavButton" data-win-control="WinJS.UI.MenuCommand" data-win-options="{label: 'Add favorite', type: 'button'}"></button>
-    </div>
-    <div id="settingsMenu" data-win-control="WinJS.UI.Menu" data-win-options="{alignment: 'right'}">
-        <button id="clearCacheButton" data-win-control="WinJS.UI.MenuCommand" data-win-options="{label: 'Clear cache'}"></button>
-        <button id="clearFavButton" data-win-control="WinJS.UI.MenuCommand" data-win-options="{label: 'Clear favorites', type: 'button'}"></button>
+<body>
+    <div id="browser" class="perspective effect-moveleft">
+        <div class="container">
+            <div class="wrapper">
+                <div id="navbar" class="navbar">
+                    <button id="backButton" class="navButton backButton">
+                        <span class="buttonLabel">Back</span>
+                    </button>
+                    <button id="forwardButton" class="navButton forwardButton">
+                        <span class="buttonLabel">Forward</span>
+                    </button>
+                    <input id="urlInput" type="text" class="win-textbox" />
+                    <label class="icon" for="urlInput">
+                        <span class="ring"></span>
+                        <img id="favicon" src="" />
+                    </label>
+                    <button id="stopButton" class="navButton stopButton">
+                        <span class="buttonLabel">Stop</span>
+                    </button>
+                    <button id="favButton" class="navButton favButton">
+                        <span class="buttonLabel">Favorites</span>
+                    </button>
+                    <button id="settingsButton" class="navButton settingsButton">
+                        <span class="buttonLabel">Settings</span>
+                    </button>
+                </div>
+                <x-ms-webview id="WebView" src="http://microsoft.com"></x-ms-webview>
+            </div>
+        </div>
+        <nav id="favMenu" class="outer-nav right vertical">
+            <div>
+                <h1>Favorites</h1>
+                <a id="addFavButton">Add favorite</a>
+                <hr>
+            </div>
+            <div id="favorites"></div>
+        </nav>
+        <nav id="settingsMenu" class="outer-nav right vertical">
+            <div>
+                <h1>Settings</h1>
+                <a id="clearCacheButton">Clear cache</a>
+                <a id="clearFavButton">Clear favorites</a>
+            </div>
+        </nav>
     </div>
 </body>
 </html>

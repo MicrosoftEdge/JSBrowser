@@ -81,20 +81,6 @@
     <Content Include="js\page.js" />
     <Content Include="packages.config" />
     <Content Include="pages\page.html" />
-    <Content Include="WinJS\css\ui-dark.css" />
-    <Content Include="WinJS\css\ui-dark.min.css" />
-    <Content Include="WinJS\css\ui-light.css" />
-    <Content Include="WinJS\css\ui-light.min.css" />
-    <Content Include="WinJS\fonts\Symbols.ttf" />
-    <Content Include="WinJS\js\base.js" />
-    <Content Include="WinJS\js\base.min.js" />
-    <Content Include="WinJS\js\base.min.js.map" />
-    <Content Include="WinJS\js\en-US\ui.strings.js" />
-    <Content Include="WinJS\js\ui.js" />
-    <Content Include="WinJS\js\ui.min.js" />
-    <Content Include="WinJS\js\ui.min.js.map" />
-    <Content Include="WinJS\js\WinJS.intellisense-setup.js" />
-    <Content Include="WinJS\js\WinJS.intellisense.js" />
     <None Include="UWPWebBrowser_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
