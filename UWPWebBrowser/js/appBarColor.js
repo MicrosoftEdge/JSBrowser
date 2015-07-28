@@ -7,6 +7,7 @@ var black = hexStrToRGBA('#000');
 var white = hexStrToRGBA('#FFF');
 var gray = hexStrToRGBA('#666');
 
+// Set the AppBar colors when a menu is open
 function setOpenMenuAppBarColors() {
     // Detect if the Windows namespace exists in the global object
     if (typeof Windows !== 'undefined' &&
@@ -31,13 +32,12 @@ function setOpenMenuAppBarColors() {
 
         appTitleBar.buttonInactiveBackgroundColor = bgAppColor;
 
-        appTitleBar.buttonInactiveHoverBackgroundColor = bgAppColor;
-
         appTitleBar.buttonPressedForegroundColor = bgAppColor;
         appTitleBar.buttonPressedBackgroundColor = bgAppColor;
     }
 }
 
+// Set the default AppBar colors
 function setDefaultAppBarColors () {
     // Detect if the Windows namespace exists in the global object
     if (typeof Windows !== 'undefined' &&
@@ -51,6 +51,9 @@ function setDefaultAppBarColors () {
 
         appTitleBar.buttonForegroundColor = white;
         appTitleBar.buttonBackgroundColor = brand;
+
+        appTitleBar.buttonHoverForegroundColor = white;
+        appTitleBar.buttonHoverBackgroundColor = gray;
 
         appTitleBar.buttonPressedForegroundColor = brand;
         appTitleBar.buttonPressedBackgroundColor = white;
