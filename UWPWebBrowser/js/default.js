@@ -3,7 +3,6 @@
 (function () {
     "use strict";
 
-    var activation = Windows.ApplicationModel.Activation;
     var applicationData = Windows.Storage.ApplicationData.current;
     var roamingFolder = applicationData.roamingFolder;
     var favorites = new Map;
