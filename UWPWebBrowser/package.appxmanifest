@@ -31,6 +31,9 @@
       Id="App"
       StartPage="default.html">
 
+      <uap:ApplicationContentUriRules>
+        <uap:Rule Match="https://*.twitter.com" Type="include"/>
+      </uap:ApplicationContentUriRules>
       <uap:VisualElements
         DisplayName="UWPWebBrowser"
         Description="UWPWebBrowser"
