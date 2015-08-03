@@ -4,10 +4,20 @@
     <meta charset="utf-8" />
     <title>Simple Web Browser</title>
 
+    <!-- App dependencies -->
+    <script src="js/jquery.js"></script>
+
     <!-- App references -->
-    <link href="/css/default.css" rel="stylesheet" />
-    <script src="/js/default.js"></script>
-    <script src="js/appBarColor.js"></script>
+    <link href="css/browser.css" rel="stylesheet" />
+    <script src="js/browser.js"></script>
+
+    <!-- UI component references -->
+    <script src="js/components/webview.js"></script>
+    <script src="js/components/address-bar.js"></script>
+    <script src="js/components/navigation.js"></script>
+    <script src="js/components/favorites.js"></script>
+    <script src="js/components/settings.js"></script>
+    <script src="js/components/title-bar.js"></script>
 </head>
 <body>
     <div id="browser" class="perspective effect-moveleft">
@@ -20,14 +30,14 @@
                     <button id="forwardButton" class="navButton forwardButton">
                         <span class="buttonLabel">Forward</span>
                     </button>
+                    <button id="stopButton" class="navButton stopButton">
+                        <span class="buttonLabel">Stop</span>
+                    </button>
                     <input id="urlInput" type="text" class="win-textbox" />
                     <label class="icon" for="urlInput">
                         <span class="ring"></span>
                         <img id="favicon" src="" />
                     </label>
-                    <button id="stopButton" class="navButton stopButton">
-                        <span class="buttonLabel">Stop</span>
-                    </button>
                     <button id="favButton" class="navButton favButton">
                         <span class="buttonLabel">Favorites</span>
                     </button>

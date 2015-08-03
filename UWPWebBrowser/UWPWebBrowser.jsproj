@@ -59,7 +59,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="css\default.css" />
+    <Content Include="css\browser.css" />
     <Content Include="css\page.css" />
     <Content Include="default.html" />
     <Content Include="images\arrow.svg" />
@@ -76,8 +76,14 @@
     <Content Include="images\storelogo.scale-100.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="js\AddWebAllowedObject.js" />
-    <Content Include="js\appBarColor.js" />
-    <Content Include="js\default.js" />
+    <Content Include="js\components\address-bar.js" />
+    <Content Include="js\browser.js" />
+    <Content Include="js\components\favorites.js" />
+    <Content Include="js\components\navigation.js" />
+    <Content Include="js\components\settings.js" />
+    <Content Include="js\components\title-bar.js" />
+    <Content Include="js\components\webview.js" />
+    <Content Include="js\jquery.js" />
     <Content Include="js\page.js" />
     <Content Include="pages\page.html" />
     <None Include="UWPWebBrowser_TemporaryKey.pfx" />
