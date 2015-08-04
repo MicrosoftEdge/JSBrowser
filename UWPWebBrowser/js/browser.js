@@ -1,16 +1,52 @@
 ﻿(function () {
     "use strict";
 
+    // Constructor
     function Browser() {
-        var result = $(this);
-        result.favorites = new Map;
-        result.documentTitle = "";
-        result.currentUrl = "";
-        result.loading = false;
-        result.roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
-
-        return result;
+        this._events = [];
+        this.favorites = new Map;
+        this.documentTitle = "";
+        this.currentUrl = "";
+        this.loading = false;
+        this.roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
     }
+
+    // Simple event management - listen for a particular event
+    Browser.prototype.on = function (type, listener) {
+        var listeners = this._events[type] || (this._events[type] = []);
+
+        if (listeners.indexOf(listener) < 0) {
+            listeners.push(listener);
+        }
+
+        return this;
+    };
+
+    // Simple event management - stop listening for a particular event
+    Browser.prototype.off = function (type, listener) {
+        var listeners = this._events[type],
+            index = listeners ? listeners.indexOf(listener) : -1;
+
+        if (index > -1) {
+            listeners.splice(index, 1);
+        }
+
+        return this;
+    };
+
+    // Simple event management - trigger a particular event
+    Browser.prototype.trigger = function (type) {
+        var event = { "type": type },
+            listeners = this._events[type],
+            index = -1,
+            length = listeners ? listeners.length : 0;
+
+        while (++index < length) {
+            listeners[index](event);
+        }
+
+        return this;
+    };
 
     var browser = new Browser();
 
@@ -53,6 +89,7 @@
             this.togglePerspective();
             setTimeout(function () {
                 this.togglePerspectiveAnimation();
+
                 // Adjust AppBar colors to match new background color
                 this.setOpenMenuAppBarColors();
             }.bind(this), 25);
@@ -81,7 +118,8 @@
             browser.closeMenu();
         });
 
-        browser.trigger('init');
+        // Fire event
+        browser.trigger("init");
     });
 
     addEventListener("load", function () {
