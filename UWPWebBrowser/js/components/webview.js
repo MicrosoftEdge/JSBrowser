@@ -14,7 +14,7 @@
         this.showProgressRing(true);
 
         // Show the stop button
-        this.toggleStopRefresh();
+        this.showStop();
 
         // If local protocol, inject custom WinRT component (for demo purposes only)
         var protocol = this.currentUrl.split(":");
@@ -35,7 +35,7 @@
         this.documentTitle = this.webview.documentTitle;
 
         // Show the refresh button
-        this.toggleStopRefresh();
+        this.showRefresh();
 
         // Update the navigation state
         this.updateNavState();

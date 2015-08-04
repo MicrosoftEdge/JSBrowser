@@ -1,11 +1,18 @@
 ﻿browser.on("init", function () {
     "use strict";
 
-    // Show either the stop button or refresh button
-    browser.toggleStopRefresh = function () {
-        this.stopButton.classList.toggle("stopButton");
-        this.stopButton.classList.toggle("refreshButton");
-        this.stopButton.querySelector(".buttonLabel").textContent = this.stopButton.classList.contains("stopButton") ? "Stop" : "Refresh";
+    // Show the stop button
+    browser.showStop = function () {
+        this.stopButton.classList.add("stopButton");
+        this.stopButton.classList.remove("refreshButton");
+        this.stopButton.querySelector(".buttonLabel").textContent = "Stop";
+    };
+
+    // Show the refresh button
+    browser.showRefresh = function () {
+        this.stopButton.classList.remove("stopButton");
+        this.stopButton.classList.add("refreshButton");
+        this.stopButton.querySelector(".buttonLabel").textContent = "Refresh";
     };
 
     // Update the navigation state
@@ -18,6 +25,8 @@
     browser.stopButton.addEventListener("click", function () {
         if (this.loading) {
             this.webview.stop();
+            this.showProgressRing(false);
+            this.showRefresh();
         }
         else {
             this.webview.refresh();

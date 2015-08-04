@@ -47,7 +47,7 @@
                     // Asynchronously check for a favicon in the web page markup
                     console.log("Favicon not found in root. Checking the markup...");
                     var script = "(function () {var n = document.getElementsByTagName('link'); for (var i = 0; i < n.length; i++) { if (n[i].getAttribute('rel').includes('icon')) { return n[i].href; }}})();";
-                    var asyncOp = webview.invokeScriptAsync("eval", script);
+                    var asyncOp = browser.webview.invokeScriptAsync("eval", script);
                     asyncOp.oncomplete = function (e) {
                         var path = e.target.result;
                         console.log("Found favicon in markup:", path);
