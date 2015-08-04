@@ -6,7 +6,7 @@
         result.favorites = new Map;
         result.documentTitle = "";
         result.currentUrl = "";
-        result.loading = true; /**** CHANGE TO FALSE *****/
+        result.loading = false;
         result.roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
 
         return result;
