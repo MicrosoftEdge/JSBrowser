@@ -8,7 +8,7 @@
     var white = hexStrToRGBA('#FFF');
     var gray = hexStrToRGBA('#666');
 
-    // Set the AppBar colors when a menu is open
+    // Set the title bar colors when a menu is open
     browser.setOpenMenuAppBarColors = function () {
         // Detect if the Windows namespace exists in the global object
         if (typeof Windows !== 'undefined' &&
@@ -38,7 +38,7 @@
         }
     };
 
-    // Set the default AppBar colors
+    // Set the default title bar colors
     browser.setDefaultAppBarColors = function () {
         // Detect if the Windows namespace exists in the global object
         if (typeof Windows !== 'undefined' &&

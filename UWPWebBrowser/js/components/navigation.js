@@ -1,7 +1,7 @@
 ﻿browser.on("init", function () {
     "use strict";
 
-    // Show either the Stop button or Refresh button
+    // Show either the stop button or refresh button
     browser.toggleStopRefresh = function () {
         this.stopButton.classList.toggle("stopButton");
         this.stopButton.classList.toggle("refreshButton");

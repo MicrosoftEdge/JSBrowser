@@ -47,11 +47,6 @@
     browser.webview.addEventListener("MSWebViewNewWindowRequested", newWindowRequested);
     browser.webview.addEventListener("MSWebViewPermissionRequested", permissionRequested);
 
-    // Listen for a change in data
-    function dataChangedHandler (e) {
-        // Refresh the data
-    }
-
     // Listen for unviewable content
     function unviewableContent (e) {
         console.error("Unviewable content:", e.toString());

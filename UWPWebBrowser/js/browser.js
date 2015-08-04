@@ -68,10 +68,10 @@
                     this.scrollFavoritesToTop();
                     this.showSettingsMenu(true);
                 }.bind(this);
-
                 this.element.addEventListener("transitionend", onTransitionEnd);
                 this.togglePerspectiveAnimation();
-                // Reset the AppBar colors to the default
+
+                // Reset the title bar colors
                 this.setDefaultAppBarColors();
             }
         };
@@ -87,7 +87,6 @@
     addEventListener("load", function () {
         // Refresh the data
         browser.readFavorites();
-        // browser.applicationCache.addEventListener("datachanged", dataChangedHandler);
 
         // Brand the title bar
         browser.setDefaultAppBarColors();
