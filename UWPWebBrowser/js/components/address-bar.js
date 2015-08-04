@@ -1,6 +1,8 @@
 ﻿browser.on("init", function () {
     "use strict";
 
+    var tweet = document.getElementById("tweet");
+
     // Navigate to the specified URL
     browser.navigateTo = function (loc) {
         try {
@@ -66,6 +68,20 @@
     browser.hideFavicon = function () {
         this.favicon.src = "";
     };
+
+    // Listen for the tweet button
+    tweet.addEventListener("click", function () {
+        var path = "https://twitter.com/intent/tweet";
+        var tags = ["UWPWebBrowser"];
+        var url = encodeURIComponent("https://github.com/MicrosoftEdge/UAPWebBrowser");
+        var domain = browser.currentUrl ? browser.currentUrl.match(/:\/\/([^\/]+)/)[1] : "microsoft.com";
+        var pair = domain.split(".");
+        if (pair.length > 1 && pair[0] === "www") {
+            domain = pair.slice(1).join(".");
+        }
+        var text = "I visited " + domain + " in a browser built with HTML and JavaScript. Find out more here:";
+        browser.navigateTo(path + "?hashtags=" + tags.join() + "&text=" + text + "&url=" + url);
+    });
 
     // Listen for the Enter key in the address bar to navigate to the specified URL
     browser.urlInput.addEventListener("keypress", function (e) {

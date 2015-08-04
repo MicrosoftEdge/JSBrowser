@@ -5,14 +5,14 @@
     browser.showStop = function () {
         this.stopButton.classList.add("stopButton");
         this.stopButton.classList.remove("refreshButton");
-        this.stopButton.querySelector(".buttonLabel").textContent = "Stop";
+        browser.stopButton.title = "Stop loading";
     };
 
     // Show the refresh button
     browser.showRefresh = function () {
         this.stopButton.classList.remove("stopButton");
         this.stopButton.classList.add("refreshButton");
-        this.stopButton.querySelector(".buttonLabel").textContent = "Refresh";
+        browser.stopButton.title = "Refresh the page";
     };
 
     // Update the navigation state

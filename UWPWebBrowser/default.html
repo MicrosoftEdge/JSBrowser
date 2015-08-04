@@ -21,26 +21,17 @@
         <div class="container">
             <div class="wrapper">
                 <div id="navbar" class="navbar">
-                    <button id="backButton" class="navButton backButton">
-                        <span class="buttonLabel">Back</span>
-                    </button>
-                    <button id="forwardButton" class="navButton forwardButton">
-                        <span class="buttonLabel">Forward</span>
-                    </button>
-                    <button id="stopButton" class="navButton stopButton">
-                        <span class="buttonLabel">Stop</span>
-                    </button>
-                    <input id="urlInput" type="text" class="win-textbox" />
+                    <button id="backButton" class="navButton backButton" title="Go back"></button>
+                    <button id="forwardButton" class="navButton forwardButton" title="Go forward"></button>
+                    <button id="stopButton" class="navButton stopButton" title="Stop loading"></button>
                     <label class="icon" for="urlInput">
                         <span class="ring"></span>
                         <img id="favicon" src="" />
                     </label>
-                    <button id="favButton" class="navButton favButton">
-                        <span class="buttonLabel">Favorites</span>
-                    </button>
-                    <button id="settingsButton" class="navButton settingsButton">
-                        <span class="buttonLabel">Settings</span>
-                    </button>
+                    <div id="tweet" title="Tweet about this browser"></div>
+                    <input id="urlInput" type="text" class="win-textbox" />
+                    <button id="favButton" class="navButton favButton" title="View favorites"></button>
+                    <button id="settingsButton" class="navButton settingsButton" title="View settings"></button>
                 </div>
                 <x-ms-webview id="WebView" src="http://microsoft.com"></x-ms-webview>
             </div>
