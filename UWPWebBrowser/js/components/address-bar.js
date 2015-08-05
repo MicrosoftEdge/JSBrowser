@@ -56,9 +56,9 @@
     this.showProgressRing = (shown) => void (document.querySelector(".ring").style.display = shown ? "inline-block" : "none");
 
     // Show the favicon if available
-    this.getFavicon = (e) => {
+    this.getFavicon = (uri) => {
         // Check if there is a favicon in the root directory
-        let currentUrl = e.uri;
+        let currentUrl = uri;
         let protocol = currentUrl.split(":");
         if (protocol[0].slice(0, 4) !== "http") {
             return;

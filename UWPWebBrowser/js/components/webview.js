@@ -28,7 +28,7 @@
     this.webview.addEventListener("MSWebViewNavigationCompleted", (e) => {
         this.loading = false;
         this.showProgressRing(false);
-        this.getFavicon(e);
+        this.getFavicon(e.uri);
 
         // Update the page title
         this.documentTitle = this.webview.documentTitle;
