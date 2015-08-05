@@ -1,11 +1,7 @@
-﻿
-function ready() {
-    var webview = document.getElementById("WebView");
-    var communicationWinRT = new ToastWinRT.ToastClass();
-
-    webview.addEventListener("MSWebViewNavigationStarting", navigationStart);
-    webview.addWebAllowedObject("CommunicatorWinRT", communicationWinRT);
+﻿document.addEventListener("DOMContentLoaded", () => {
+    "use strict";
+    
+    let webview = document.querySelector("#WebView");
+    webview.addWebAllowedObject("CommunicatorWinRT", new ToastWinRT.ToastClass);
     webview.navigate("ms-appx-web:///pages/page.html");
-}
-
-document.addEventListener("DOMContentLoaded", ready);
+});
