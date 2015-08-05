@@ -17,34 +17,38 @@
         this.roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
     }
 
-    // Simple event management - listen for a particular event
-    Browser.prototype.on = function (type, listener) {
-        let listeners = this[EVENT_SYM][type] || (this[EVENT_SYM][type] = []);
+    Browser.prototype = {
+        constructor: Browser,
 
-        if (listeners.indexOf(listener) < 0) {
-            listeners.push(listener);
+        // Simple event management - listen for a particular event
+        on (type, listener) {
+            let listeners = this[EVENT_SYM][type] || (this[EVENT_SYM][type] = []);
+
+            if (listeners.indexOf(listener) < 0) {
+                listeners.push(listener);
+            }
+            return this;
+        },
+
+        // Simple event management - stop listening for a particular event
+        off (type, listener) {
+            let listeners = this[EVENT_SYM][type],
+                index = listeners ? listeners.indexOf(listener) : -1;
+
+            if (index > -1) {
+                listeners.splice(index, 1);
+            }
+            return this;
+        },
+
+        // Simple event management - trigger a particular event
+        trigger (type) {
+            let event = { type };
+            let listeners = this[EVENT_SYM][type] || [];
+
+            listeners.forEach((listener) => listener.call(this, event));
+            return this;
         }
-        return this;
-    };
-
-    // Simple event management - stop listening for a particular event
-    Browser.prototype.off = function (type, listener) {
-        let listeners = this[EVENT_SYM][type],
-            index = listeners ? listeners.indexOf(listener) : -1;
-
-        if (index > -1) {
-            listeners.splice(index, 1);
-        }
-        return this;
-    };
-
-    // Simple event management - trigger a particular event
-    Browser.prototype.trigger = function (type) {
-        let event = { type };
-        let listeners = this[EVENT_SYM][type] || [];
-
-        listeners.forEach((listener) => listener.call(this, event));
-        return this;
     };
 
     let browser = new Browser;
