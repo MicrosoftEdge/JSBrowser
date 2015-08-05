@@ -2,7 +2,7 @@
     "use strict";
 
     // Show or hide the settings menu
-    this.showSettingsMenu = (shown) => void (this.settingsMenu.style.display = shown ? "block" : "none");
+    this.showSettingsMenu = shown => void (this.settingsMenu.style.display = shown ? "block" : "none");
 
     // Clear the cache of temporary web data
     this.clearCache = function () {
@@ -11,9 +11,7 @@
             console.log("Temporary web data cleared successfully");
             this.webview.refresh();
         };
-        op.onerror = function (e) {
-            console.error(`${e.message}\nUnable to clear web data`);
-        };
+        op.onerror = e => console.error(`${e.message}\nUnable to clear web data`);
         op.start();
     };
 

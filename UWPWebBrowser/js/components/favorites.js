@@ -53,7 +53,7 @@
     };
 
     // Show or hide the favorites menu
-    this.showFavMenu = (shown) => void (this.favMenu.style.display = shown ? "block" : "none");
+    this.showFavMenu = shown => void (this.favMenu.style.display = shown ? "block" : "none");
 
     // Scroll the favorites list to the top
     this.scrollFavoritesToTop = () => void (this.favList.scrollTop = 0);
