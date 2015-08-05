@@ -40,7 +40,7 @@
 
     // Simple event management - trigger a particular event
     Browser.prototype.trigger = function (type) {
-        let event = { "type": type };
+        let event = { type };
         let listeners = this[EVENT_SYM][type] || [];
 
         listeners.forEach((listener) => listener.call(this, event));
