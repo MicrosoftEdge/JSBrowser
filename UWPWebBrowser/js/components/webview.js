@@ -40,8 +40,6 @@
         this.updateNavState();
     });
 
-    // Listen for any miscellaneous events
-
     // Listen for unviewable content
     this.webview.addEventListener("MSWebViewUnviewableContentIdentified", (e) => {
         console.error(`Unviewable content: ${e.message}`);

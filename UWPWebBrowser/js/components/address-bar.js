@@ -14,6 +14,19 @@
         }
     }
 
+    // Get the domain
+    function getDomain(url, removeWWW) {
+        var domain = url.match(/:\/\/([^\/]+)/)[1];
+        // Remove `www` subdomain
+        if (removeWWW) {
+            let pair = domain.split(".");
+            if (pair.length > 1 && pair[0] === "www") {
+                domain = pair.slice(1).join(".");
+            }
+        }
+        return domain;
+    }
+
     // Navigate to the specified URL
     this.navigateTo = (loc) => {
         try {
@@ -50,11 +63,11 @@
         if (protocol[0].slice(0, 4) !== "http") {
             return;
         }
-        let host = currentUrl.match(/:\/\/([^\/]+)/);
+        let host = getDomain(currentUrl);
         if (host === null) {
             return;
         }
-        let ico = `${protocol[0]}://${host[1]}/favicon.ico`;
+        let ico = `${protocol[0]}://${host}/favicon.ico`;
         if (fileExists(ico)) {
             console.log(`Favicon found: ${ico}`);
             this.favicon.src = ico;
@@ -63,7 +76,7 @@
             console.log("Favicon not found in root. Checking the markup...");
 
             // Asynchronously check for a favicon in the web page markup
-            let script = "Object.create(Array.from(document.getElementsByTagName('link')).find((link) => link.rel.includes('icon')) || null).ref";
+            let script = "Object.create(Array.from(document.getElementsByTagName('link')).find((link) => link.rel.includes('icon')) || null).href";
             let asyncOp = this.webview.invokeScriptAsync("eval", script);
 
             asyncOp.oncomplete = (e) => {
@@ -72,7 +85,7 @@
                 this.favicon.src = path || "";
             };
             asyncOp.onerror = (e) => {
-                console.error(e, "Unable to find favicon in markup");
+                console.error(`${e.message} Unable to find favicon in markup`);
             };
             asyncOp.start();
         }
@@ -88,13 +101,7 @@
         let path = "https://twitter.com/intent/tweet";
         let tags = ["UWPWebBrowser"];
         let url = encodeURIComponent("https://github.com/MicrosoftEdge/UAPWebBrowser");
-        let domain = this.currentUrl ? this.currentUrl.match(/:\/\/([^\/]+)/)[1] : "microsoft.com";
-
-        // Remove `www` subdomain
-        let pair = domain.split(".");
-        if (pair.length > 1 && pair[0] === "www") {
-            domain = pair.slice(1).join(".");
-        }
+        let domain = this.currentUrl ? getDomain(this.currentUrl, true) : "microsoft.com";
         let text = `I visited ${domain} in a browser built with HTML and JavaScript. Find out more here:`;
         this.navigateTo(`${path}?hashtags=${tags.join()}&text=${text}&url=${url}`);
     });
