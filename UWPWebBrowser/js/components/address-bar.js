@@ -10,38 +10,61 @@
             return http.status !== 404;
         }
         catch (e) {
-            console.error(`Unsuccessful XMLHttpRequest: ${e.toString()}`);
+            console.error(`Unsuccessful XMLHttpRequest: ${e.message}`);
         }
     }
 
     // Get the domain
     function getDomain(url, removeWWW) {
-        var domain = url.match(/:\/\/([^\/]+)/)[1];
-        // Remove `www` subdomain
-        if (removeWWW) {
-            let pair = domain.split(".");
-            if (pair.length > 1 && pair[0] === "www") {
-                domain = pair.slice(1).join(".");
-            }
+        let uri = new Windows.Foundation.Uri(url);
+        return removeWWW ? uri.domain : uri.host;
+    }
+
+    // Attempt a function
+    function attempt(func) {
+        try {
+            return func();
         }
-        return domain;
+        catch (e) {
+            return e;
+        }
     }
 
     // Navigate to the specified URL
     this.navigateTo = (loc) => {
-        try {
-            this.webview.navigate(loc);
+        let result = attempt(() => this.webview.navigate(loc));
+        if (!(result instanceof Error)) {
+            return;
         }
-        catch (e) {
-            // Auto-add a protocol for convenience
-            console.log(`Unable to navigate to ${loc}\nAttemping to prepend http:// to URI...`);
 
-            try {
-                loc = `http://${loc}`;
-                this.webview.navigate(loc);
+        console.log(`Unable to navigate to ${loc}\nAttemping to prepend http:// to URI...`);
+        let locProtocol = `https://${loc}`;
+        result = attempt(() => new Windows.Foundation.Uri(locProtocol));
+
+        if (result instanceof Error || !result.domain) {
+            console.log(`${result.message}\nPrepend unsuccessful\nQuerying bing.com... "${loc}"`);
+            let bingPath = `https://www.bing.com/search?q=${encodeURIComponent(loc)}`;
+
+            result = attempt(() => this.webview.navigate(bingPath));
+            if (result instanceof Error) {
+                console.error(`${result.message}\nUnable to navigate to ${bingPath}`);
             }
-            catch (e) {
-                console.error(`${e.message}\nPrepend unsuccessful\nUnable to navigate to ${loc}`);
+        }
+        else {
+            // Check if the site supports https
+            Windows.Web.Http.HttpClient().getAsync(result, Windows.Web.Http.HttpCompletionOption.responseHeadersRead).done(
+                () => {
+                    // The site supports https, navigate using that protocol
+                    result = attempt(() => this.webview.navigate(locProtocol));
+                    if (result instanceof Error) {
+                        console.error(`${result.message}\nUnable to navigate to ${locProtocol}`);
+                    }
+                }
+            );
+            // Get a head start on loading via http
+            result = attempt(() => this.webview.navigate(`http://${loc}`));
+            if (result instanceof Error) {
+                console.error(`${result.message}\nUnable to navigate to http://${loc}`);
             }
         }
     };
