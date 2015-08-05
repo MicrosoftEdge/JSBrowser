@@ -1,25 +1,6 @@
 ﻿browser.on("init", function () {
     "use strict";
 
-    // Check if a file exists at the specified URL
-    function fileExists(url) {
-        let http = new XMLHttpRequest;
-        try {
-            http.open("HEAD", url, false);
-            http.send();
-            return http.status !== 404;
-        }
-        catch (e) {
-            console.error(`Unsuccessful XMLHttpRequest: ${e.message}`);
-        }
-    }
-
-    // Get the domain
-    function getDomain(url, removeWWW) {
-        let uri = new Windows.Foundation.Uri(url);
-        return removeWWW ? uri.domain : uri.host;
-    }
-
     // Attempt a function
     function attempt(func) {
         try {
@@ -30,42 +11,59 @@
         }
     }
 
-    // Navigate to the specified URL
+    // Check if a file exists at the specified URL
+    function fileExists(url) {
+        return new Promise(resolve =>
+            Windows.Web.Http.HttpClient()
+                .getAsync(
+                    Windows.Foundation.Uri(url),
+                    Windows.Web.Http.HttpCompletionOption.responseHeadersRead
+                )
+                .done(() => resolve(true), () => resolve(false))
+        );
+    }
+
+    // Get the domain
+    function getDomain(url, removeWWW) {
+        let uriObj = Windows.Foundation.Uri(url);
+        return removeWWW ? uriObj.domain : uriObj.host;
+    }
+
+    // Navigate to the specified absolute URL
+    function navigate(webview, url, silent) {
+        let resp = attempt(() => webview.navigate(url));
+        let isErr = resp instanceof Error;
+
+        if (!silent && isErr) {
+            console.error(`${resp.message}\nUnable to navigate to ${url}`);
+        }
+        return !isErr;
+    }
+
+    // Navigate to the specified location
     this.navigateTo = (loc) => {
-        let result = attempt(() => this.webview.navigate(loc));
-        if (!(result instanceof Error)) {
+        let bingPath = `https://www.bing.com/search?q=${encodeURIComponent(loc)}`;
+        let locProtocol = `https://${loc}`;
+
+        if (navigate(this.webview, loc, true)) {
             return;
         }
+        console.log(`Unable to navigate to ${loc}\nAttemping to prepend http(s):// to URI...`);
 
-        console.log(`Unable to navigate to ${loc}\nAttemping to prepend http:// to URI...`);
-        let locProtocol = `https://${loc}`;
-        result = attempt(() => new Windows.Foundation.Uri(locProtocol));
+        let uriObj = attempt(() => new Windows.Foundation.Uri(locProtocol));
+        let isErr = uriObj instanceof Error;
 
-        if (result instanceof Error || !result.domain) {
-            console.log(`${result.message}\nPrepend unsuccessful\nQuerying bing.com... "${loc}"`);
-            let bingPath = `https://www.bing.com/search?q=${encodeURIComponent(loc)}`;
-
-            result = attempt(() => this.webview.navigate(bingPath));
-            if (result instanceof Error) {
-                console.error(`${result.message}\nUnable to navigate to ${bingPath}`);
-            }
+        if (isErr || !uriObj.domain) {
+            let message = isErr ? (uriObj.message + "\n") : "";
+            console.log(`${message}Prepend unsuccessful\nQuerying bing.com... "${loc}"`);
+            navigate(this.webview, bingPath);
         }
         else {
             // Check if the site supports https
-            Windows.Web.Http.HttpClient().getAsync(result, Windows.Web.Http.HttpCompletionOption.responseHeadersRead).done(
-                () => {
-                    // The site supports https, navigate using that protocol
-                    result = attempt(() => this.webview.navigate(locProtocol));
-                    if (result instanceof Error) {
-                        console.error(`${result.message}\nUnable to navigate to ${locProtocol}`);
-                    }
-                }
-            );
+            fileExists(locProtocol).then(exists => exists && navigate(this.webview, locProtocol));
+
             // Get a head start on loading via http
-            result = attempt(() => this.webview.navigate(`http://${loc}`));
-            if (result instanceof Error) {
-                console.error(`${result.message}\nUnable to navigate to http://${loc}`);
-            }
+            navigate(this.webview, `http://${loc}`);
         }
     };
 
@@ -81,21 +79,21 @@
     // Show the favicon if available
     this.getFavicon = (uri) => {
         // Check if there is a favicon in the root directory
-        let currentUrl = uri;
-        let protocol = currentUrl.split(":");
-        if (protocol[0].slice(0, 4) !== "http") {
+        let protocol = uri.split(":")[0];
+        if (protocol.slice(0, 4) !== "http") {
             return;
         }
-        let host = getDomain(currentUrl);
+        let host = getDomain(uri);
         if (host === null) {
             return;
         }
-        let ico = `${protocol[0]}://${host}/favicon.ico`;
-        if (fileExists(ico)) {
-            console.log(`Favicon found: ${ico}`);
-            this.favicon.src = ico;
-        }
-        else {
+        let ico = `${protocol}://${host}/favicon.ico`;
+        fileExists(ico).then(exists => {
+            if (exists) {
+                console.log(`Favicon found: ${ico}`);
+                this.favicon.src = ico;
+                return;
+            }
             console.log("Favicon not found in root. Checking the markup...");
 
             // Asynchronously check for a favicon in the web page markup
@@ -111,7 +109,7 @@
                 console.error(`${e.message} Unable to find favicon in markup`);
             };
             asyncOp.start();
-        }
+        });
     };
 
     // Hide the favicon
