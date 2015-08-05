@@ -19,7 +19,7 @@
                     Windows.Foundation.Uri(url),
                     Windows.Web.Http.HttpCompletionOption.responseHeadersRead
                 )
-                .done(() => resolve(true), () => resolve(false))
+                .done(e => resolve(e.isSuccessStatusCode), () => resolve(false))
         );
     }
 
