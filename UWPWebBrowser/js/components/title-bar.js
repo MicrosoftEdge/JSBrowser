@@ -113,6 +113,6 @@
         appTitleBar.buttonPressedBackgroundColor = BRAND;
     };
 
-    // BRAND the title bar
+    // Brand the title bar
     this.setDefaultAppBarColors();
 });
