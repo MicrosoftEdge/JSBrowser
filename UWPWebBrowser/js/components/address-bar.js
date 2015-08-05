@@ -76,7 +76,7 @@
             console.log("Favicon not found in root. Checking the markup...");
 
             // Asynchronously check for a favicon in the web page markup
-            let script = "(() => Object(Array.from(document.getElementsByTagName('link')).find((link) => link.rel.includes('icon'))).href)()";
+            let script = "Object(Array.from(document.getElementsByTagName('link')).find((link) => link.rel.includes('icon'))).href";
             let asyncOp = this.webview.invokeScriptAsync("eval", script);
 
             asyncOp.oncomplete = (e) => {
