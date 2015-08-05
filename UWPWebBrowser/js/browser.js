@@ -9,7 +9,7 @@
 
     // Browser constructor
     function Browser() {
-        this[EVENT_SYM] = [];
+        this[EVENT_SYM] = {};
         this.currentUrl = "";
         this.documentTitle = "";
         this.favorites = new Map;
@@ -79,7 +79,7 @@
         this.togglePerspectiveAnimation = () => void this.element.classList.toggle("animate");
 
         // Open the menu
-        this.openMenu = (e) => {
+        this.openMenu = e => {
             e.stopPropagation();
             e.preventDefault();
 

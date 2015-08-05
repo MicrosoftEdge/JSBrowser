@@ -102,12 +102,12 @@
             let script = "Object(Array.from(document.getElementsByTagName('link')).find((link) => link.rel.includes('icon'))).href";
             let asyncOp = this.webview.invokeScriptAsync("eval", script);
 
-            asyncOp.oncomplete = (e) => {
+            asyncOp.oncomplete = e => {
                 let path = e.target.result;
                 console.log(`Found favicon in markup: ${path}`);
                 this.favicon.src = path || "";
             };
-            asyncOp.onerror = (e) => {
+            asyncOp.onerror = e => {
                 console.error(`${e.message} Unable to find favicon in markup`);
             };
             asyncOp.start();
@@ -130,7 +130,7 @@
     });
 
     // Listen for the Enter key in the address bar to navigate to the specified URL
-    this.urlInput.addEventListener("keypress", (e) => {
+    this.urlInput.addEventListener("keypress", e => {
         if (e.keyCode === 13) {
             this.navigateTo(urlInput.value);
         }
@@ -138,7 +138,7 @@
 
     // Listen for focus on the address bar to auto-select the text
     // Use `setTimeout` to prevent the text from being immediately unselected
-    this.urlInput.addEventListener("focus", (e) => setTimeout(() => e.target.select(), 10));
+    this.urlInput.addEventListener("focus", e => setTimeout(() => e.target.select(), 10));
 
     // Listen for the loss of focus on the address bar to unselect the text
     this.urlInput.addEventListener("blur", () => getSelection().removeAllRanges());

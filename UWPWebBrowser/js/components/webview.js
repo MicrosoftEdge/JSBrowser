@@ -2,7 +2,7 @@
     "use strict";
 
     // Listen for the navigation start
-    this.webview.addEventListener("MSWebViewNavigationStarting", (e) => {
+    this.webview.addEventListener("MSWebViewNavigationStarting", e => {
         this.loading = true;
 
         // Update the address bar
@@ -25,7 +25,7 @@
     });
 
     // Listen for the navigation completion
-    this.webview.addEventListener("MSWebViewNavigationCompleted", (e) => {
+    this.webview.addEventListener("MSWebViewNavigationCompleted", e => {
         this.loading = false;
         this.showProgressRing(false);
         this.getFavicon(e.uri);
@@ -41,8 +41,8 @@
     });
 
     // Listen for unviewable content
-    this.webview.addEventListener("MSWebViewUnviewableContentIdentified", (e) => {
-        console.error(`Unviewable content: ${e.message}`);
+    this.webview.addEventListener("MSWebViewUnviewableContentIdentified", e => {
+        console.error("Unviewable content:", e);
         if (e.mediaType === "application/pdf") {
             Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(e.uri));
         }
@@ -50,17 +50,17 @@
 
     // Listen for an unsupported URI scheme
     this.webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified",
-        (e) => console.error(`${e.message}\nUnsupported URI scheme:`));
+        e => console.error(`${e.message}\nUnsupported URI scheme:`));
 
     // Listen for a new window
-    this.webview.addEventListener("MSWebViewNewWindowRequested", (e) => {
+    this.webview.addEventListener("MSWebViewNewWindowRequested", e => {
         console.log("New window requested");
         e.preventDefault();
         this.webview.navigate(e.uri);
     });
 
     // Listen for a permission request
-    this.webview.addEventListener("MSWebViewPermissionRequested", (e) => {
+    this.webview.addEventListener("MSWebViewPermissionRequested", e => {
         console.log("Permission requested");
         if (e.permissionRequest.type === 'geolocation') {
             e.permissionRequest.allow();

@@ -48,7 +48,7 @@
                     favEntry.appendChild(alt);
                 });
             },
-            (e) => console.error(`${e.message}\nUnable to get favorites`)
+            e => console.error(`${e.message}\nUnable to get favorites`)
      );
     };
 
@@ -59,7 +59,7 @@
     this.scrollFavoritesToTop = () => void (this.favList.scrollTop = 0);
 
     // Listen for the favorites button to open the favorites menu
-    this.favButton.addEventListener("click", (e) => {
+    this.favButton.addEventListener("click", e => {
         this.showSettingsMenu(false);
         this.openMenu(e);
     });
