@@ -60,7 +60,7 @@
         let protocol = loc.split(":")[0];
 
         // Hide favicon when the host cannot be resolved or the protocol is not http(s)
-        if (protocol.slice(0, 4) !== "http" || !host) {
+        if (!protocol.startsWith("http") || !host) {
             this.faviconLocs.set(oldLoc, "");
             this.hideFavicon();
             return;
