@@ -44,9 +44,11 @@
 
     // Show the favicon if available
     this.getFavicon = loc => {
+        let host = getDomain(loc);
+
         // Exit for cached ico location
-        if (this.faviconLocs.has(loc)) {
-            loc = this.faviconLocs.get(loc);
+        if (this.faviconLocs.has(host)) {
+            loc = this.faviconLocs.get(host);
             if (loc) {
                 this.favicon.src = loc;
             }
@@ -55,13 +57,11 @@
             }
             return;
         }
-        let host = getDomain(loc);
-        let oldLoc = loc;
         let protocol = loc.split(":")[0];
 
         // Hide favicon when the host cannot be resolved or the protocol is not http(s)
         if (!protocol.startsWith("http") || !host) {
-            this.faviconLocs.set(oldLoc, "");
+            this.faviconLocs.set(host, "");
             this.hideFavicon();
             return;
         }
@@ -72,7 +72,7 @@
         fileExists(loc).then(exists => {
             if (exists) {
                 console.log(`Favicon found: ${loc}`);
-                this.faviconLocs.set(oldLoc, loc);
+                this.faviconLocs.set(host, loc);
                 this.favicon.src = loc;
                 return;
             }
@@ -83,7 +83,8 @@
 
             asyncOp.oncomplete = e => {
                 loc = e.target.result || "";
-                this.faviconLocs.set(oldLoc, loc);
+                this.faviconLocs.set(host, loc);
+
                 if (loc) {
                     console.log(`Found favicon in markup: ${loc}`);
                     this.favicon.src = loc;
@@ -94,7 +95,7 @@
             };
             asyncOp.onerror = e => {
                 console.error(`Unable to find favicon in markup: ${e.message}`);
-                this.faviconLocs.set(oldLoc, "");
+                this.faviconLocs.set(host, "");
             };
             asyncOp.start();
         });
