@@ -167,8 +167,8 @@
     this.urlInput.addEventListener("blur", () => getSelection().removeAllRanges());
 
     // Listen for focus on the address bar to auto-select the text
-    // Use `setTimeout` to prevent the text from being immediately unselected
-    this.urlInput.addEventListener("focus", e => setTimeout(() => e.target.select(), 10));
+    // Use `setImmediate` to prevent the text from being immediately unselected
+    this.urlInput.addEventListener("focus", e => setImmediate(() => e.target.select()));
 
     // Listen for the Enter key in the address bar to navigate to the specified URL
     this.urlInput.addEventListener("keypress", e => {

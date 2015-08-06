@@ -116,12 +116,12 @@
 
             this.togglePerspective();
 
-            setTimeout(() => {
+            setImmediate(() => {
                 this.togglePerspectiveAnimation();
 
                 // Adjust AppBar colors to match new background color
                 this.setOpenMenuAppBarColors();
-            }, 25);
+            });
         };
 
         // Apply CSS transitions when opening and closing the menus
