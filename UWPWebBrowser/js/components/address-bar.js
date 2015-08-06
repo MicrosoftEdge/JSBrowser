@@ -37,7 +37,7 @@
         let result = !(resp instanceof Error);
 
         if (!silent && !result) {
-            console.error(`${resp.message}\nUnable to navigate to ${url}`);
+            console.error(`Unable to navigate to ${url}: ${resp.message}`);
         }
         return result;
     }
