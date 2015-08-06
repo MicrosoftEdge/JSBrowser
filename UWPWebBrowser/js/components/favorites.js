@@ -38,9 +38,7 @@
 
                     favEntry.appendChild(alt);
                 });
-            },
-            e => console.error(`Unable to get favorites: ${e.message}`)
-        );
+            });
     };
 
     // Save the list of favorites to file
