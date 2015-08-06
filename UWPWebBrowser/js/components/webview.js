@@ -18,8 +18,8 @@
         this.showStop();
 
         // If local protocol, inject custom WinRT component (for demo purposes only)
-        let protocol = this.currentUrl.split(":");
-        if (protocol[0] === "ms-appx-web") {
+        let protocol = this.currentUrl.split(":")[0];
+        if (protocol === "ms-appx-web") {
             this.webview.addWebAllowedObject("CommunicatorWinRT", new ToastWinRT.ToastClass);
         }
     });
