@@ -1,13 +1,6 @@
 ﻿browser.on("init", function () {
     "use strict";
 
-    // Show the stop button
-    this.showStop = () => {
-        this.stopButton.classList.add("stopButton");
-        this.stopButton.classList.remove("refreshButton");
-        this.stopButton.title = "Stop loading";
-    };
-
     // Show the refresh button
     this.showRefresh = () => {
         this.stopButton.classList.remove("stopButton");
@@ -15,10 +8,11 @@
         this.stopButton.title = "Refresh the page";
     };
 
-    // Update the navigation state
-    this.updateNavState = () => {
-        this.backButton.disabled = !this.webview.canGoBack;
-        this.forwardButton.disabled = !this.webview.canGoForward;
+    // Show the stop button
+    this.showStop = () => {
+        this.stopButton.classList.add("stopButton");
+        this.stopButton.classList.remove("refreshButton");
+        this.stopButton.title = "Stop loading";
     };
 
     // Listen for the stop/refresh button to stop navigation/refresh the page
@@ -32,6 +26,12 @@
             this.webview.refresh();
         }
     });
+
+    // Update the navigation state
+    this.updateNavState = () => {
+        this.backButton.disabled = !this.webview.canGoBack;
+        this.forwardButton.disabled = !this.webview.canGoForward;
+    };
 
     // Listen for the back button to navigate backwards
     this.backButton.addEventListener("click", () => {

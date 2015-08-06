@@ -7,7 +7,7 @@
 
         // Update the address bar
         this.currentUrl = e.uri;
-        this.updateAddressBar();
+        this.updateAddressBar(this.currentUrl);
 
         console.log(`Navigating to ${this.currentUrl}`);
 
@@ -42,7 +42,7 @@
 
     // Listen for unviewable content
     this.webview.addEventListener("MSWebViewUnviewableContentIdentified", e => {
-        console.error("Unviewable content:", e);
+        console.error(`Unviewable content: ${e.message}`);
         if (e.mediaType === "application/pdf") {
             Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(e.uri));
         }
@@ -50,7 +50,7 @@
 
     // Listen for an unsupported URI scheme
     this.webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified",
-        e => console.error(`${e.message}\nUnsupported URI scheme:`));
+        e => console.error(`Unsupported URI scheme: ${e.message}`));
 
     // Listen for a new window
     this.webview.addEventListener("MSWebViewNewWindowRequested", e => {

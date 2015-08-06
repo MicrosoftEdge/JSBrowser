@@ -1,14 +1,6 @@
 ﻿browser.on("init", function () {
     "use strict";
 
-    // Save the list of favorites to file
-    this.saveFavorites = () => {
-        this.roamingFolder
-            .createFileAsync("favorites.json", Windows.Storage.CreationCollisionOption.replaceExisting)
-            .then((favFile) => Windows.Storage.FileIO.writeTextAsync(favFile, JSON.stringify([...this.favorites])))
-            .done(() => this.readFavorites());
-    };
-
     // Retrieve the list of favorites and add them to the UI
     this.readFavorites = () => {
         this.roamingFolder.getFileAsync("favorites.json")
@@ -48,26 +40,34 @@
                     favEntry.appendChild(alt);
                 });
             },
-            e => console.error(`${e.message}\nUnable to get favorites`)
-     );
+            e => console.error(`Unable to get favorites: ${e.message}`)
+        );
     };
 
-    // Show or hide the favorites menu
-    this.showFavMenu = shown => void (this.favMenu.style.display = shown ? "block" : "none");
+    // Save the list of favorites to file
+    this.saveFavorites = () => {
+        this.roamingFolder
+            .createFileAsync("favorites.json", Windows.Storage.CreationCollisionOption.replaceExisting)
+            .then((favFile) => Windows.Storage.FileIO.writeTextAsync(favFile, JSON.stringify([...this.favorites])))
+            .done(() => this.readFavorites());
+    };
 
     // Scroll the favorites list to the top
     this.scrollFavoritesToTop = () => void (this.favList.scrollTop = 0);
 
-    // Listen for the favorites button to open the favorites menu
-    this.favButton.addEventListener("click", e => {
-        this.showSettingsMenu(false);
-        this.openMenu(e);
-    });
+    // Show or hide the favorites menu
+    this.showFavMenu = shown => void (this.favMenu.style.display = shown ? "block" : "none");
 
     // Listen for the add favorite button to save the current page to the list of favorites
     this.addFavButton.addEventListener("click", () => {
         this.favorites.set(this.currentUrl, { "title": this.documentTitle });
         this.saveFavorites();
+    });
+
+    // Listen for the favorites button to open the favorites menu
+    this.favButton.addEventListener("click", e => {
+        this.showSettingsMenu(false);
+        this.openMenu(e);
     });
 
     // Refresh the data

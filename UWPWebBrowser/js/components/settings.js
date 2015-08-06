@@ -13,6 +13,9 @@
         op.start();
     };
 
+    // Show or hide the settings menu
+    this.showSettingsMenu = shown => void (this.settingsMenu.style.display = shown ? "block" : "none");
+
     // Listen for the clear cache button to clear the cache
     this.clearCacheButton.addEventListener("click", () => {
         this.clearCache();
@@ -31,7 +34,4 @@
         this.showFavMenu(false);
         this.openMenu(e);
     });
-
-    // Show or hide the settings menu
-    this.showSettingsMenu = shown => void (this.settingsMenu.style.display = shown ? "block" : "none");
 });
