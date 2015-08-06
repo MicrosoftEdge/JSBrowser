@@ -2,6 +2,7 @@
     "use strict";
 
     const LOC_CACHE = new Map;
+    const URI = Windows.Foundation.Uri;
 
     // Attempt a function
     function attempt(func) {
@@ -17,18 +18,9 @@
     function fileExists(url) {
         return new Promise(resolve =>
             Windows.Web.Http.HttpClient()
-                .getAsync(
-                    Windows.Foundation.Uri(url),
-                    Windows.Web.Http.HttpCompletionOption.responseHeadersRead
-                )
+                .getAsync(new URI(url), Windows.Web.Http.HttpCompletionOption.responseHeadersRead)
                 .done(e => resolve(e.isSuccessStatusCode), () => resolve(false))
         );
-    }
-
-    // Get the domain
-    function getDomain(url, removeWWW) {
-        let uriObj = Windows.Foundation.Uri(url);
-        return removeWWW ? uriObj.domain : uriObj.host;
     }
 
     // Navigate to the specified absolute URL
@@ -44,7 +36,7 @@
 
     // Show the favicon if available
     this.getFavicon = loc => {
-        let host = getDomain(loc);
+        let host = new URI(loc).host;
 
         // Exit for cached ico location
         if (this.faviconLocs.has(host)) {
@@ -118,11 +110,11 @@
 
         console.log(`Unable to navigate to ${loc}\nAttemping to prepend http(s):// to URI...`);
 
-        let uriObj = attempt(() => Windows.Foundation.Uri(locHTTP));
-        let isErr = uriObj instanceof Error;
+        let uri = attempt(() => new URI(locHTTP));
+        let isErr = uri instanceof Error;
 
-        if (isErr || !uriObj.domain) {
-            let message = isErr ? uriObj.message : "";
+        if (isErr || !uri.domain) {
+            let message = isErr ? uri.message : "";
             console.log(`Prepend unsuccessful\nQuerying bing.com... "${loc}": ${message}`);
 
             LOC_CACHE.set(loc, bingLoc);
@@ -163,7 +155,7 @@
 
     // Listen for the tweet button
     this.tweetIcon.addEventListener("click", () => {
-        let domain = this.currentUrl ? getDomain(this.currentUrl, true) : "microsoft.com";
+        let domain = this.currentUrl ? new URI(this.currentUrl).domain : "microsoft.com";
         let path = "https://twitter.com/intent/tweet";
         let tags = ["UWPWebBrowser"];
         let text = `I visited ${domain} in a browser built with HTML and JavaScript. Find out more here:`;

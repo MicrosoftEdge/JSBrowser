@@ -1,6 +1,8 @@
 ﻿browser.on("init", function () {
     "use strict";
 
+    const URI = Windows.Foundation.Uri;
+
     // Listen for the navigation start
     this.webview.addEventListener("MSWebViewNavigationStarting", e => {
         this.loading = true;
@@ -44,12 +46,12 @@
     this.webview.addEventListener("MSWebViewUnviewableContentIdentified", e => {
         console.error(`Unviewable content: ${e.message}`);
         if (e.mediaType === "application/pdf") {
-            Windows.System.Launcher.launchUriAsync(Windows.Foundation.Uri(e.uri));
+            Windows.System.Launcher.launchURIAsync(new URI(e.uri));
         }
     });
 
     // Listen for an unsupported URI scheme
-    this.webview.addEventListener("MSWebViewUnsupportedUriSchemeIdentified",
+    this.webview.addEventListener("MSWebViewUnsupportedURISchemeIdentified",
         e => console.error(`Unsupported URI scheme: ${e.message}`));
 
     // Listen for a new window
