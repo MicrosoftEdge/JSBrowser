@@ -101,7 +101,9 @@
     };
 
     // Hide the favicon
-    this.hideFavicon = () => void (this.favicon.src = "");
+    this.hideFavicon = () => {
+        this.favicon.src = "";
+    };
 
     // Navigate to the specified location
     this.navigateTo = loc => {
@@ -115,7 +117,7 @@
 
         console.log(`Unable to navigate to ${loc}\nAttemping to prepend http(s):// to URI...`);
 
-        let uriObj = attempt(() => new Windows.Foundation.Uri(locHTTP));
+        let uriObj = attempt(() => Windows.Foundation.Uri(locHTTP));
         let isErr = uriObj instanceof Error;
 
         if (isErr || !uriObj.domain) {

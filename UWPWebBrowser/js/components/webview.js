@@ -44,7 +44,7 @@
     this.webview.addEventListener("MSWebViewUnviewableContentIdentified", e => {
         console.error(`Unviewable content: ${e.message}`);
         if (e.mediaType === "application/pdf") {
-            Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(e.uri));
+            Windows.System.Launcher.launchUriAsync(Windows.Foundation.Uri(e.uri));
         }
     });
 
