@@ -78,7 +78,12 @@
         });
 
         this.documentTitle = this.webview.documentTitle;
-        this.titleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
+
+        // Use a proxy to workaround a WinRT issue with Object.assign
+        this.titleBar = new Proxy(Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar, {
+            "get": (target, key) => target[key],
+            "set": (target, key, value) => (target[key] = value, true)
+        });
 
         // Set the initial navigation state
         this.forwardButton.disabled = true;
