@@ -45,13 +45,12 @@
         return colorObject;
     }
 
-
     // Set the title bar colors when a menu is open
     this.setOpenMenuAppBarColors = () => {
         // Detect if the Windows namespace exists in the global object
-        if (!(typeof Windows !== 'undefined' &&
-                 typeof Windows.UI !== 'undefined' &&
-                 typeof Windows.UI.ViewManagement !== 'undefined')) {
+        if (!(typeof Windows !== "undefined" &&
+                 typeof Windows.UI !== "undefined" &&
+                 typeof Windows.UI.ViewManagement !== "undefined")) {
             return;
         }
         // Get a reference to the App Title Bar
@@ -80,9 +79,9 @@
     // Set the default title bar colors
     this.setDefaultAppBarColors = () => {
         // Detect if the Windows namespace exists in the global object
-        if (!(typeof Windows !== 'undefined' &&
-                 typeof Windows.UI !== 'undefined' &&
-                 typeof Windows.UI.ViewManagement !== 'undefined')) {
+        if (!(typeof Windows !== "undefined" &&
+                 typeof Windows.UI !== "undefined" &&
+                 typeof Windows.UI.ViewManagement !== "undefined")) {
             return;
         }
         // Get a reference to the App Title Bar

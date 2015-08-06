@@ -1,4 +1,4 @@
-﻿browser.on("init", function() {
+﻿browser.on("init", function () {
     "use strict";
 
     // Listen for the navigation start
@@ -62,7 +62,7 @@
     // Listen for a permission request
     this.webview.addEventListener("MSWebViewPermissionRequested", e => {
         console.log("Permission requested");
-        if (e.permissionRequest.type === 'geolocation') {
+        if (e.permissionRequest.type === "geolocation") {
             e.permissionRequest.allow();
         }
     }); 

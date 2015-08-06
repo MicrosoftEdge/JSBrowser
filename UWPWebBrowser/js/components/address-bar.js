@@ -43,13 +43,14 @@
     }
 
     // Show the favicon if available
-    this.getFavicon = (loc) => {
+    this.getFavicon = loc => {
         // Exit for cached ico location
         if (this.faviconLocs.has(loc)) {
             loc = this.faviconLocs.get(loc);
             if (loc) {
                 this.favicon.src = loc;
-            } else {
+            }
+            else {
                 this.hideFavicon();
             }
             return;
@@ -58,14 +59,15 @@
         let oldLoc = loc;
         let protocol = loc.split(":")[0];
 
-        loc = `${protocol}://${host}/favicon.ico`;
-
         // Hide favicon when the host cannot be resolved or the protocol is not http(s)
-        if (protocol.slice(0, 4) !== "http" || host === null) {
+        if (protocol.slice(0, 4) !== "http" || !host) {
             this.faviconLocs.set(oldLoc, "");
             this.hideFavicon();
             return;
         }
+        
+        loc = `${protocol}://${host}/favicon.ico`;
+        
         // Check if there is a favicon in the root directory
         fileExists(loc).then(exists => {
             if (exists) {
@@ -76,7 +78,7 @@
             }
             // Asynchronously check for a favicon in the web page markup
             console.log("Favicon not found in root. Checking the markup...");
-            let script = "Object(Array.from(document.getElementsByTagName('link')).find((link) => link.rel.includes('icon'))).href";
+            let script = "Object(Array.from(document.getElementsByTagName('link')).find(link => link.rel.includes('icon'))).href";
             let asyncOp = this.webview.invokeScriptAsync("eval", script);
 
             asyncOp.oncomplete = e => {
@@ -85,7 +87,8 @@
                 if (loc) {
                     console.log(`Found favicon in markup: ${loc}`);
                     this.favicon.src = loc;
-                } else {
+                }
+                else {
                     this.hideFavicon();
                 }
             };
@@ -101,7 +104,7 @@
     this.hideFavicon = () => void (this.favicon.src = "");
 
     // Navigate to the specified location
-    this.navigateTo = (loc) => {
+    this.navigateTo = loc => {
         loc = LOC_CACHE.get(loc) || loc;
         if (navigate(this.webview, loc, true)) {
             return;
@@ -117,7 +120,7 @@
 
         if (isErr || !uriObj.domain) {
             let message = isErr ? uriObj.message : "";
-            console.log(`${message}Prepend unsuccessful\nQuerying bing.com... "${loc}": ${message}`);
+            console.log(`Prepend unsuccessful\nQuerying bing.com... "${loc}": ${message}`);
 
             LOC_CACHE.set(loc, bingLoc);
             navigate(this.webview, bingLoc);
@@ -138,17 +141,17 @@
     };
 
     // Show or hide the progress ring
-    this.showProgressRing = (shown) => void (this.progressRing.style.display = shown ? "inline-block" : "none");
+    this.showProgressRing = shown => void (this.progressRing.style.display = shown ? "inline-block" : "none");
 
     // Update the address bar with the given text and remove focus
-    this.updateAddressBar = (text) => {
+    this.updateAddressBar = text => {
         this.urlInput.value = text;
         this.urlInput.blur();
     };
 
     // Hide favicon when it fails to load
     this.favicon.addEventListener("error", () => {
-        if (!this.favicon.src.startsWith('ms-appx://')) {
+        if (!this.favicon.src.startsWith("ms-appx://")) {
             this.hideFavicon();
         }
     });

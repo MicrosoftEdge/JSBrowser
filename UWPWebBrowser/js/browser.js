@@ -47,7 +47,7 @@
             let event = { type };
             let listeners = this[EVENT_SYM][type] || [];
 
-            listeners.forEach((listener) => listener.call(this, event));
+            listeners.forEach(listener => listener.call(this, event));
             return this;
         }
     };

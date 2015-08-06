@@ -4,18 +4,17 @@
     // Retrieve the list of favorites and add them to the UI
     this.readFavorites = () => {
         this.roamingFolder.getFileAsync("favorites.json")
-            .then((favFile) => Windows.Storage.FileIO.readTextAsync(favFile))
-            .done((favJSON) => {
+            .then(favFile => Windows.Storage.FileIO.readTextAsync(favFile))
+            .done(favJSON => {
                 // Read the list of favorites from file
                 let updatedFavs = favJSON ? JSON.parse(favJSON) : [];
                 let favList = [...document.querySelectorAll("#favMenu .favorite")];
 
                 this.favorites.clear();
-
-                updatedFavs.forEach((pair) => void this.favorites.set(pair[0], pair[1]));
+                updatedFavs.forEach(pair => void this.favorites.set(pair[0], pair[1]));
 
                 // Clear the favorites menu
-                favList.forEach((favNode) => favNode.parentNode.removeChild(favNode));
+                favList.forEach(favNode => favNode.parentNode.removeChild(favNode));
 
                 // Propagate the favorites menu with the new list
                 let i = 1;
@@ -48,7 +47,7 @@
     this.saveFavorites = () => {
         this.roamingFolder
             .createFileAsync("favorites.json", Windows.Storage.CreationCollisionOption.replaceExisting)
-            .then((favFile) => Windows.Storage.FileIO.writeTextAsync(favFile, JSON.stringify([...this.favorites])))
+            .then(favFile => Windows.Storage.FileIO.writeTextAsync(favFile, JSON.stringify([...this.favorites])))
             .done(() => this.readFavorites());
     };
 
