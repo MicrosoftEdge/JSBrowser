@@ -34,16 +34,8 @@
     };
 
     // Listen for the back button to navigate backwards
-    this.backButton.addEventListener("click", () => {
-        if (this.webview.canGoBack) {
-            this.webview.goBack();
-        }
-    });
+    this.backButton.addEventListener("click", () => this.webview.goBack());
 
     // Listen for the forward button to navigate forwards
-    this.forwardButton.addEventListener("click", () => {
-        if (this.webview.canGoForward) {
-            this.webview.goForward();
-        }
-    });
+    this.forwardButton.addEventListener("click", () => this.webview.goForward());
 });
