@@ -141,7 +141,9 @@
     };
 
     // Show or hide the progress ring
-    this.showProgressRing = shown => void (this.progressRing.style.display = shown ? "inline-block" : "none");
+    this.showProgressRing = shown => {
+        this.progressRing.style.display = shown ? "inline-block" : "none";
+    };
 
     // Update the address bar with the given text and remove focus
     this.updateAddressBar = text => {

@@ -120,8 +120,13 @@
         };
 
         // Apply CSS transitions when opening and closing the menus
-        this.togglePerspective = () => void this.element.classList.toggle("modalview");
-        this.togglePerspectiveAnimation = () => void this.element.classList.toggle("animate");
+        this.togglePerspective = () => {
+            this.element.classList.toggle("modalview");
+        };
+
+        this.togglePerspectiveAnimation = () => {
+            this.element.classList.toggle("animate");
+        };
 
         // Listen for a click on the skewed container to close the menu
         this.container.addEventListener("click", () => this.closeMenu());

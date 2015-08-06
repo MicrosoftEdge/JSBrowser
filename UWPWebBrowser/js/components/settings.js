@@ -14,7 +14,9 @@
     };
 
     // Show or hide the settings menu
-    this.showSettingsMenu = shown => void (this.settingsMenu.style.display = shown ? "block" : "none");
+    this.showSettingsMenu = shown => {
+        this.settingsMenu.style.display = shown ? "block" : "none";
+    };
 
     // Listen for the clear cache button to clear the cache
     this.clearCacheButton.addEventListener("click", () => {

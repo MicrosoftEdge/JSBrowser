@@ -11,7 +11,7 @@
                 let favList = [...document.querySelectorAll("#favMenu .favorite")];
 
                 this.favorites.clear();
-                updatedFavs.forEach(pair => void this.favorites.set(pair[0], pair[1]));
+                updatedFavs.forEach(pair => this.favorites.set(pair[0], pair[1]));
 
                 // Clear the favorites menu
                 favList.forEach(favNode => favNode.parentNode.removeChild(favNode));
@@ -52,10 +52,14 @@
     };
 
     // Scroll the favorites list to the top
-    this.scrollFavoritesToTop = () => void (this.favList.scrollTop = 0);
+    this.scrollFavoritesToTop = () => {
+        this.favList.scrollTop = 0;
+    };
 
     // Show or hide the favorites menu
-    this.showFavMenu = shown => void (this.favMenu.style.display = shown ? "block" : "none");
+    this.showFavMenu = shown => {
+        this.favMenu.style.display = shown ? "block" : "none";
+    };
 
     // Listen for the add favorite button to save the current page to the list of favorites
     this.addFavButton.addEventListener("click", () => {
