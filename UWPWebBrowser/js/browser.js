@@ -12,6 +12,7 @@
         this[EVENT_SYM] = {};
         this.currentUrl = "";
         this.documentTitle = "";
+        this.faviconLocs = new Map;
         this.favorites = new Map;
         this.loading = false;
         this.roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
@@ -55,47 +56,30 @@
 
     addEventListener("DOMContentLoaded", function () {
         // Get the UI elements
-        this.element = document.querySelector("#browser");
-        this.webview = document.querySelector("#WebView");
-        this.documentTitle = this.webview.documentTitle;
-        this.stopButton = document.querySelector("#stopButton");
-        this.forwardButton = document.querySelector("#forwardButton");
-        this.backButton = document.querySelector("#backButton");
-        this.favButton = document.querySelector("#favButton");
         this.addFavButton = document.querySelector("#addFavButton");
-        this.clearFavButton = document.querySelector("#clearFavButton");
-        this.settingsButton = document.querySelector("#settingsButton");
+        this.backButton = document.querySelector("#backButton");
         this.clearCacheButton = document.querySelector("#clearCacheButton");
-        this.favMenu = document.querySelector("#favMenu");
-        this.settingsMenu = document.querySelector("#settingsMenu");
-        this.urlInput = document.querySelector("#urlInput");
+        this.clearFavButton = document.querySelector("#clearFavButton");
         this.container = document.querySelector(".container");
-        this.favList = document.querySelector("#favorites");
+        this.element = document.querySelector("#browser");
+        this.favButton = document.querySelector("#favButton");
         this.favicon = document.querySelector("#favicon");
+        this.favList = document.querySelector("#favorites");
+        this.favMenu = document.querySelector("#favMenu");
+        this.forwardButton = document.querySelector("#forwardButton");
+        this.progressRing = document.querySelector(".ring");
+        this.settingsButton = document.querySelector("#settingsButton");
+        this.settingsMenu = document.querySelector("#settingsMenu");
+        this.stopButton = document.querySelector("#stopButton");
+        this.tweetIcon = document.querySelector("#tweet");
+        this.urlInput = document.querySelector("#urlInput");
+        this.webview = document.querySelector("#WebView");
+
+        this.documentTitle = this.webview.documentTitle;
 
         // Set the initial navigation state
         this.forwardButton.disabled = true;
         this.backButton.disabled = true;
-
-        // Apply CSS transitions when opening and closing the menus
-        this.togglePerspective = () => void this.element.classList.toggle("modalview");
-        
-        this.togglePerspectiveAnimation = () => void this.element.classList.toggle("animate");
-
-        // Open the menu
-        this.openMenu = e => {
-            e.stopPropagation();
-            e.preventDefault();
-
-            this.togglePerspective();
-
-            setTimeout(() => {
-                this.togglePerspectiveAnimation();
-
-                // Adjust AppBar colors to match new background color
-                this.setOpenMenuAppBarColors();
-            }, 25);
-        };
 
         // Close the menu
         this.closeMenu = () => {
@@ -116,6 +100,25 @@
             // Reset the title bar colors
             this.setDefaultAppBarColors();
         };
+
+        // Open the menu
+        this.openMenu = e => {
+            e.stopPropagation();
+            e.preventDefault();
+
+            this.togglePerspective();
+
+            setTimeout(() => {
+                this.togglePerspectiveAnimation();
+
+                // Adjust AppBar colors to match new background color
+                this.setOpenMenuAppBarColors();
+            }, 25);
+        };
+
+        // Apply CSS transitions when opening and closing the menus
+        this.togglePerspective = () => void this.element.classList.toggle("modalview");
+        this.togglePerspectiveAnimation = () => void this.element.classList.toggle("animate");
 
         // Listen for a click on the skewed container to close the menu
         this.container.addEventListener("click", () => this.closeMenu());

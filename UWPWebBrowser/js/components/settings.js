@@ -1,25 +1,17 @@
 ﻿browser.on("init", function () {
     "use strict";
 
-    // Show or hide the settings menu
-    this.showSettingsMenu = shown => void (this.settingsMenu.style.display = shown ? "block" : "none");
-
     // Clear the cache of temporary web data
-    this.clearCache = function () {
+    this.clearCache = () => {
         let op = MSApp.clearTemporaryWebDataAsync();
         op.oncomplete = () => {
             console.log("Temporary web data cleared successfully");
+            this.faviconLocs.clear();
             this.webview.refresh();
         };
-        op.onerror = e => console.error(`${e.message}\nUnable to clear web data`);
+        op.onerror = e => console.error(`Unable to clear web data: ${e.message}`);
         op.start();
     };
-
-    // Listen for the settings button to open the settings menu
-    this.settingsButton.addEventListener("click", e => {
-        this.showFavMenu(false);
-        this.openMenu(e);
-    });
 
     // Listen for the clear cache button to clear the cache
     this.clearCacheButton.addEventListener("click", () => {
@@ -33,4 +25,13 @@
         this.saveFavorites();
         this.closeMenu();
     });
+
+    // Listen for the settings button to open the settings menu
+    this.settingsButton.addEventListener("click", e => {
+        this.showFavMenu(false);
+        this.openMenu(e);
+    });
+
+    // Show or hide the settings menu
+    this.showSettingsMenu = shown => void (this.settingsMenu.style.display = shown ? "block" : "none");
 });
