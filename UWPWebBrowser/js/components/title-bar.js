@@ -18,98 +18,88 @@
 
         if (hexStr.length === 6) {
             // No Alpha
-            colorObject.r = parseInt(hexStr.slice(0, 2), 16);
-            colorObject.g = parseInt(hexStr.slice(2, 4), 16);
-            colorObject.b = parseInt(hexStr.slice(4, 6), 16);
-            colorObject.a = parseInt("0xFF", 16);
+            return Object.assign(colorObject, {
+                "r": parseInt(hexStr.slice(0, 2), 16),
+                "g": parseInt(hexStr.slice(2, 4), 16),
+                "b": parseInt(hexStr.slice(4, 6), 16),
+                "a": parseInt("0xFF", 16)
+            });
         }
-        else if (hexStr.length === 8) {
+        if (hexStr.length === 8) {
             // Alpha
-            colorObject.r = parseInt(hexStr.slice(0, 2), 16);
-            colorObject.g = parseInt(hexStr.slice(2, 4), 16);
-            colorObject.b = parseInt(hexStr.slice(4, 6), 16);
-            colorObject.a = parseInt(hexStr.slice(6, 8), 16);
+            return Object.assign(colorObject, {
+                "r": parseInt(hexStr.slice(0, 2), 16),
+                "g": parseInt(hexStr.slice(2, 4), 16),
+                "b": parseInt(hexStr.slice(4, 6), 16),
+                "a": parseInt(hexStr.slice(6, 8), 16)
+            });
         }
-        else if (hexStr.length === 3) {
+        if (hexStr.length === 3) {
             // Shorthand hex color
             let rVal = hexStr.slice(0, 1);
             let gVal = hexStr.slice(1, 2);
             let bVal = hexStr.slice(2, 3);
-            colorObject.r = parseInt(rVal + rVal, 16);
-            colorObject.g = parseInt(gVal + gVal, 16);
-            colorObject.b = parseInt(bVal + bVal, 16);
+
+            return Object.assign(colorObject, {
+                "r": parseInt(rVal + rVal, 16),
+                "g": parseInt(gVal + gVal, 16),
+                "b": parseInt(bVal + bVal, 16)
+            });
         }
-        else {
-            throw new Error(`Invalid HexString length. Expected either 8, 6, or 3. The actual length was ${hexStr.length}`);
-        }
-        return colorObject;
+        throw new Error(`Invalid HexString length. Expected either 8, 6, or 3. The actual length was ${hexStr.length}`);
     }
 
     // Set the title bar colors when a menu is open
     this.setOpenMenuAppBarColors = () => {
-        // Detect if the Windows namespace exists in the global object
-        if (!(typeof Windows !== "undefined" &&
-                 typeof Windows.UI !== "undefined" &&
-                 typeof Windows.UI.ViewManagement !== "undefined")) {
-            return;
-        }
-        // Get a reference to the App Title Bar
-        let appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
+        Object.assign(this.titleBar, {
+            "foregroundColor": BLACK,
+            "backgroundColor": BG_APP_COLOR,
 
-        appTitleBar.foregroundColor = BLACK;
-        appTitleBar.backgroundColor = BG_APP_COLOR;
+            "buttonForegroundColor": BLACK,
+            "buttonBackgroundColor": BG_APP_COLOR,
 
-        appTitleBar.buttonForegroundColor = BLACK;
-        appTitleBar.buttonBackgroundColor = BG_APP_COLOR;
+            "buttonHoverForegroundColor": WHITE,
+            "buttonHoverBackgroundColor": GRAY,
 
-        appTitleBar.buttonHoverForegroundColor = WHITE;
-        appTitleBar.buttonHoverBackgroundColor = GRAY;
+            "buttonPressedForegroundColor": BG_APP_COLOR,
+            "buttonPressedBackgroundColor": BLACK,
 
-        appTitleBar.buttonPressedForegroundColor = BG_APP_COLOR;
-        appTitleBar.buttonPressedBackgroundColor = BLACK;
+            "inactiveBackgroundColor": BG_APP_COLOR,
 
-        appTitleBar.inactiveBackgroundColor = BG_APP_COLOR;
+            "buttonInactiveBackgroundColor": BG_APP_COLOR,
 
-        appTitleBar.buttonInactiveBackgroundColor = BG_APP_COLOR;
-
-        appTitleBar.buttonPressedForegroundColor = BG_APP_COLOR;
-        appTitleBar.buttonPressedBackgroundColor = BG_APP_COLOR;
+            "buttonPressedForegroundColor": BG_APP_COLOR,
+            "buttonPressedBackgroundColor": BG_APP_COLOR
+        });
     };
 
     // Set the default title bar colors
     this.setDefaultAppBarColors = () => {
-        // Detect if the Windows namespace exists in the global object
-        if (!(typeof Windows !== "undefined" &&
-                 typeof Windows.UI !== "undefined" &&
-                 typeof Windows.UI.ViewManagement !== "undefined")) {
-            return;
-        }
-        // Get a reference to the App Title Bar
-        let appTitleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
+        Object.assign(this.titleBar, {
+            "foregroundColor": WHITE,
+            "backgroundColor": BRAND,
 
-        appTitleBar.foregroundColor = WHITE;
-        appTitleBar.backgroundColor = BRAND;
+            "buttonForegroundColor": WHITE,
+            "buttonBackgroundColor": BRAND,
 
-        appTitleBar.buttonForegroundColor = WHITE;
-        appTitleBar.buttonBackgroundColor = BRAND;
+            "buttonHoverForegroundColor": WHITE,
+            "buttonHoverBackgroundColor": GRAY,
 
-        appTitleBar.buttonHoverForegroundColor = WHITE;
-        appTitleBar.buttonHoverBackgroundColor = GRAY;
+            "buttonPressedForegroundColor": BRAND,
+            "buttonPressedBackgroundColor": WHITE,
 
-        appTitleBar.buttonPressedForegroundColor = BRAND;
-        appTitleBar.buttonPressedBackgroundColor = WHITE;
+            "inactiveForegroundColor": GRAY,
+            "inactiveBackgroundColor": BRAND,
 
-        appTitleBar.inactiveForegroundColor = GRAY;
-        appTitleBar.inactiveBackgroundColor = BRAND;
+            "buttonInactiveForegroundColor": GRAY,
+            "buttonInactiveBackgroundColor": BRAND,
 
-        appTitleBar.buttonInactiveForegroundColor = GRAY;
-        appTitleBar.buttonInactiveBackgroundColor = BRAND;
+            "buttonInactiveHoverForegroundColor": WHITE,
+            "buttonInactiveHoverBackgroundColor": BRAND,
 
-        appTitleBar.buttonInactiveHoverForegroundColor = WHITE;
-        appTitleBar.buttonInactiveHoverBackgroundColor = BRAND;
-
-        appTitleBar.buttonPressedForegroundColor = BRAND;
-        appTitleBar.buttonPressedBackgroundColor = BRAND;
+            "buttonPressedForegroundColor": BRAND,
+            "buttonPressedBackgroundColor": BRAND
+        });
     };
 
     // Brand the title bar

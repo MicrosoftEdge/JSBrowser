@@ -56,26 +56,29 @@
 
     addEventListener("DOMContentLoaded", function () {
         // Get the UI elements
-        this.addFavButton = document.querySelector("#addFavButton");
-        this.backButton = document.querySelector("#backButton");
-        this.clearCacheButton = document.querySelector("#clearCacheButton");
-        this.clearFavButton = document.querySelector("#clearFavButton");
-        this.container = document.querySelector(".container");
-        this.element = document.querySelector("#browser");
-        this.favButton = document.querySelector("#favButton");
-        this.favicon = document.querySelector("#favicon");
-        this.favList = document.querySelector("#favorites");
-        this.favMenu = document.querySelector("#favMenu");
-        this.forwardButton = document.querySelector("#forwardButton");
-        this.progressRing = document.querySelector(".ring");
-        this.settingsButton = document.querySelector("#settingsButton");
-        this.settingsMenu = document.querySelector("#settingsMenu");
-        this.stopButton = document.querySelector("#stopButton");
-        this.tweetIcon = document.querySelector("#tweet");
-        this.urlInput = document.querySelector("#urlInput");
-        this.webview = document.querySelector("#WebView");
+        Object.assign(this, {
+            "addFavButton": document.querySelector("#addFavButton"),
+            "backButton": document.querySelector("#backButton"),
+            "clearCacheButton": document.querySelector("#clearCacheButton"),
+            "clearFavButton": document.querySelector("#clearFavButton"),
+            "container": document.querySelector(".container"),
+            "element": document.querySelector("#browser"),
+            "favButton": document.querySelector("#favButton"),
+            "favicon": document.querySelector("#favicon"),
+            "favList": document.querySelector("#favorites"),
+            "favMenu": document.querySelector("#favMenu"),
+            "forwardButton": document.querySelector("#forwardButton"),
+            "progressRing": document.querySelector(".ring"),
+            "settingsButton": document.querySelector("#settingsButton"),
+            "settingsMenu": document.querySelector("#settingsMenu"),
+            "stopButton": document.querySelector("#stopButton"),
+            "tweetIcon": document.querySelector("#tweet"),
+            "urlInput": document.querySelector("#urlInput"),
+            "webview": document.querySelector("#WebView")
+        });
 
         this.documentTitle = this.webview.documentTitle;
+        this.titleBar = Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar;
 
         // Set the initial navigation state
         this.forwardButton.disabled = true;
