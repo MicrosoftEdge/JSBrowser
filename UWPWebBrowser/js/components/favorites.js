@@ -3,7 +3,8 @@
 
     // Retrieve the list of favorites and add them to the UI
     this.readFavorites = () => {
-        this.roamingFolder.getFileAsync("favorites.json")
+        this.roamingFolder
+            .getFileAsync("favorites.json")
             .then(favFile => Windows.Storage.FileIO.readTextAsync(favFile))
             .done(favJSON => {
                 // Read the list of favorites from file
