@@ -173,7 +173,7 @@
     // Listen for the Enter key in the address bar to navigate to the specified URL
     this.urlInput.addEventListener("keypress", e => {
         if (e.keyCode === 13) {
-            this.navigateTo(urlInput.value);
+            this.navigateTo(urlInput.value.trim());
         }
     });
 });
