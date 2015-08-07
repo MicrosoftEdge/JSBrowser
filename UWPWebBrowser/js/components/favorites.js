@@ -6,40 +6,43 @@
         this.roamingFolder
             .getFileAsync("favorites.json")
             .then(favFile => Windows.Storage.FileIO.readTextAsync(favFile))
-            .done(favJSON => {
-                // Read the list of favorites from file
-                let updatedFavs = favJSON ? JSON.parse(favJSON) : [];
-                let favList = [...document.querySelectorAll("#favMenu .favorite")];
+            .done(
+                favJSON => {
+                    // Read the list of favorites from file
+                    let updatedFavs = favJSON ? JSON.parse(favJSON) : [];
+                    let favList = [...document.querySelectorAll("#favMenu .favorite")];
 
-                this.favorites.clear();
-                updatedFavs.forEach(pair => this.favorites.set(pair[0], pair[1]));
+                    this.favorites.clear();
+                    updatedFavs.forEach(pair => this.favorites.set(pair[0], pair[1]));
 
-                // Clear the favorites menu
-                favList.forEach(favNode => favNode.parentNode.removeChild(favNode));
+                    // Clear the favorites menu
+                    favList.forEach(favNode => favNode.parentNode.removeChild(favNode));
 
-                // Propagate the favorites menu with the new list
-                let i = 1;
-                this.favorites.forEach((entry, url) => {
-                    let favEntry = document.createElement("a");
-                    favEntry.className = "favorite";
-                    favEntry.textContent = entry.title;
+                    // Propagate the favorites menu with the new list
+                    let i = 1;
+                    this.favorites.forEach((entry, url) => {
+                        let favEntry = document.createElement("a");
+                        favEntry.className = "favorite";
+                        favEntry.textContent = entry.title;
 
-                    favEntry.addEventListener("click", () => {
-                        this.closeMenu();
-                        this.navigateTo(url);
+                        favEntry.addEventListener("click", () => {
+                            this.closeMenu();
+                            this.navigateTo(url);
+                        });
+
+                        let delay = 0.06 + 0.03 * i++;
+                        favEntry.style.transitionDelay = delay + "s";
+                        this.favList.appendChild(favEntry);
+
+                        let alt = document.createElement("div");
+                        alt.className = "url";
+                        alt.textContent = url;
+
+                        favEntry.appendChild(alt);
                     });
-
-                    let delay = 0.06 + 0.03 * i++;
-                    favEntry.style.transitionDelay = delay + "s";
-                    this.favList.appendChild(favEntry);
-
-                    let alt = document.createElement("div");
-                    alt.className = "url";
-                    alt.textContent = url;
-
-                    favEntry.appendChild(alt);
-                });
-            });
+                },
+                e => {}
+            );
     };
 
     // Save the list of favorites to file
