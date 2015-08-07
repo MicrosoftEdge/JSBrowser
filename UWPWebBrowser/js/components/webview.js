@@ -19,10 +19,15 @@
         // Show the stop button
         this.showStop();
 
-        // If local protocol, inject custom WinRT component (for demo purposes only)
-        let protocol = this.currentUrl.split(":")[0];
-        if (protocol === "ms-appx-web") {
-            this.webview.addWebAllowedObject("CommunicatorWinRT", new ToastWinRT.ToastClass);
+        // Create the C++ Windows Runtime Component
+        var winRTObject = new NativeListener.KeyHandler();
+
+        // Add the Web Allowed Object
+        this.webview.addWebAllowedObject("NotifyApp", winRTObject);
+
+        // Add the event listener
+        winRTObject.onnotifyappevent = function (e) {
+            console.log("Yo I got the event " + e.target);
         }
     });
 

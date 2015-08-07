@@ -77,7 +77,8 @@
             "webview": document.querySelector("#WebView")
         });
 
-        this.documentTitle = this.webview.documentTitle;
+        // do the first navigation to the WebView
+        this.webview.navigate("http://www.microsoft.com/");
 
         // Use a proxy to workaround a WinRT issue with Object.assign
         this.titleBar = new Proxy(Windows.UI.ViewManagement.ApplicationView.getForCurrentView().titleBar, {
