@@ -16,30 +16,30 @@
                     updatedFavs.forEach(pair => this.favorites.set(pair[0], pair[1]));
 
                     // Clear the favorites menu
-                    favList.forEach(favNode => favNode.parentNode.removeChild(favNode));
+                    favList.forEach(favNode => favNode.remove());
 
                     // Propagate the favorites menu with the new list
                     let i = 1;
-                    this.favorites.forEach((entry, url) => {
+                    for (let pair of this.favorites) {
+                        let alt = document.createElement("div");
+                        let delay = .06 + .03 * i++;
                         let favEntry = document.createElement("a");
+
+                        alt.className = "url";
+                        alt.textContent = pair[0];
+                        favEntry.appendChild(alt);
+
                         favEntry.className = "favorite";
-                        favEntry.textContent = entry.title;
+                        favEntry.style.transitionDelay = `${delay}s`;
+                        favEntry.textContent = pair[1].title;
 
                         favEntry.addEventListener("click", () => {
                             this.closeMenu();
                             this.navigateTo(url);
                         });
 
-                        let delay = 0.06 + 0.03 * i++;
-                        favEntry.style.transitionDelay = delay + "s";
                         this.favList.appendChild(favEntry);
-
-                        let alt = document.createElement("div");
-                        alt.className = "url";
-                        alt.textContent = url;
-
-                        favEntry.appendChild(alt);
-                    });
+                    }
                 },
                 e => {}
             );
@@ -70,9 +70,9 @@
     });
 
     // Listen for the favorites button to open the favorites menu
-    this.favButton.addEventListener("click", e => {
+    this.favButton.addEventListener("click", () => {
         this.showSettingsMenu(false);
-        this.openMenu(e);
+        this.openMenu();
     });
 
     // Refresh the data
