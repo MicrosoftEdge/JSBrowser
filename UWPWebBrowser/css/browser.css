@@ -10,6 +10,7 @@ html {
 
 #browser {
     min-width: 480px;
+    z-index: 1;
 }
 
 .navbar {
@@ -18,6 +19,10 @@ html {
     padding: 4px;
     width: 100%;
     background: linear-gradient(to bottom, #3b3b3b 0%, #222 100%);
+}
+
+.fullScreen .navbar {
+    display: none;
 }
 
 #urlInput {
@@ -206,7 +211,8 @@ html {
     color: #666;
 }
 
-#favMenu hr {
+#favMenu hr,
+#settingsMenu hr {
     height: 1px;
     width: auto;
     border: 0;
@@ -230,6 +236,10 @@ html {
 #WebView {
     width: 100%;
     height: calc(100% - 40px);
+}
+
+.fullScreen #WebView {
+    height: 100%;
 }
 
 .perspective {
@@ -421,8 +431,6 @@ html {
     transition-delay: 0.06s;
 }
 
-/*
-
 .effect-moveleft.animate .outer-nav *:nth-child(4) {
     transition-delay: 0.09s;
 }
@@ -431,40 +439,26 @@ html {
     transition-delay: 0.12s;
 }
 
-.effect-moveleft.animate .outer-nav *:nth-child(6) {
-    transition-delay: 0.15s;
+#fullScreenMessage {
+    display: none;
+    z-index: 10;
+    width: 100%;
+    height: 80px;
+    padding: 32px;
+    position: absolute;
+    top: -80px;
+    left: 0;
+    background-color: #3B3B3B;
+    color: #FFF;
+    font-family: 'Segoe UI', sans-serif;
+    transition: 0.4s ease-in-out;
 }
 
-.effect-moveleft.animate .outer-nav *:nth-child(7) {
-    transition-delay: 0.18s;
+#fullScreenMessage.show {
+    transform: translateY(80px);
 }
 
-.effect-moveleft.animate .outer-nav *:nth-child(8) {
-    transition-delay: 0.21s;
+#fullScreenMessage a {
+    text-decoration: underline;
+    cursor: pointer;
 }
-
-.effect-moveleft.animate .outer-nav *:nth-child(9) {
-    transition-delay: 0.23s;
-}
-
-.effect-moveleft.animate .outer-nav *:nth-child(10) {
-    transition-delay: 0.26s;
-}
-
-.effect-moveleft.animate .outer-nav *:nth-child(11) {
-    transition-delay: 0.29s;
-}
-
-.effect-moveleft.animate .outer-nav *:nth-child(12) {
-    transition-delay: 0.32s;
-}
-
-.effect-moveleft.animate .outer-nav *:nth-child(13) {
-    transition-delay: 0.35s;
-}
-
-.effect-moveleft.animate .outer-nav *:nth-child(14) {
-    transition-delay: 0.38s;
-}
-
-*/

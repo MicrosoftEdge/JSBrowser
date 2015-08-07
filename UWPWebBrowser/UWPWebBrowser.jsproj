@@ -84,7 +84,6 @@
     <Content Include="js\components\title-bar.js" />
     <Content Include="js\components\webview.js" />
     <Content Include="js\page.js" />
-    <Content Include="pages\page.html" />
     <None Include="UWPWebBrowser_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

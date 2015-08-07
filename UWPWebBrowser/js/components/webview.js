@@ -22,13 +22,19 @@
         // Create the C++ Windows Runtime Component
         var winRTObject = new NativeListener.KeyHandler();
 
-        // Add the Web Allowed Object
+        // Add a native WinRT object as a global parameter
         this.webview.addWebAllowedObject("NotifyApp", winRTObject);
 
-        // Add the event listener
-        winRTObject.onnotifyappevent = function (e) {
-            console.log("Yo I got the event " + e.target);
-        }
+        // Listen for an app notification from the WinRT object
+        winRTObject.onnotifyappevent = e => this.handleShortcuts(e.target);
+    });
+
+    // Listen for the DOM content to have completely loaded
+    this.webview.addEventListener("MSWebViewDOMContentLoaded", () => {
+        // Listen keyboard shortcuts within the WebView
+        let asyncOp = this.webview.invokeScriptAsync("eval", this.shortcutScript(true));
+        asyncOp.onerror = e => console.error(`Unable to listen for keyboard shortcuts: ${e.message}`);
+        asyncOp.start();
     });
 
     // Listen for the navigation completion
@@ -63,7 +69,7 @@
     this.webview.addEventListener("MSWebViewNewWindowRequested", e => {
         console.log("New window requested");
         e.preventDefault();
-        this.webview.navigate(e.uri);
+        window.open(e.uri);
     });
 
     // Listen for a permission request
