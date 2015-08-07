@@ -109,14 +109,14 @@
         };
         eval(this.shortcutScript());
 
-        // Show full screen message
-        //JHDfkshfjksdhfkjsdhdjfjdslfjsdlfjdsljflsdkjflkdsjf
-        //sdjfksdjfkldsjfklsdjflsdjlkfjdslfjdsf
-        //sjdfkjsdklfjdslkfjsdlfjsdlkjflksd
-        //dsfjlkdsjfkldsjlfk
+        // Full screen message timeout
+        let timeout;
 
         // Hide the full screen message
-        this.hideFullScreenMessage = () => this.fullScreenMessage.classList.remove("show");
+        this.hideFullScreenMessage = () => {
+            clearTimeout(timeout);
+            this.fullScreenMessage.classList.remove("show");
+        };
 
         // Listen for the hide full screen link
         this.hideFullScreenLink.addEventListener("click", () => this.exitFullScreen());
@@ -129,7 +129,7 @@
             this.fullScreenMessage.style.display = "block";
             this.fullScreenMessage.classList.add("show");
             this.fullScreenButton.textContent = "Exit full screen";
-            setTimeout(this.hideFullScreenMessage, 4000);
+            timeout = setTimeout(this.hideFullScreenMessage, 4000);
             this.fullScreenButton.removeEventListener("click", this.enterFullScreen);
             this.fullScreenButton.addEventListener("click", this.exitFullScreen);
         };

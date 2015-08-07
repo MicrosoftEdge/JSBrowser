@@ -4,6 +4,7 @@
 *.userosscache
 *.sln.docstates
 *.jsproj.user
+*.sdf
 
 bld/
 bin/
