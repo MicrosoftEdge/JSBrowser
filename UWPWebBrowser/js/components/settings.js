@@ -32,8 +32,8 @@
     });
 
     // Listen for the settings button to open the settings menu
-    this.settingsButton.addEventListener("click", e => {
+    this.settingsButton.addEventListener("click", () => {
         this.showFavMenu(false);
-        this.openMenu(e);
+        this.openMenu();
     });
 });

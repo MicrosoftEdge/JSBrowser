@@ -111,10 +111,7 @@
         };
 
         // Open the menu
-        this.openMenu = e => {
-            e.stopPropagation();
-            e.preventDefault();
-
+        this.openMenu = () => {
             this.togglePerspective();
 
             setImmediate(() => {
