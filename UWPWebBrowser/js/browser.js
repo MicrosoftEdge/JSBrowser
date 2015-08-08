@@ -113,7 +113,7 @@
             this.element.classList.add("fullscreen");
             this.fullscreenMessage.style.display = "block";
             this.fullscreenMessage.classList.add("show");
-            this.fullscreenButton.textContent = "Exit full screen";
+            this.fullscreenButton.textContent = "Exit full screen (F11)";
             this.fullscreenButton.addEventListener("click", this.exitFullscreen);
             this.fullscreenButton.removeEventListener("click", this.enterFullscreen);
 
@@ -126,7 +126,7 @@
             this.appView.exitFullScreenMode();
             this.element.classList.remove("fullscreen");
             this.fullscreenMessage.style.display = "none";
-            this.fullscreenButton.textContent = "Go full screen";
+            this.fullscreenButton.textContent = "Go full screen (F11)";
             this.fullscreenButton.addEventListener("click", this.enterFullscreen);
             this.fullscreenButton.removeEventListener("click", this.exitFullscreen);
             this.hideFullscreenMessage();
