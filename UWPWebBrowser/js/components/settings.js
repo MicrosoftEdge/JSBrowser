@@ -18,9 +18,6 @@
         this.settingsMenu.style.display = shown ? "block" : "none";
     };
 
-    // Listen for the go full screen button to enter full screen mode
-    this.fullScreenButton.addEventListener("click", this.enterFullScreen);
-
     // Listen for the clear cache button to clear the cache
     this.clearCacheButton.addEventListener("click", () => {
         this.clearCache();
@@ -33,6 +30,9 @@
         this.saveFavorites();
         this.closeMenu();
     });
+
+    // Listen for the go full screen button to enter fullscreen mode
+    this.fullscreenButton.addEventListener("click", this.enterFullscreen);
 
     // Listen for the settings button to open the settings menu
     this.settingsButton.addEventListener("click", () => {

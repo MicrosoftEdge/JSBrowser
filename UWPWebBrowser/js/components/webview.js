@@ -22,18 +22,24 @@
         // Create the C++ Windows Runtime Component
         var winRTObject = new NativeListener.KeyHandler();
 
-        // Add a native WinRT object as a global parameter
-        this.webview.addWebAllowedObject("NotifyApp", winRTObject);
-
         // Listen for an app notification from the WinRT object
         winRTObject.onnotifyappevent = e => this.handleShortcuts(e.target);
+
+        // Expose the native WinRT object on the page's global object
+        this.webview.addWebAllowedObject("NotifyApp", winRTObject);
     });
 
-    // Listen for the DOM content to have completely loaded
+    // Inject fullscreen mode hot keys listener into the WebVIew asap
     this.webview.addEventListener("MSWebViewDOMContentLoaded", () => {
-        // Listen keyboard shortcuts within the WebView
-        let asyncOp = this.webview.invokeScriptAsync("eval", this.shortcutScript(true));
-        asyncOp.onerror = e => console.error(`Unable to listen for keyboard shortcuts: ${e.message}`);
+        let asyncOp = this.webview.invokeScriptAsync("eval", `
+            addEventListener("keydown", e => {
+                let k = e.keyCode;
+                if (k === ${this.KEYS.ESC} || k === ${this.KEYS.F11} || (e.ctrlKey && k === ${this.KEYS.L})) {
+                    NotifyApp.setKeyCombination(k);
+                }
+            });
+        `);
+        asyncOp.onerror = e => console.error(`Unable to listen for fullscreen hot keys: ${e.message}`);
         asyncOp.start();
     });
 

@@ -21,7 +21,7 @@ html {
     background: linear-gradient(to bottom, #3b3b3b 0%, #222 100%);
 }
 
-.fullScreen .navbar {
+.fullscreen .navbar {
     display: none;
 }
 
@@ -238,7 +238,7 @@ html {
     height: calc(100% - 40px);
 }
 
-.fullScreen #WebView {
+.fullscreen #WebView {
     height: 100%;
 }
 
@@ -439,7 +439,7 @@ html {
     transition-delay: 0.12s;
 }
 
-#fullScreenMessage {
+#fullscreenMessage {
     display: none;
     z-index: 10;
     width: 100%;
@@ -454,11 +454,11 @@ html {
     transition: 0.4s ease-in-out;
 }
 
-#fullScreenMessage.show {
+#fullscreenMessage.show {
     transform: translateY(80px);
 }
 
-#fullScreenMessage a {
+#fullscreenMessage a {
     text-decoration: underline;
     cursor: pointer;
 }
