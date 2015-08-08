@@ -29,7 +29,7 @@
         this.webview.addWebAllowedObject("NotifyApp", winRTObject);
     });
 
-    // Inject fullscreen mode hot keys listener into the WebVIew asap
+    // Inject fullscreen mode hot key listener into the WebView with every page load
     this.webview.addEventListener("MSWebViewDOMContentLoaded", () => {
         let asyncOp = this.webview.invokeScriptAsync("eval", `
             addEventListener("keydown", e => {
