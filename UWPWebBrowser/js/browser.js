@@ -179,7 +179,6 @@
         this.togglePerspective = () => {
             this.element.classList.toggle("modalview");
         };
-
         this.togglePerspectiveAnimation = () => {
             this.element.classList.toggle("animate");
         };
@@ -190,7 +189,6 @@
         // Set the initial states
         this.backButton.disabled = true;
         this.forwardButton.disabled = true;
-        this.isFullscreen = false;
 
         // Use a proxy to workaround a WinRT issue with Object.assign
         this.titleBar = new Proxy(this.appView.titleBar, {
