@@ -32,7 +32,7 @@
     });
 
     // Listen for the go full screen button to enter fullscreen mode
-    this.fullscreenButton.addEventListener("click", () => this.enterFullscreen);
+    this.fullscreenButton.addEventListener("click", () => this.enterFullscreen());
 
     // Listen for the settings button to open the settings menu
     this.settingsButton.addEventListener("click", () => {
