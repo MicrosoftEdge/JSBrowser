@@ -11,7 +11,6 @@
     function Browser() {
         this[EVENT_SYM] = {};
         this.currentUrl = "";
-        this.documentTitle = "";
         this.faviconLocs = new Map;
         this.favorites = new Map;
         this.loading = false;
