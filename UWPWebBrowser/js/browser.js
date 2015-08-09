@@ -117,7 +117,7 @@
             this.fullscreenButton.addEventListener("click", this.exitFullscreen);
             this.fullscreenButton.removeEventListener("click", this.enterFullscreen);
 
-            fullscreenMessageTimeoutId = setTimeout(this.hideFullscreenMessage, 4000);
+            fullscreenMessageTimeoutId = setTimeout(this.hideFullscreenMessage, 4e3);
         };
 
         // Exit fullscreen mode
