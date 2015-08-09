@@ -20,7 +20,7 @@
         this.showStop();
 
         // Create the C++ Windows Runtime Component
-        var winRTObject = new NativeListener.KeyHandler();
+        let winRTObject = new NativeListener.KeyHandler();
 
         // Listen for an app notification from the WinRT object
         winRTObject.onnotifyappevent = e => this.handleShortcuts(e.target);
