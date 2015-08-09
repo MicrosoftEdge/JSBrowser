@@ -50,7 +50,7 @@
         this.getFavicon(e.uri);
 
         // Update the page title
-        this.documentTitle = this.webview.documentTitle;
+        this.appView.title = this.webview.documentTitle;
 
         // Show the refresh button
         this.showRefresh();
