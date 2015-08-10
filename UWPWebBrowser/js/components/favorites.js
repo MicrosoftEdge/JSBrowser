@@ -24,14 +24,14 @@
                         let alt = document.createElement("div");
                         let delay = .06 + .03 * i++;
                         let favEntry = document.createElement("a");
-
+                        let url = pair[0];
 
                         favEntry.className = "favorite";
                         favEntry.style.transitionDelay = `${delay}s`;
                         favEntry.textContent = pair[1].title;
 
                         alt.className = "url";
-                        alt.textContent = pair[0];
+                        alt.textContent = url;
                         favEntry.appendChild(alt);
 
                         favEntry.addEventListener("click", () => {
