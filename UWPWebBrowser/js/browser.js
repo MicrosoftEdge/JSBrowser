@@ -115,7 +115,8 @@
             this.fullscreenButton.textContent = "Exit full screen (F11)";
             this.fullscreenButton.addEventListener("click", this.exitFullscreen);
             this.fullscreenButton.removeEventListener("click", this.enterFullscreen);
-
+            // Clear the timeout again to ensure there are no race conditions
+            clearTimeout(fullscreenMessageTimeoutId);
             fullscreenMessageTimeoutId = setTimeout(this.hideFullscreenMessage, 4e3);
         };
 
