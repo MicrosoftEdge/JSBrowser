@@ -25,13 +25,14 @@
                         let delay = .06 + .03 * i++;
                         let favEntry = document.createElement("a");
 
-                        alt.className = "url";
-                        alt.textContent = pair[0];
-                        favEntry.appendChild(alt);
 
                         favEntry.className = "favorite";
                         favEntry.style.transitionDelay = `${delay}s`;
                         favEntry.textContent = pair[1].title;
+
+                        alt.className = "url";
+                        alt.textContent = pair[0];
+                        favEntry.appendChild(alt);
 
                         favEntry.addEventListener("click", () => {
                             this.closeMenu();
@@ -65,7 +66,7 @@
 
     // Listen for the add favorite button to save the current page to the list of favorites
     this.addFavButton.addEventListener("click", () => {
-        this.favorites.set(this.currentUrl, { "title": this.documentTitle });
+        this.favorites.set(this.currentUrl, { "title": this.webview.documentTitle });
         this.saveFavorites();
     });
 

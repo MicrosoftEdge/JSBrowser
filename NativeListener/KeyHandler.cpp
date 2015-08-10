@@ -19,5 +19,4 @@ void KeyHandler::setKeyCombination(int keyPress)
 	{
 		NotifyAppEvent(keyPress);
 	}));
-
 }
