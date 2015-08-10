@@ -3,6 +3,7 @@
 
     const LOC_CACHE = new Map;
     const URI = Windows.Foundation.Uri;
+    const RE_VALIDATE_URL = /^[-:.&#+()?%=\/\w]+$/;
 
     // Attempt a function
     function attempt(func) {
@@ -102,7 +103,10 @@
     // Navigate to the specified location
     this.navigateTo = loc => {
         loc = LOC_CACHE.get(loc) || loc;
-        if (navigate(this.webview, loc, true)) {
+
+        // Check if the input value contains illegal characters
+        let isUrl = RE_VALIDATE_URL.test(loc);
+        if (isUrl && navigate(this.webview, loc, true)) {
             return;
         }
         let bingLoc = `https://www.bing.com/search?q=${encodeURIComponent(loc)}`;
@@ -114,7 +118,7 @@
         let uri = attempt(() => new URI(locHTTP));
         let isErr = uri instanceof Error;
 
-        if (isErr || !uri.domain) {
+        if (isErr || !isUrl || !uri.domain) {
             let message = isErr ? uri.message : "";
             console.log(`Prepend unsuccessful\nQuerying bing.com... "${loc}": ${message}`);
 
