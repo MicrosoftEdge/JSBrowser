@@ -14,7 +14,7 @@
         this.faviconLocs = new Map;
         this.favorites = new Map;
         this.loading = false;
-        this.isFullscreen = null;
+        this.isFullscreen = false;
         this.roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
         this.appView = Windows.UI.ViewManagement.ApplicationView.getForCurrentView();
     }
@@ -85,8 +85,35 @@
             "webview": document.querySelector("#WebView")
         });
 
-        // Listen for a change in fullscreen mode
-        this.appView.addEventListener("visibleboundschanged", () => this.setFullscreenMode());
+        // Apply the fullscreen mode
+        this.applyFullscreenMode = (state) => {
+            let mode = state;
+            if (typeof state != "boolean") {
+                mode = this.appView.isFullScreenMode;
+                if (mode === this.isFullscreen) {
+                    return;
+                }
+            }
+            this.isFullscreen = mode;
+            if (this.isFullscreen) {
+                // Go fullscreen
+                this.element.classList.add("fullscreen");
+                this.fullscreenMessage.style.display = "block";
+                this.fullscreenMessage.classList.add("show");
+                this.fullscreenButton.textContent = "Exit full screen (F11)";
+
+                // Clear the timeout again to ensure there are no race conditions
+                clearTimeout(fullscreenMessageTimeoutId);
+                fullscreenMessageTimeoutId = setTimeout(this.hideFullscreenMessage, 4e3);
+            }
+            else {
+                // Hide fullscreen
+                this.element.classList.remove("fullscreen");
+                this.fullscreenMessage.style.display = "none";
+                this.fullscreenButton.textContent = "Go full screen (F11)";
+                this.hideFullscreenMessage();
+            }
+        };
 
         // Close the menu
         this.closeMenu = () => {
@@ -130,9 +157,6 @@
             }
         };
 
-        // Listen for the hide fullscreen link
-        this.hideFullscreenLink.addEventListener("click", () => this.appView.exitFullScreenMode());
-
         // Hide the fullscreen message
         this.hideFullscreenMessage = () => {
             clearTimeout(fullscreenMessageTimeoutId);
@@ -150,34 +174,6 @@
                 this.setOpenMenuAppBarColors();
             });
         };
-
-        // Set the fullscreen mode
-        this.setFullscreenMode = () => {
-            let currentMode = this.appView.isFullScreenMode;
-            if (currentMode === this.isFullscreen) {
-                return;
-            }
-
-            this.isFullscreen = currentMode;
-            if (this.isFullscreen) {
-                // Go fullscreen
-                this.element.classList.add("fullscreen");
-                this.fullscreenMessage.style.display = "block";
-                this.fullscreenMessage.classList.add("show");
-                this.fullscreenButton.textContent = "Exit full screen (F11)";
-                // Clear the timeout again to ensure there are no race conditions
-                clearTimeout(fullscreenMessageTimeoutId);
-                fullscreenMessageTimeoutId = setTimeout(this.hideFullscreenMessage, 4e3);
-            }
-            else {
-                // Hide fullscreen
-                this.element.classList.remove("fullscreen");
-                this.fullscreenMessage.style.display = "none";
-                this.fullscreenButton.textContent = "Go full screen (F11)";
-                this.hideFullscreenMessage();
-            }
-        };
-        this.setFullscreenMode();
 
         // Apply CSS transitions when opening and closing the menus
         this.togglePerspective = () => {
@@ -208,8 +204,17 @@
             }
         });
 
+        // Listen for a change in fullscreen mode
+        this.appView.addEventListener("visibleboundschanged", () => this.applyFullscreenMode());
+
         // Listen for a click on the skewed container to close the menu
         this.container.addEventListener("click", () => this.closeMenu());
+
+        // Listen for the hide fullscreen link
+        this.hideFullscreenLink.addEventListener("click", () => this.appView.exitFullScreenMode());
+
+        // Initialize fullscreen mode
+        this.applyFullscreenMode(false);
 
         // Navigate to the start page
         this.webview.navigate("http://www.microsoft.com/");
