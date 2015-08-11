@@ -151,7 +151,7 @@
         this.urlInput.blur();
     };
 
-    // Hide favicon when it fails to load
+    // Hide the favicon when it fails to load
     this.favicon.addEventListener("error", () => {
         if (!this.favicon.src.startsWith("ms-appx://")) {
             this.hideFavicon();
