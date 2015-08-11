@@ -75,7 +75,6 @@
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\storelogo.scale-100.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
-    <Content Include="js\AddWebAllowedObject.js" />
     <Content Include="js\components\address-bar.js" />
     <Content Include="js\browser.js" />
     <Content Include="js\components\favorites.js" />
@@ -83,7 +82,6 @@
     <Content Include="js\components\settings.js" />
     <Content Include="js\components\title-bar.js" />
     <Content Include="js\components\webview.js" />
-    <Content Include="js\page.js" />
     <None Include="UWPWebBrowser_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
