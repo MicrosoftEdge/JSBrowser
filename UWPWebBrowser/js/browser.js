@@ -14,7 +14,7 @@
         this.faviconLocs = new Map;
         this.favorites = new Map;
         this.loading = false;
-        this.isFullscreen = false;
+        this.isFullscreen = null;
         this.roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
         this.appView = Windows.UI.ViewManagement.ApplicationView.getForCurrentView();
     }
@@ -85,6 +85,9 @@
             "webview": document.querySelector("#WebView")
         });
 
+        // Listen for a change in fullscreen mode
+        this.appView.addEventListener("visibleboundschanged", () => this.setFullscreenMode());
+
         // Close the menu
         this.closeMenu = () => {
             if (!this.element.className.includes("animate")) {
@@ -105,44 +108,17 @@
             this.setDefaultAppBarColors();
         };
 
-        // Enter fullscreen mode
-        this.enterFullscreen = () => {
-            this.isFullscreen = true;
-            this.appView.tryEnterFullScreenMode();
-            this.element.classList.add("fullscreen");
-            this.fullscreenMessage.style.display = "block";
-            this.fullscreenMessage.classList.add("show");
-            this.fullscreenButton.textContent = "Exit full screen (F11)";
-            this.fullscreenButton.addEventListener("click", this.exitFullscreen);
-            this.fullscreenButton.removeEventListener("click", this.enterFullscreen);
-            // Clear the timeout again to ensure there are no race conditions
-            clearTimeout(fullscreenMessageTimeoutId);
-            fullscreenMessageTimeoutId = setTimeout(this.hideFullscreenMessage, 4e3);
-        };
-
-        // Exit fullscreen mode
-        this.exitFullscreen = () => {
-            this.isFullscreen = false;
-            this.appView.exitFullScreenMode();
-            this.element.classList.remove("fullscreen");
-            this.fullscreenMessage.style.display = "none";
-            this.fullscreenButton.textContent = "Go full screen (F11)";
-            this.fullscreenButton.addEventListener("click", this.enterFullscreen);
-            this.fullscreenButton.removeEventListener("click", this.exitFullscreen);
-            this.hideFullscreenMessage();
-        };
-
         // Handle keyboard shortcuts
         this.handleShortcuts = keyCode => {
             switch (keyCode) {
                 case this.KEYS.ESC:
                     if (this.isFullscreen) {
-                        this.exitFullscreen();
+                        this.appView.exitFullScreenMode();
                     }
                     break;
 
                 case this.KEYS.F11:
-                    this[this.isFullscreen ? "exitFullscreen" : "enterFullscreen"]();
+                    this.appView[this.isFullscreen ? "exitFullScreenMode" : "tryEnterFullScreenMode"]();
                     break;
 
                 case this.KEYS.L:
@@ -155,7 +131,7 @@
         };
 
         // Listen for the hide fullscreen link
-        this.hideFullscreenLink.addEventListener("click", () => this.exitFullscreen());
+        this.hideFullscreenLink.addEventListener("click", () => this.appView.exitFullScreenMode());
 
         // Hide the fullscreen message
         this.hideFullscreenMessage = () => {
@@ -174,6 +150,34 @@
                 this.setOpenMenuAppBarColors();
             });
         };
+
+        // Set the fullscreen mode
+        this.setFullscreenMode = () => {
+            let currentMode = this.appView.isFullScreenMode;
+            if (currentMode === this.isFullscreen) {
+                return;
+            }
+
+            this.isFullscreen = currentMode;
+            if (this.isFullscreen) {
+                // Go fullscreen
+                this.element.classList.add("fullscreen");
+                this.fullscreenMessage.style.display = "block";
+                this.fullscreenMessage.classList.add("show");
+                this.fullscreenButton.textContent = "Exit full screen (F11)";
+                // Clear the timeout again to ensure there are no race conditions
+                clearTimeout(fullscreenMessageTimeoutId);
+                fullscreenMessageTimeoutId = setTimeout(this.hideFullscreenMessage, 4e3);
+            }
+            else {
+                // Hide fullscreen
+                this.element.classList.remove("fullscreen");
+                this.fullscreenMessage.style.display = "none";
+                this.fullscreenButton.textContent = "Go full screen (F11)";
+                this.hideFullscreenMessage();
+            }
+        };
+        this.setFullscreenMode();
 
         // Apply CSS transitions when opening and closing the menus
         this.togglePerspective = () => {

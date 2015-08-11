@@ -30,9 +30,9 @@
         this.saveFavorites();
         this.closeMenu();
     });
-
+    
     // Listen for the go full screen button to enter fullscreen mode
-    this.fullscreenButton.addEventListener("click", () => this[this.isFullscreen ? "exitFullscreen" : "enterFullscreen"]());
+    this.fullscreenButton.addEventListener("click", () => this.appView[this.isFullscreen ? "exitFullScreenMode" : "tryEnterFullScreenMode"]());
 
     // Listen for the settings button to open the settings menu
     this.settingsButton.addEventListener("click", () => {
