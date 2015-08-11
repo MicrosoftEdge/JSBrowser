@@ -3,7 +3,7 @@
   <Identity Name="42fc11d8-64c6-4967-a15a-dfd787f68766" Version="1.0.0.0" Publisher="CN=joshrenn" />
   <mp:PhoneIdentity PhoneProductId="42fc11d8-64c6-4967-a15a-dfd787f68766" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>JavaScriptBrowser</DisplayName>
+    <DisplayName>JSBrowser</DisplayName>
     <PublisherDisplayName>joshrenn</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
