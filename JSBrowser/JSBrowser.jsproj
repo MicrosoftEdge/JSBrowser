@@ -59,7 +59,6 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="css\browser.css" />
-    <Content Include="css\page.css" />
     <Content Include="default.html" />
     <Content Include="images\arrow.svg" />
     <Content Include="images\icons.png" />
