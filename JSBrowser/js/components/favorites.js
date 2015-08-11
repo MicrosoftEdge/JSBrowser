@@ -60,8 +60,10 @@
     };
 
     // Show or hide the favorites menu
-    this.showFavMenu = shown => {
-        this.favMenu.style.display = shown ? "block" : "none";
+    this.toggleFavMenu = state => {
+        let style = this.favMenu.style;
+        var isClosed = typeof state == "boolean" ? state : style.display == "none";
+        style.display = isClosed ? "block" : "none";
     };
 
     // Listen for the add favorite button to save the current page to the list of favorites
@@ -72,7 +74,7 @@
 
     // Listen for the favorites button to open the favorites menu
     this.favButton.addEventListener("click", () => {
-        this.showSettingsMenu(false);
+        this.toggleSettingsMenu(false);
         this.openMenu();
     });
 

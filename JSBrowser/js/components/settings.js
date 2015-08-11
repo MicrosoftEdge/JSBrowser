@@ -14,8 +14,10 @@
     };
 
     // Show or hide the settings menu
-    this.showSettingsMenu = shown => {
-        this.settingsMenu.style.display = shown ? "block" : "none";
+    this.toggleSettingsMenu = state => {
+        let style = this.settingsMenu.style;
+        var isClosed = typeof state == "boolean" ? state : style.display == "none";
+        style.display = isClosed ? "block" : "none";
     };
 
     // Listen for the clear cache button to clear the cache
@@ -36,7 +38,7 @@
 
     // Listen for the settings button to open the settings menu
     this.settingsButton.addEventListener("click", () => {
-        this.showFavMenu(false);
+        this.toggleFavMenu(false);
         this.openMenu();
     });
 });

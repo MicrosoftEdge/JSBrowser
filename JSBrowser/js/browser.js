@@ -96,9 +96,9 @@
             let onTransitionEnd = () => {
                 this.element.removeEventListener("transitionend", onTransitionEnd);
                 this.togglePerspective();
-                this.showFavMenu(true);
+                this.toggleFavMenu(true);
                 this.scrollFavoritesToTop();
-                this.showSettingsMenu(true);
+                this.toggleSettingsMenu(true);
             };
 
             this.element.addEventListener("transitionend", onTransitionEnd);
