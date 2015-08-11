@@ -1,2 +1,2 @@
-# UAPWebBrowser
-Simple WebView Browser UAP
+# JavaScript Browser
+A browser written with HTML and JavaScript.
