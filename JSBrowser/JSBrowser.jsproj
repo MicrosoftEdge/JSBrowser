@@ -60,7 +60,6 @@
     </AppxManifest>
     <Content Include="css\browser.css" />
     <Content Include="default.html" />
-    <Content Include="images\arrow.svg" />
     <Content Include="images\icons.png" />
     <Content Include="images\LockScreenLogo.scale-200.png" />
     <Content Include="images\logo.scale-100.png" />
