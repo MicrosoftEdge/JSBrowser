@@ -2,9 +2,9 @@
     "use strict";
 
     // Set your default colors
-    const BRAND = hexStrToRGBA("#3B3B3B");
     const BG_APP_COLOR = hexStrToRGBA("#f4f3f1");
     const BLACK = hexStrToRGBA("#000");
+    const BRAND = hexStrToRGBA("#3B3B3B");
     const GRAY = hexStrToRGBA("#666");
     const WHITE = hexStrToRGBA("#FFF");
 
