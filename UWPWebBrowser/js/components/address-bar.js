@@ -3,7 +3,7 @@
 
     const LOC_CACHE = new Map;
     const URI = Windows.Foundation.Uri;
-    const RE_VALIDATE_URL = /^[-:\.&#\+\(\)\[\]\$\'\*;@~!,\?%=\/\w]+$/;
+    const RE_VALIDATE_URL = /^[-:.&#+()[\]$'*;@~!,?%=\/\w]+$/;
 
     // Attempt a function
     function attempt(func) {
