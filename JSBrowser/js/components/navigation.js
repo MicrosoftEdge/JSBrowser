@@ -19,7 +19,7 @@
     this.stopButton.addEventListener("click", () => {
         if (this.loading) {
             this.webview.stop();
-            this.showProgressRing(false);
+            this.toggleProgressRing(false);
             this.showRefresh();
         }
         else {

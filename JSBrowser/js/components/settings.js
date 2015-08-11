@@ -16,8 +16,8 @@
     // Show or hide the settings menu
     this.toggleSettingsMenu = state => {
         let style = this.settingsMenu.style;
-        var isClosed = typeof state == "boolean" ? state : style.display == "none";
-        style.display = isClosed ? "block" : "none";
+        let isHidden = typeof state == "boolean" ? state : style.display == "none";
+        style.display = isHidden ? "block" : "none";
     };
 
     // Listen for the clear cache button to clear the cache

@@ -62,8 +62,8 @@
     // Show or hide the favorites menu
     this.toggleFavMenu = state => {
         let style = this.favMenu.style;
-        var isClosed = typeof state == "boolean" ? state : style.display == "none";
-        style.display = isClosed ? "block" : "none";
+        let isHidden = typeof state == "boolean" ? state : style.display == "none";
+        style.display = isHidden ? "block" : "none";
     };
 
     // Listen for the add favorite button to save the current page to the list of favorites
