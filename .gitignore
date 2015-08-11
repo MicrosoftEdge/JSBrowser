@@ -5,8 +5,12 @@
 *.sln.docstates
 *.jsproj.user
 *.sdf
+*.opensdf
 
 bld/
 bin/
 .vs/
 packages/
+x64/
+Debug/
+NativeListener/x64/
