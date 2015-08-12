@@ -416,10 +416,11 @@ html {
 
 .effect-moveleft .outer-nav a#citation {
     margin-top: 50px;
-    color: #AEA899;
+    color: #BBB5A8;
 }
 
-.effect-moveleft .outer-nav a:hover {
+.effect-moveleft .outer-nav a:hover,
+.effect-moveleft .outer-nav a#citation:hover {
     color: #222;
     background-color: rgba(0, 0, 0, 0.1);
 }
