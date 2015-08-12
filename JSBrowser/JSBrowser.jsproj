@@ -67,6 +67,7 @@
     <Content Include="images\logo_44x44.png" />
     <Content Include="images\logo_71x71.png" />
     <Content Include="images\logo_badge.png" />
+    <Content Include="images\logo_bg.png" />
     <Content Include="images\logo_splash.png" />
     <Content Include="images\logo_store.png" />
     <Content Include="js\components\address-bar.js" />

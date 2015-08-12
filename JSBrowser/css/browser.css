@@ -376,7 +376,7 @@ html {
 }
 
 .effect-moveleft {
-    background: #f4f3f1;
+    background: #f4f3f1 url("../images/logo_bg.png") no-repeat right bottom;
 }
 
 .effect-moveleft .container {
@@ -417,6 +417,8 @@ html {
 .effect-moveleft .outer-nav a#citation {
     margin-top: 50px;
     color: #BBB5A8;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .effect-moveleft .outer-nav a:hover,
