@@ -20,6 +20,12 @@
         style.display = isHidden ? "block" : "none";
     };
 
+    // Listen for the citation link
+    this.citation.addEventListener("click", () => {
+        this.navigateTo("https://thenounproject.com/term/trees/65621/");
+        this.closeMenu();
+    });
+
     // Listen for the clear cache button to clear the cache
     this.clearCacheButton.addEventListener("click", () => {
         this.clearCache();

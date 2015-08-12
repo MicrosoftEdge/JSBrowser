@@ -360,6 +360,7 @@ html {
 	color: #fff;
 	transition: color 0.3s;
 	transform-style: preserve-3d;
+    text-decoration: none;
 }
 
 .outer-nav a:hover {
@@ -413,6 +414,11 @@ html {
     cursor: pointer;
 }
 
+.effect-moveleft .outer-nav a#citation {
+    margin-top: 50px;
+    color: #AEA899;
+}
+
 .effect-moveleft .outer-nav a:hover {
     color: #222;
     background-color: rgba(0, 0, 0, 0.1);
@@ -437,6 +443,10 @@ html {
 
 .effect-moveleft.animate .outer-nav *:nth-child(5) {
     transition-delay: 0.12s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(6) {
+    transition-delay: 0.15s;
 }
 
 #fullscreenMessage {

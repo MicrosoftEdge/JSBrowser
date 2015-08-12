@@ -64,6 +64,7 @@
         Object.assign(this, {
             "addFavButton": document.querySelector("#addFavButton"),
             "backButton": document.querySelector("#backButton"),
+            "citation": document.querySelector("#citation"),
             "clearCacheButton": document.querySelector("#clearCacheButton"),
             "clearFavButton": document.querySelector("#clearFavButton"),
             "container": document.querySelector(".container"),
