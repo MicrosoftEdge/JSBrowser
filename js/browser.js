@@ -218,7 +218,7 @@
         //this.applyFullscreenMode(false);
 
         // Navigate to the start page
-        this.webview.navigate("http://www.bing.com/");
+        //this.webview.navigate("http://www.bing.com/");
 
         // Fire event
         this.trigger("init");
