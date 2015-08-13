@@ -1,4 +1,4 @@
-﻿browser.on("init", function () {
+browser.on("init", function () {
     "use strict";
 
     // Retrieve the list of favorites and add them to the UI

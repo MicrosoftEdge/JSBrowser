@@ -1,4 +1,4 @@
-﻿browser.on("init", function () {
+browser.on("init", function () {
     "use strict";
 
     // Set your default colors

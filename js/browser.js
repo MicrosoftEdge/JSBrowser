@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     "use strict";
 
     // Enable nodelists to work with the spread operator
@@ -218,7 +218,7 @@
         this.applyFullscreenMode(false);
 
         // Navigate to the start page
-        this.webview.navigate("https://www.microsoft.com/");
+        this.webview.navigate("http://www.microsoft.com/");
 
         // Fire event
         this.trigger("init");
