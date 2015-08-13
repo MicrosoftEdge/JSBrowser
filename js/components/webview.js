@@ -20,7 +20,7 @@ browser.on("init", function () {
         this.showStop();
 
         // Create the C++ Windows Runtime Component
-        if (typeof NativeListener !== 'undefined') {
+        //if (typeof NativeListener !== 'undefined') {
           let winRTObject = new NativeListener.KeyHandler();
 
           // Listen for an app notification from the WinRT object
@@ -28,7 +28,7 @@ browser.on("init", function () {
 
           // Expose the native WinRT object on the page's global object
           this.webview.addWebAllowedObject("NotifyApp", winRTObject);
-        }
+        //}
     });
 
     // Inject fullscreen mode hot key listener into the WebView with every page load
