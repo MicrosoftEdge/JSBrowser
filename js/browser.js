@@ -172,7 +172,7 @@
                 this.togglePerspectiveAnimation();
 
                 // Adjust AppBar colors to match new background color
-                this.setOpenMenuAppBarColors();
+                //this.setOpenMenuAppBarColors();
             });
         };
 
@@ -196,7 +196,7 @@
             "get": (target, key) => target[key],
             "set": (target, key, value) => (target[key] = value, true)
         });
-
+/*
         // Listen for fullscreen mode hot keys
         addEventListener("keydown", e => {
             let k = e.keyCode;
@@ -204,18 +204,18 @@
                 this.handleShortcuts(k);
             }
         });
-
+*/
         // Listen for a change in fullscreen mode
-        this.appView.addEventListener("visibleboundschanged", () => this.applyFullscreenMode());
+        //this.appView.addEventListener("visibleboundschanged", () => this.applyFullscreenMode());
 
         // Listen for a click on the skewed container to close the menu
-        this.container.addEventListener("click", () => this.closeMenu());
+       // this.container.addEventListener("click", () => this.closeMenu());
 
         // Listen for the hide fullscreen link
-        this.hideFullscreenLink.addEventListener("click", () => this.appView.exitFullScreenMode());
+        //this.hideFullscreenLink.addEventListener("click", () => this.appView.exitFullScreenMode());
 
         // Initialize fullscreen mode
-        this.applyFullscreenMode(false);
+        //this.applyFullscreenMode(false);
 
         // Navigate to the start page
         this.webview.navigate("http://www.microsoft.com/");
