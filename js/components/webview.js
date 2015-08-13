@@ -18,7 +18,7 @@ browser.on("init", function () {
 
         // Show the stop button
         this.showStop();
-
+/*
         // Create the C++ Windows Runtime Component
         if (typeof NativeListener !== 'undefined') {
           let winRTObject = new NativeListener.KeyHandler();
@@ -29,11 +29,12 @@ browser.on("init", function () {
           // Expose the native WinRT object on the page's global object
           this.webview.addWebAllowedObject("NotifyApp", winRTObject);
         }
+        */
     });
 
     // Inject fullscreen mode hot key listener into the WebView with every page load
     this.webview.addEventListener("MSWebViewDOMContentLoaded", () => {
-        let asyncOp = this.webview.invokeScriptAsync("eval", `
+        /*let asyncOp = this.webview.invokeScriptAsync("eval", `
             addEventListener("keydown", e => {
                 let k = e.keyCode;
                 if (k === ${this.KEYS.ESC} || k === ${this.KEYS.F11} || (e.ctrlKey && k === ${this.KEYS.L})) {
@@ -42,7 +43,7 @@ browser.on("init", function () {
             });
         `);
         asyncOp.onerror = e => console.error(`Unable to listen for fullscreen hot keys: ${e.message}`);
-        asyncOp.start();
+        asyncOp.start();*/
     });
 
     // Listen for the navigation completion
