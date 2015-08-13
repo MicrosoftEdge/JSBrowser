@@ -14,7 +14,7 @@ browser.on("init", function () {
         console.log(`Navigating to ${this.currentUrl}`);
 
         this.hideFavicon();
-        this.toggleProgressRing(true);
+        //this.toggleProgressRing(true);
 
         // Show the stop button
         this.showStop();
@@ -48,7 +48,7 @@ browser.on("init", function () {
     // Listen for the navigation completion
     this.webview.addEventListener("MSWebViewNavigationCompleted", e => {
         this.loading = false;
-        this.toggleProgressRing(false);
+        //this.toggleProgressRing(false);
         this.getFavicon(e.uri);
 
         // Update the page title
