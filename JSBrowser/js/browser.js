@@ -87,7 +87,7 @@
         });
 
         // Apply the fullscreen mode
-        this.applyFullscreenMode = (state) => {
+        this.applyFullscreenMode = state => {
             let mode = state;
             if (typeof state != "boolean") {
                 mode = this.appView.isFullScreenMode;
