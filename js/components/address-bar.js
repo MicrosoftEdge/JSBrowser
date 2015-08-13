@@ -37,7 +37,6 @@ browser.on("init", function () {
 
     // Show the favicon if available
     this.getFavicon = loc => {
-        /*
         let host = new URI(loc).host;
 
         // Exit for cached ico location
@@ -94,7 +93,6 @@ browser.on("init", function () {
             };
             asyncOp.start();
         });
-        */
     };
 
     // Hide the favicon
