@@ -52,7 +52,7 @@
     // Set the title bar colors when a menu is open
     this.setOpenMenuAppBarColors = () => {
         Object.assign(this.titleBar, {
-            "foregroundColor": BG_APP_COLOR,
+            "foregroundColor": BLACK,
             "backgroundColor": BG_APP_COLOR,
 
             "buttonForegroundColor": BLACK,
@@ -64,7 +64,6 @@
             "buttonPressedForegroundColor": BG_APP_COLOR,
             "buttonPressedBackgroundColor": BLACK,
 
-            "inactiveForegroundColor": BG_APP_COLOR,
             "inactiveBackgroundColor": BG_APP_COLOR,
 
             "buttonInactiveBackgroundColor": BG_APP_COLOR,
@@ -77,7 +76,7 @@
     // Set the default title bar colors
     this.setDefaultAppBarColors = () => {
         Object.assign(this.titleBar, {
-            "foregroundColor": BRAND,
+            "foregroundColor": WHITE,
             "backgroundColor": BRAND,
 
             "buttonForegroundColor": WHITE,
@@ -89,7 +88,7 @@
             "buttonPressedForegroundColor": BRAND,
             "buttonPressedBackgroundColor": WHITE,
 
-            "inactiveForegroundColor": BRAND,
+            "inactiveForegroundColor": GRAY,
             "inactiveBackgroundColor": BRAND,
 
             "buttonInactiveForegroundColor": GRAY,
