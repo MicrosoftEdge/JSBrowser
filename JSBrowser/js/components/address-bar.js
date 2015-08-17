@@ -162,7 +162,7 @@
 
     // Listen for the tweet button
     this.tweetIcon.addEventListener("click", () => {
-        let domain = this.currentUrl ? new URI(this.currentUrl).host : "microsoft.com";
+        let domain = (this.currentUrl && new URI(this.currentUrl).host) || "microsoft.com";
         let path = "https://twitter.com/intent/tweet";
         let tags = ["Windows", "UWP"].map(encodeURIComponent);
         let text = encodeURIComponent(`I visited ${domain} in a browser built with HTML and JavaScript. Find out more here:`);
