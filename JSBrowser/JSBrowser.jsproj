@@ -77,6 +77,8 @@
     <Content Include="js\components\settings.js" />
     <Content Include="js\components\title-bar.js" />
     <Content Include="js\components\webview.js" />
+    <Content Include="landingPage\page.css" />
+    <Content Include="landingPage\page.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NativeListener\NativeListener.vcxproj" />

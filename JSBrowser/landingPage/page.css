@@ -1,0 +1,248 @@
+﻿/* BASE STYLES
+--------------------------------------------- */
+
+*, *:before, *:after {
+	margin: 0;
+	padding: 0;
+  	box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  /*background-color: #3b3b3b;*/
+}
+body {
+  font-size: 100%;
+  font-family: "Segoe UI Webfont", "Segoe UI", sans-serif;
+  /*background: #fff;*/
+  background-color: #3b3b3b;
+  color: #fff;
+}
+::selection {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+@media (min-width: 68.75em) /* 1100px */ {
+
+  html {
+  	font-size: 112.5%;
+  }
+
+}
+
+/* TYPOGRAPHY
+--------------------------------------------- */
+@font-face{font-family:'wf_segoe-ui_normal';src:url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.eot');src:url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.eot?#iefix') format('embedded-opentype'),url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.woff') format('woff'),url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.ttf') format('truetype'),url('//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.svg#web') format('svg');font-weight:normal;font-style:normal}
+
+a {
+  outline: none;
+}
+a:link, a:visited {
+  color: #0072c6;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+a:hover {
+  color: #005293;
+}
+p, ul, ol {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+ul, ol {
+  margin-left: 1.25em;
+}
+li {
+  margin-bottom: 0.5rem;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  font-size: 1.325rem;
+  line-height: 1;
+}
+h1 {
+  margin-bottom: 1em;
+  font-weight: 200;
+  font-size: 2.5rem;
+}
+button, .button:link, .button:visited {
+  display: inline-block;
+  margin: 0.75rem 0;
+  border: 0 none;
+  outline: none;
+  padding: 0.75rem 1rem;
+  word-wrap: break-word;
+  max-width: 100%;
+  font-size: 1rem;
+  background: #0072c6;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+}
+button:hover, .button:hover {
+  background: #0065b5;
+  color: #005293;
+  cursor: pointer;
+}
+
+@media (min-width: 68.75em) /* 1100px */ {
+
+  p, ul, ol,
+  button, .button:link, .button:visited {
+    font-size: 0.888888rem;
+  }
+
+}
+
+/* LAYOUT
+--------------------------------------------- */
+
+.pageWrap {
+  margin: 2rem;
+}
+	
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+}
+
+ 
+@media (min-width: 68.75em) /* 1100px */ {
+
+  .pageWrap {
+  	margin: 4rem;
+  }
+
+}
+
+
+/* CARDS
+--------------------------------------------- */
+
+.card {
+  margin: 0 0 1rem;
+  width: 100%;
+}
+.cardContent {
+  display: block;
+  padding: 1.5rem 1.5rem 0.75rem;
+  width: 100%;
+  background: #007e92;
+  color: #fff;
+}
+.cardTitle {
+  word-wrap: break-word;
+}
+.cardContent a:link, .cardContent a:visited {
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.33);
+}
+.cardContent a:hover {
+  border-bottom-color: #fff;
+}
+.cardContent button, .cardContent .button:link, .cardContent .button:visited {
+  border: 0 none;
+  background: #fff;
+  color: #007e92;
+}
+.cardContent button:hover, .cardContent .button:hover {
+  background: rgba(255,255,255,0.9);
+  color: #00515f;
+}
+
+/* ALTERNATING CARD COLORS */
+.card:nth-child(3n+1) .cardContent {
+  background: #0078D7;
+}
+.card:nth-child(3n+1) button,
+.card:nth-child(3n+1) .button:link,
+.card:nth-child(3n+1) .button:visited {
+  color: #0078D7;
+}
+.card:nth-child(3n+1) button,
+.card:nth-child(3n+1) .button:hover {
+  color: #005293;
+}
+
+.card:nth-child(3n+3) .cardContent {
+  background: #008272;
+}
+.card:nth-child(3n+3) button,
+.card:nth-child(3n+3) .button:link,
+.card:nth-child(3n+3) .button:visited {
+  color: #008272;
+}
+.card:nth-child(3n+3) button:hover,
+.card:nth-child(3n+3) .button:hover {
+  color: #004f45;
+}
+
+/* INDIVIDUAL CARDS */
+
+.linkList {
+  margin: 0;
+  list-style: none;
+}
+.linkList li {
+  margin: 0;
+}
+.linkList li a {
+  display: block;
+  position: relative;
+  padding: 0.75rem 0;
+}
+.linkList li:last-of-type a {
+  border-bottom: 0;
+}
+.linkList li .arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  right: 0;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  background: #fff;
+  text-align: center;
+}
+.linkList .arrowGlyph {
+  transition: margin 0.1s ease-in-out;
+  height: 11px;
+  width: 13px;
+  stroke: #0078D7;
+}
+.linkList li a:hover .arrowGlyph {
+  margin-left: 3px;
+}
+.card:nth-child(3n+1) .arrowGlyph {
+  stroke: #0078D7;
+}
+.card:nth-child(3n+3) .arrowGlyph {
+  stroke: #008272;
+}
+
+@media (min-width: 37.5em) /* 600px */ {
+
+  .cards {
+  	display: flex;
+  	flex-wrap: wrap;
+  	margin: 0 -0.5rem;
+  }
+  .card {
+  	display: flex;
+  	float: left;
+  	padding: 0 0.5rem;
+  	width: 50%;
+  }
+
+}
+
+@media (min-width: 68.75em) /* 1100px */ {
+
+  .card {
+  	width: 33%;
+  }
+
+}
