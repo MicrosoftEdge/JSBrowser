@@ -2,9 +2,9 @@
 --------------------------------------------- */
 
 *, *:before, *:after {
-	margin: 0;
-	padding: 0;
-  	box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 html {
   box-sizing: border-box;
@@ -22,13 +22,10 @@ body {
   background: #1a1a1a;
   color: #fff;
 }
-
 @media (min-width: 68.75em) /* 1100px */ {
-
   html {
-  	font-size: 112.5%;
+    font-size: 112.5%;
   }
-
 }
 
 /* TYPOGRAPHY
@@ -87,12 +84,10 @@ button:hover, .button:hover {
 }
 
 @media (min-width: 68.75em) /* 1100px */ {
-
   p, ul, ol,
   button, .button:link, .button:visited {
     font-size: 0.888888rem;
   }
-
 }
 
 /* LAYOUT
@@ -101,22 +96,16 @@ button:hover, .button:hover {
 .pageWrap {
   margin: 2rem;
 }
-	
 .container {
   margin: 0 auto;
   width: 100%;
   max-width: 1400px;
 }
-
- 
 @media (min-width: 68.75em) /* 1100px */ {
-
   .pageWrap {
-  	margin: 4rem;
+    margin: 4rem;
   }
-
 }
-
 
 /* CARDS
 --------------------------------------------- */
@@ -222,27 +211,21 @@ button:hover, .button:hover {
 .card:nth-child(3n+3) .arrowGlyph {
   stroke: #008272;
 }
-
 @media (min-width: 37.5em) /* 600px */ {
-
   .cards {
-  	display: flex;
-  	flex-wrap: wrap;
-  	margin: 0 -0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -0.5rem;
   }
   .card {
-  	display: flex;
-  	float: left;
-  	padding: 0 0.5rem;
-  	width: 50%;
+    display: flex;
+    float: left;
+    padding: 0 0.5rem;
+    width: 50%;
   }
-
 }
-
 @media (min-width: 68.75em) /* 1100px */ {
-
   .card {
-  	width: 33%;
+    width: 33%;
   }
-
 }
