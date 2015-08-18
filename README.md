@@ -30,7 +30,7 @@ There are several additional features implemented to make the browsing experienc
 * [CSS transitions](http://www.w3.org/TR/css3-transitions/) for animating the menus
 * Cache management
 * Favorites management
-* URL input analysis - "bing.com" navigates to http(s)://bing.com, "seahawks" searches Bing
+* URL input analysis — “bing.com” navigates to http(s)://bing.com, “seahawks” searches Bing
 * Auto-de/select the address bar on blur/focus
 * Responsive design
 
