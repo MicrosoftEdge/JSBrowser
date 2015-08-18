@@ -218,7 +218,7 @@
         this.applyFullscreenMode(false);
 
         // Navigate to the start page
-        this.webview.navigate("https://www.microsoft.com/");
+        this.webview.navigate("ms-appx-web:///landingpage/page.html");
 
         // Fire event
         this.trigger("init");
