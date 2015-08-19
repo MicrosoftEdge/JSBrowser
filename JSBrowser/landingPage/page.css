@@ -64,7 +64,7 @@ h1 {
   font-weight: 200;
   font-size: 2.5rem;
 }
-button, .button:link, .button:visited {
+.button:link, .button:visited {
   display: inline-block;
   margin: 0.75rem 0;
   border: 0 none;
@@ -77,7 +77,7 @@ button, .button:link, .button:visited {
   color: #fff;
   transition: background-color 0.3s ease-in-out;
 }
-button:hover, .button:hover {
+.button:hover {
   background: #0065b5;
   color: #005293;
   cursor: pointer;
@@ -85,7 +85,7 @@ button:hover, .button:hover {
 
 @media (min-width: 68.75em) /* 1100px */ {
   p, ul, ol,
-  button, .button:link, .button:visited {
+  .button:link, .button:visited {
     font-size: 0.888888rem;
   }
 }
@@ -115,9 +115,11 @@ button:hover, .button:hover {
   width: 100%;
 }
 .cardContent {
+  position: relative;
   display: block;
   padding: 1.5rem 1.5rem 0.75rem;
   width: 100%;
+  min-height: 16rem;
   background: #007e92;
   color: #fff;
 }
@@ -131,12 +133,16 @@ button:hover, .button:hover {
 .cardContent a:hover {
   border-bottom-color: #fff;
 }
-.cardContent button, .cardContent .button:link, .cardContent .button:visited {
+.cardContent .button {
+    position: absolute;
+    bottom: 0;
+}
+.cardContent .button:link, .cardContent .button:visited {
   border: 0 none;
   background: #fff;
   color: #007e92;
 }
-.cardContent button:hover, .cardContent .button:hover {
+.cardContent .button:hover {
   background: rgba(255,255,255,0.9);
   color: #00515f;
 }
@@ -145,12 +151,10 @@ button:hover, .button:hover {
 .card:nth-child(3n+1) .cardContent {
   background: #0078D7;
 }
-.card:nth-child(3n+1) button,
 .card:nth-child(3n+1) .button:link,
 .card:nth-child(3n+1) .button:visited {
   color: #0078D7;
 }
-.card:nth-child(3n+1) button,
 .card:nth-child(3n+1) .button:hover {
   color: #005293;
 }
@@ -158,12 +162,10 @@ button:hover, .button:hover {
 .card:nth-child(3n+3) .cardContent {
   background: #008272;
 }
-.card:nth-child(3n+3) button,
 .card:nth-child(3n+3) .button:link,
 .card:nth-child(3n+3) .button:visited {
   color: #008272;
 }
-.card:nth-child(3n+3) button:hover,
 .card:nth-child(3n+3) .button:hover {
   color: #004f45;
 }
