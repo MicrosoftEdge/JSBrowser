@@ -217,11 +217,11 @@
         // Initialize fullscreen mode
         this.applyFullscreenMode(false);
 
-        // Navigate to the start page
-        this.webview.navigate("ms-appx-web:///landingpage/page.html");
-
         // Fire event
         this.trigger("init");
+
+        // Navigate to the start page
+        this.navigateTo("https://microsoft.com");
     }.bind(browser));
 
     // Export `browser`
