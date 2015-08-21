@@ -18,7 +18,7 @@
         }
 
         body {
-            position: relative;
+            display: table;
             min-height: 720px;
             font-family: 'Segoe UI Light', 'Helvetica Neue', Tahoma, Verdana, Arial, sans-serif;
         }
@@ -68,14 +68,9 @@
         }
 
         #splash {
-            min-width: 320px;
-            max-width: 800px;
             padding: 20px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-right: -50%;
-            transform: translate(-50%, -50%);
+            display: table-cell;
+            vertical-align: middle;
         }
 
         #logo {
@@ -87,6 +82,8 @@
 
         #title,
         #description {
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
         }
 
