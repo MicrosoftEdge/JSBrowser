@@ -221,7 +221,7 @@
         this.trigger("init");
 
         // Navigate to the start page
-        this.navigateTo("http://microsoftedge.github.io/JSBrowser/");
+        this.navigateTo("https://microsoftedge.github.io/JSBrowser/");
     }.bind(browser));
 
     // Export `browser`
