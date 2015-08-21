@@ -4,57 +4,164 @@
     <meta charset="utf-8" />
     <title>JavaScript Browser</title>
 
-    <!-- App references -->
-    <link href="css/app.css" rel="stylesheet" />
-    <script src="js/browser.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            min-width: 320px;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #3b3b3b 0%, #222 100%);
+            overflow: hidden;
+        }
 
-    <!-- UI component references -->
-    <script src="js/components/webview.js"></script>
-    <script src="js/components/address-bar.js"></script>
-    <script src="js/components/navigation.js"></script>
-    <script src="js/components/favorites.js"></script>
-    <script src="js/components/settings.js"></script>
-    <script src="js/components/title-bar.js"></script>
+        body {
+            position: relative;
+            min-height: 720px;
+            font-family: 'Segoe UI Light', 'Helvetica Neue', Tahoma, Verdana, Arial, sans-serif;
+        }
+
+        #navbar {
+            width: 100%;
+            min-width: 320px;
+            overflow: hidden;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        #navbar .name,
+        #navbar .link {
+            margin: 0 15px;
+            line-height: 47px;
+            font-family: 'Segoe UI', 'Helvetica', Tahoma, Verdana, Arial, sans-serif;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        #navbar .name {
+            color: #fff;
+            padding-left: 39px;
+            background: url('images/logo_nav.png') no-repeat left;
+        }
+
+        #navbar .link a,
+        #navbar .link a:link,
+        #navbar .link a:visited {
+            color: #aaa;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        #navbar .link a:hover {
+            color: #fff;
+            border-color: #fff;
+        }
+
+        #navbar .link a:active {
+            color: #aaa;
+        }
+
+        #splash {
+            min-width: 320px;
+            max-width: 800px;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #logo {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            background: url('images/logo.png') no-repeat;
+        }
+
+        #title,
+        #description {
+            text-align: center;
+        }
+
+        #title {
+            font-size: 64px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        #description {
+            font-size: 24px;
+            color: #aaa;
+        }
+
+        #description a,
+        #description a:link,
+        #description a:visited {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #description a:hover {
+            color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+
+        #description a:active {
+            color: #aaa;
+            border-color: #aaa;
+        }
+
+        #buttons {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        #buttons a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 10px;
+        }
+
+        #buttons a,
+        #buttons a:link,
+        #buttons a:visited {
+            font-size: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        #buttons a:hover {
+            color: #fff;
+            border-color: #fff;
+        }
+
+        #buttons a:active {
+            color: #aaa;
+            border-color: #aaa;
+        }
+    </style>
 </head>
 <body>
-    <div id="browser" class="perspective effect-moveleft">
-        <div class="container">
-            <div class="wrapper">
-                <div class="navbar">
-                    <button id="backButton" class="navButton backButton" title="Go back"></button>
-                    <button id="forwardButton" class="navButton forwardButton" title="Go forward"></button>
-                    <button id="stopButton" class="navButton stopButton" title="Stop loading"></button>
-                    <label class="icon" for="urlInput">
-                        <span class="ring"></span>
-                        <img id="favicon" src="" />
-                    </label>
-                    <div id="tweet" title="Tweet about this browser"></div>
-                    <input id="urlInput" type="text" class="win-textbox" />
-                    <button id="favButton" class="navButton favButton" title="View favorites"></button>
-                    <button id="settingsButton" class="navButton settingsButton" title="View settings"></button>
-                </div>
-                <x-ms-webview id="WebView"></x-ms-webview>
-            </div>
-        </div>
-        <nav id="favMenu" class="outer-nav right vertical">
-            <div>
-                <h1>Favorites</h1>
-                <a id="addFavButton">Add favorite</a>
-                <hr />
-            </div>
-            <div id="favorites"></div>
-        </nav>
-        <nav id="settingsMenu" class="outer-nav right vertical">
-            <div>
-                <h1>Settings</h1>
-                <a id="goFullscreen"></a>
-                <hr />
-                <a id="clearCacheButton">Clear cache</a>
-                <a id="clearFavButton">Clear favorites</a>
-                <a id="citation">Logo based on trees by Nicholas Menghini from the Noun Project.</a>
-            </div>
-        </nav>
+    <div id="navbar">
+        <div class="name">JSBrowser</div>
+        <div class="link"><a href="https://github.com/MicrosoftEdge/JSBrowser">GitHub</a></div>
+        <div class="link"><a href="#">Blog</a></div>
     </div>
-    <div id="fullscreenMessage">You are now in full screen mode. <a id="hideFullscreen">Click here</a> or press F11 to exit.</div>
+    <div id="splash">
+        <div id="logo"></div>
+        <div id="title">JavaScript Browser</div>
+        <div id="description">A web browser built with JavaScript as a <a href="https://msdn.microsoft.com/library/windows/apps/dn894631.aspx">Windows app</a>. This project is a proof-of-concept demonstrating the capabilities of the web platform on Windows 10. The browser is built around the HTML <a href="https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx">WebView control</a>.</div>
+        <div id="buttons">
+            <a href="https://github.com/MicrosoftEdge/JSBrowser">View on GitHub</a>
+            <a href="#">View original blog post</a>
+        </div>
+    </div>
 </body>
 </html>
