@@ -1,5 +1,6 @@
 #&nbsp;![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser 
-A web browser built with JavaScript as a Windows app.
+A web browser built with JavaScript as a Windows app.<br />
+http://microsoftedge.github.io/JSBrowser/
 
 [![badge_windowsstore](https://cloud.githubusercontent.com/assets/7266075/9445327/6a0e1d9e-4a40-11e5-80e9-99b21af35c35.png)](https://www.microsoft.com/store/apps/9NBLGGH1Z7VX)
 
