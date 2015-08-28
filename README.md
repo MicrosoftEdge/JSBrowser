@@ -6,7 +6,7 @@ http://microsoftedge.github.io/JSBrowser/
 
 ![JavaScript Browser](https://cloud.githubusercontent.com/assets/7266075/9344225/df4d62ba-45bb-11e5-9d84-a078b8fd651a.png)
 
-This project is a proof-of-concept demonstrating the capabilities of the web platform on Windows 10. The browser is built around the HTML [WebView control](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/), this is a JavaScript [Universal Windows Platform](https://msdn.microsoft.com/library/windows/apps/dn894631.aspx) (UWP) app.
+This project is a tutorial demonstrating the capabilities of the web platform on Windows 10. The browser is a sample app built around the HTML [WebView control](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/), this is a JavaScript [Universal Windows Platform](https://msdn.microsoft.com/library/windows/apps/dn894631.aspx) (UWP) app.
 
 In addition to JavaScript, HTML and CSS are the other core programming languages used. Some C++ code is also included to enable supplemental features, but is not required to create a simple browser.
 
