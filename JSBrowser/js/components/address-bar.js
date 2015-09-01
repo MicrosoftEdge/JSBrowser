@@ -138,7 +138,7 @@
     };
 
     // Use the fallback list if a favicon fails to load, otherwise hide the favicon
-    this.favicon.addEventListener("error", e => {
+    this.favicon.addEventListener("error", () => {
         if (!this.favicon.src.startsWith("ms-appx://")) {
             if (faviconFallback.length) {
                 this.setFavicon(faviconFallback.shift());
