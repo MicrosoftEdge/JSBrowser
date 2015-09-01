@@ -61,11 +61,9 @@
         asyncOp.oncomplete = e => {
             faviconFallback = JSON.parse(e.target.result) || [];
 
-            let protocol = loc.split(":")[0];
-            if (protocol.startsWith("http") || !host) {
-                loc = `${protocol}://${host}/favicon.ico`;
-                faviconFallback.push(loc);
-            }
+            // Add a root check to the fallback list
+            loc = `//${host}/favicon.ico`;
+            faviconFallback.push(loc);
             
             this.setFavicon(faviconFallback.shift());
         };
