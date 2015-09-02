@@ -53,7 +53,6 @@
             }
             return;
         }
-
         // Asynchronously check for a favicon in the web page markup
         let asyncOp = this.webview.invokeScriptAsync("eval", `
             JSON.stringify(Array.from(document.getElementsByTagName('link'))
@@ -61,23 +60,22 @@
                 .map(link => link.href))
         `);
         asyncOp.oncomplete = e => {
+            // Parse result add fallbacks
             faviconFallback = JSON.parse(e.target.result);
-
-            // Add a root check and empty favicon to the fallback list
             faviconFallback.push(`//${host}/favicon.ico`, EMPTY_FAVICON);
-
             this.setFavicon(faviconFallback.shift());
         };
         asyncOp.onerror = e => {
             console.error(`Unable to find favicon in markup: ${e.message}`);
-            this.faviconLocs.set(host, "");
+            faviconFallback = [];
+            this.setFavicon(EMPTY_FAVICON);
         };
         asyncOp.start();
     };
 
     // Hide the favicon
     this.hideFavicon = () => {
-        this.favicon.src = "";
+        this.favicon.src = EMPTY_FAVICON;
     };
 
     // Navigate to the specified location
