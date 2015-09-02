@@ -1,9 +1,11 @@
 ﻿browser.on("init", function () {
     "use strict";
 
+    const EMPTY_FAVICON = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     const LOC_CACHE = new Map;
-    const URI = Windows.Foundation.Uri;
     const RE_VALIDATE_URL = /^[-:.&#+()[\]$'*;@~!,?%=\/\w]+$/;
+    const URI = Windows.Foundation.Uri;
+
     let faviconFallback = [];
 
     // Attempt a function
@@ -59,12 +61,11 @@
                 .map(link => link.href))
         `);
         asyncOp.oncomplete = e => {
-            faviconFallback = JSON.parse(e.target.result) || [];
+            faviconFallback = JSON.parse(e.target.result);
 
-            // Add a root check to the fallback list
-            loc = `//${host}/favicon.ico`;
-            faviconFallback.push(loc);
-            
+            // Add a root check and empty favicon to the fallback list
+            faviconFallback.push(`//${host}/favicon.ico`, EMPTY_FAVICON);
+
             this.setFavicon(faviconFallback.shift());
         };
         asyncOp.onerror = e => {
@@ -72,11 +73,6 @@
             this.faviconLocs.set(host, "");
         };
         asyncOp.start();
-    };
-
-    // Set the favicon to a specified URL
-    this.setFavicon = url => {
-        this.favicon.src = url;
     };
 
     // Hide the favicon
@@ -122,6 +118,11 @@
             LOC_CACHE.set(loc, locHTTP);
             navigate(this.webview, locHTTP);
         }
+    };
+
+    // Set the favicon to a specified URL
+    this.setFavicon = url => {
+        this.favicon.src = url;
     };
 
     // Show or hide the progress ring
