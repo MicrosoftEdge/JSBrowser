@@ -75,7 +75,7 @@
 
     // Hide the favicon
     this.hideFavicon = () => {
-        this.favicon.src = EMPTY_FAVICON;
+        this.favicon.src = "";
     };
 
     // Navigate to the specified location
