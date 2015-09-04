@@ -62,7 +62,14 @@
         asyncOp.oncomplete = e => {
             // Parse result add fallbacks
             faviconFallback = JSON.parse(e.target.result);
-            faviconFallback.push(`//${host}/favicon.ico`, EMPTY_FAVICON);
+
+            let protocol = loc.split(":")[0];
+            if (protocol.startsWith("http") || !host) {
+                loc = `${protocol}://${host}/favicon.ico`;
+                faviconFallback.push(loc);
+            }
+
+            faviconFallback.push(EMPTY_FAVICON);
             this.setFavicon(faviconFallback.shift());
         };
         asyncOp.onerror = e => {
