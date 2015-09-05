@@ -7,11 +7,15 @@
 *.sdf
 *.opensdf
 
+JSBrowser/Package.StoreAssociation.xml
+
 bld/
 bin/
 .vs/
 packages/
 x64/
 Debug/
+NativeListener/Release/
 NativeListener/x64/
 JSBrowser/AppPackages/
+Release/

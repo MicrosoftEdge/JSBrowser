@@ -1,9 +1,12 @@
 ﻿browser.on("init", function () {
     "use strict";
 
+    const EMPTY_FAVICON = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     const LOC_CACHE = new Map;
-    const URI = Windows.Foundation.Uri;
     const RE_VALIDATE_URL = /^[-:.&#+()[\]$'*;@~!,?%=\/\w]+$/;
+    const URI = Windows.Foundation.Uri;
+
+    let faviconFallback = [];
 
     // Attempt a function
     function attempt(func) {
@@ -50,49 +53,31 @@
             }
             return;
         }
-        let protocol = loc.split(":")[0];
+        // Asynchronously check for a favicon in the web page markup
+        let asyncOp = this.webview.invokeScriptAsync("eval", `
+            JSON.stringify(Array.from(document.getElementsByTagName('link'))
+                .filter(link => link.rel.includes('icon'))
+                .map(link => link.href))
+        `);
+        asyncOp.oncomplete = e => {
+            // Parse result add fallbacks
+            faviconFallback = JSON.parse(e.target.result);
 
-        // Hide favicon when the host cannot be resolved or the protocol is not http(s)
-        if (!protocol.startsWith("http") || !host) {
-            this.faviconLocs.set(host, "");
-            this.hideFavicon();
-            return;
-        }
-        
-        loc = `${protocol}://${host}/favicon.ico`;
-        
-        // Check if there is a favicon in the root directory
-        fileExists(loc).then(exists => {
-            if (exists) {
-                console.log(`Favicon found: ${loc}`);
-                this.faviconLocs.set(host, loc);
-                this.favicon.src = loc;
-                return;
+            let protocol = loc.split(":")[0];
+            if (protocol.startsWith("http") || !host) {
+                loc = `${protocol}://${host}/favicon.ico`;
+                faviconFallback.push(loc);
             }
-            // Asynchronously check for a favicon in the web page markup
-            console.log("Favicon not found in root. Checking the markup...");
-            let asyncOp = this.webview.invokeScriptAsync("eval", `
-                Object(Array.from(document.getElementsByTagName('link'))
-                  .find(link => link.rel.includes('icon'))).href
-            `);
-            asyncOp.oncomplete = e => {
-                loc = e.target.result || "";
-                this.faviconLocs.set(host, loc);
 
-                if (loc) {
-                    console.log(`Found favicon in markup: ${loc}`);
-                    this.favicon.src = loc;
-                }
-                else {
-                    this.hideFavicon();
-                }
-            };
-            asyncOp.onerror = e => {
-                console.error(`Unable to find favicon in markup: ${e.message}`);
-                this.faviconLocs.set(host, "");
-            };
-            asyncOp.start();
-        });
+            faviconFallback.push(EMPTY_FAVICON);
+            this.setFavicon(faviconFallback.shift());
+        };
+        asyncOp.onerror = e => {
+            console.error(`Unable to find favicon in markup: ${e.message}`);
+            faviconFallback = [];
+            this.setFavicon(EMPTY_FAVICON);
+        };
+        asyncOp.start();
     };
 
     // Hide the favicon
@@ -140,6 +125,11 @@
         }
     };
 
+    // Set the favicon to a specified URL
+    this.setFavicon = url => {
+        this.favicon.src = url;
+    };
+
     // Show or hide the progress ring
     this.toggleProgressRing = state => {
         let style = this.progressRing.style;
@@ -153,11 +143,22 @@
         this.urlInput.blur();
     };
 
-    // Hide the favicon when it fails to load
+    // Use the fallback list if a favicon fails to load, otherwise hide the favicon
     this.favicon.addEventListener("error", () => {
         if (!this.favicon.src.startsWith("ms-appx://")) {
-            this.hideFavicon();
+            if (faviconFallback.length) {
+                this.setFavicon(faviconFallback.shift());
+            }
+            else {
+                this.hideFavicon();
+            }
         }
+    });
+
+    // Listen for a successful favicon load
+    this.favicon.addEventListener("load", e => {
+        faviconFallback.length = 0;
+        this.faviconLocs.set(new URI(this.currentUrl).host, e.target.src);
     });
 
     // Listen for the tweet button
