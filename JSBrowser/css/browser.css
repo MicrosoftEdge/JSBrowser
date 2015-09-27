@@ -47,6 +47,7 @@ html {
     top: 0;
     left: 0;
     z-index: 2;
+    padding-right: 35px;
 }
 
 #urlInput {
@@ -72,7 +73,6 @@ html {
     border-color:  transparent;
     white-space: nowrap;
     overflow: hidden;
-    padding-right: 35px;
 }
 #urlDisplay .https {
     color: #090;
