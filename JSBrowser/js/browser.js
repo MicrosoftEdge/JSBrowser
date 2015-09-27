@@ -83,6 +83,7 @@
             "stopButton": document.querySelector("#stopButton"),
             "tweetIcon": document.querySelector("#tweet"),
             "urlInput": document.querySelector("#urlInput"),
+            "urlDisplay": document.querySelector("#urlDisplay"),
             "webview": document.querySelector("#WebView")
         });
 

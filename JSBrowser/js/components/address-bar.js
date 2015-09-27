@@ -147,9 +147,41 @@
         style.display = isHidden ? "inline-block" : "none";
     };
 
+    this.colorizeAddress = address => {
+        let HTML = '';
+        // Parse URL using an <a> element
+        let a = document.createElement('a');
+        a.href = address;
+
+        // Detect HTTPS protocol
+        if (a.protocol === 'https:')
+            HTML += "<span class='https'>https:</span>//";
+        // Display any protocol other than HTTP
+        else if (a.protocol !== 'http:')
+            HTML += a.protocol + "//";
+
+        // Highlight domain in hostname
+        let hostnameRegex = /(^|\.)([^.]+(?:\.[\w\d]{2,3})?\.[\w\d]{2,})$/;
+        HTML += hostnameRegex.test(a.hostname)
+            ? a.hostname.replace(hostnameRegex, "$1<span class='domain'>$2</span>")
+            : "<span class='domain'>" + a.hostname + "</span>";
+
+        // Add port if it's a valid number
+        if (a.port.length > 0 && !isNaN(a.port))
+            HTML += ':' + a.port;
+
+        // Remove last / from pathname if original address doesn't have it either
+        let pathname = a.pathname;
+        if (/\/$/.test(address))
+            pathname = pathname.replace(/\/$/, '');
+        HTML += pathname+a.search+a.hash;
+        return HTML;
+    }
+
     // Update the address bar with the given text and remove focus
     this.updateAddressBar = text => {
         this.urlInput.value = text;
+        this.urlDisplay.innerHTML = this.colorizeAddress(text);
         this.urlInput.blur();
     };
 
