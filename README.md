@@ -6,7 +6,7 @@ http://microsoftedge.github.io/JSBrowser/
 
 ![JavaScript Browser](https://cloud.githubusercontent.com/assets/3200580/10122615/99850d4a-651f-11e5-8357-e83576384010.png)
 
-This project is a proof-of-concept demonstrating the capabilities of the web platform on Windows 10. The browser is built around the HTML [WebView control](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/), this is a JavaScript [Universal Windows Platform](https://msdn.microsoft.com/library/windows/apps/dn894631.aspx) (UWP) app.
+This project is a tutorial demonstrating the capabilities of the web platform on Windows 10. The browser is a sample app built around the HTML [WebView control](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/), this is a JavaScript [Universal Windows Platform](https://msdn.microsoft.com/library/windows/apps/dn894631.aspx) (UWP) app.
 
 In addition to JavaScript, HTML and CSS are the other core programming languages used. Some C++ code is also included to enable supplemental features, but is not required to create a simple browser.
 
@@ -45,7 +45,7 @@ There are several additional features implemented to make the browsing experienc
 <x-ms-webview id="WebView"></x-ms-webview>
 ```
 
-[Introduced](http://blogs.windows.com/buildingapps/2013/07/17/whats-new-in-webview-in-windows-8-1/) for JavaScript apps in Windows 8.1, the WebView control—sometimes referred to by its tag name, [x-ms-webview](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx)—allows you to host web content in your Windows app. Available in both HTML and [XAML](https://en.wikipedia.org/wiki/Extensible_Application_Markup_Language), the x-ms-webview comes with a powerful set of APIs, which overcomes [several of limitations](http://blogs.windows.com/buildingapps/2013/10/01/blending-apps-and-sites-with-the-html-x-ms-webview/) that encumber an iframe, such as framebusting sites and document loading events. Additionally, the x-ms-webview provides new functionality that is not possible with an iframe, such as better access to local content and the ability to take screenshots.
+[Introduced](http://blogs.windows.com/buildingapps/2013/07/17/whats-new-in-webview-in-windows-8-1/) for JavaScript apps in Windows 8.1, the WebView control—sometimes referred to by its tag name, [x-ms-webview](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx)—allows you to host web content in your Windows app. Available in both HTML and [XAML](https://en.wikipedia.org/wiki/Extensible_Application_Markup_Language), the x-ms-webview comes with a powerful set of APIs, which overcomes [several of the limitations](http://blogs.windows.com/buildingapps/2013/10/01/blending-apps-and-sites-with-the-html-x-ms-webview/) that encumber an iframe, such as framebusting sites and document loading events. Additionally, the x-ms-webview provides new functionality that is not possible with an iframe, such as better access to local content and the ability to take screenshots.
 
 When you use the WebView control, you get the same web platform that powers Microsoft Edge. 
 
@@ -311,9 +311,6 @@ this.setDefaultAppBarColors = () => {
 
 ### Other functionality
 The progress indicator, as well as the settings and favorites menus, leverage [CSS transitions](http://www.w3.org/TR/css3-transitions/) for animation. With the former menu, the temporary web data is cleared using the [clearTemporaryWebDataAsync()](https://msdn.microsoft.com/en-us/library/windows/apps/dn764996.aspx) method. With the latter menu, the list of favorites is stored on a [JSON](https://en.wikipedia.org/wiki/JSON) file in the root folder of the [roaming app data store](https://msdn.microsoft.com/en-us/library/windows/apps/windows.storage.applicationdata.roamingfolder.aspx).
-
-## What’s next
-This was just a glimpse of what is capable with the web platform on Windows 10. With the WebView control, we were able to create a simple and intuitive browser using primarily JavaScript. Still, there are plenty of additional features we could build on top of this project, such as right-click, inking, theming, or even tabs. We can also refactor the core implementation to leverage [transpilers](https://en.wikipedia.org/wiki/Source-to-source_compiler) and fill the ES2015 feature gaps. Our team had a lot of fun building this browser. [Reach out to us](https://twitter.com/MSEdgeDev) on Twitter, submit [issues](https://github.com/MicrosoftEdge/JSBrowser/issues/new), or if you have a killer feature you are interested in, send us a [pull request](https://github.com/MicrosoftEdge/JSBrowser/pulls). We would love to hear any feedback you have on this browser or the web platform in general!
 
 ## Citations
 The JSBrowser logo is based on [trees by Nicholas Menghini](https://thenounproject.com/term/trees/65621/) from the Noun Project.

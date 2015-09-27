@@ -4,12 +4,12 @@
     // Enable nodelists to work with the spread operator
     NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
 
-    // Event symbol
-    const EVENT_SYM = Symbol("events");
+    // The event symbol used to store event data
+    const EVENT_SYMBOL = Symbol("events");
 
     // Browser constructor
     function Browser() {
-        this[EVENT_SYM] = {};
+        this[EVENT_SYMBOL] = {};
         this.currentUrl = "";
         this.faviconLocs = new Map;
         this.favorites = new Map;
@@ -24,7 +24,7 @@
 
         // Simple event management - listen for a particular event
         on (type, listener) {
-            let listeners = this[EVENT_SYM][type] || (this[EVENT_SYM][type] = []);
+            let listeners = this[EVENT_SYMBOL][type] || (this[EVENT_SYMBOL][type] = []);
 
             if (listeners.indexOf(listener) < 0) {
                 listeners.push(listener);
@@ -34,7 +34,7 @@
 
         // Simple event management - stop listening for a particular event
         off (type, listener) {
-            let listeners = this[EVENT_SYM][type],
+            let listeners = this[EVENT_SYMBOL][type],
                 index = listeners ? listeners.indexOf(listener) : -1;
 
             if (index > -1) {
@@ -46,7 +46,7 @@
         // Simple event management - trigger a particular event
         trigger (type) {
             let event = { type };
-            let listeners = this[EVENT_SYM][type] || [];
+            let listeners = this[EVENT_SYMBOL][type] || [];
 
             listeners.forEach(listener => listener.call(this, event));
             return this;
@@ -187,7 +187,7 @@
 
         // Hot key codes
         this.KEYS = { "ESC": 27, "L": 76, "F11": 122 };
-        
+
         // Set the initial states
         this.backButton.disabled = true;
         this.forwardButton.disabled = true;
