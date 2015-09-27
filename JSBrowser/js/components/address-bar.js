@@ -172,7 +172,7 @@
 
         // Remove last / from pathname if original address doesn't have it either
         let pathname = a.pathname;
-        if (/\/$/.test(address))
+        if (!/\/$/.test(address))
             pathname = pathname.replace(/\/$/, '');
         HTML += pathname+a.search+a.hash;
         return HTML;
