@@ -9,7 +9,6 @@ html {
 }
 
 #browser {
-    min-width: 480px;
     z-index: 1;
 }
 
