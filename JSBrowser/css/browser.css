@@ -78,7 +78,10 @@ html {
     color: #090;
 }
 #urlDisplay .domain {
-    color: #000 !important;
+    color: #000;
+}
+#urlDisplay .login {
+    color: #006;
 }
 #urlDisplay:after {
     display: block;
