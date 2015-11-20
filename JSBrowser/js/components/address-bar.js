@@ -137,9 +137,49 @@
         style.display = isHidden ? "inline-block" : "none";
     };
 
+    this.colorizeAddress = address => {
+        let HTML = '';
+        // Parse URL
+        let a = new URI(address);
+
+        // Detect HTTPS protocol
+        if (a.schemeName === 'https')
+            HTML += "<span class='https'>https:</span>//";
+        // Display any protocol other than HTTP
+        else if (a.schemeName !== 'http')
+            HTML += a.schemeName + "://";
+
+        // Add Username & password if applicable
+        if (a.userName)
+            HTML += "<span class='login'>"+a.userName + (a.password ? ":"+a.password : '') + "</span>@";
+
+        // Highlight domain in hostname
+        let hostnameRegex = /(^|\.)([^.]+(?:\.[\w\d]{2,3})?\.[\w\d]{2,})$/;
+        HTML += hostnameRegex.test(a.host)
+            ? a.host.replace(hostnameRegex, "$1<span class='domain'>$2</span>")
+            : "<span class='domain'>" + a.host + "</span>";
+
+        // Add port if it's a valid number
+        if (a.port.length > 0 && !isNaN(a.port))
+            HTML += ':' + a.port;
+
+        // Remove last / from pathname if original address doesn't have it either
+        let pathname = a.path;
+        if (!address.endsWith('/'))
+            pathname = pathname.replace(/\/$/, '');
+        HTML += pathname+a.query+a.fragment;
+        return HTML;
+    }
+
+    // Remove HTTP protocol from URI
+    this.removeHTTPFromURI = uri => {
+        return uri.replace(/^http:\/\//, '');
+    }
+
     // Update the address bar with the given text and remove focus
     this.updateAddressBar = text => {
-        this.urlInput.value = text;
+        this.urlInput.value = this.removeHTTPFromURI(text);
+        this.urlDisplay.innerHTML = this.colorizeAddress(text);
         this.urlInput.blur();
     };
 
