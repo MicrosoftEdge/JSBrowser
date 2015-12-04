@@ -1,4 +1,4 @@
-#&nbsp;![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser 
+#&nbsp;![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser
 A web browser built with JavaScript as a Windows app.<br />
 http://microsoftedge.github.io/JSBrowser/
 
@@ -47,7 +47,7 @@ There are several additional features implemented to make the browsing experienc
 
 [Introduced](http://blogs.windows.com/buildingapps/2013/07/17/whats-new-in-webview-in-windows-8-1/) for JavaScript apps in Windows 8.1, the WebView control—sometimes referred to by its tag name, [x-ms-webview](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx)—allows you to host web content in your Windows app. Available in both HTML and [XAML](https://en.wikipedia.org/wiki/Extensible_Application_Markup_Language), the x-ms-webview comes with a powerful set of APIs, which overcomes [several of the limitations](http://blogs.windows.com/buildingapps/2013/10/01/blending-apps-and-sites-with-the-html-x-ms-webview/) that encumber an iframe, such as framebusting sites and document loading events. Additionally, the x-ms-webview provides new functionality that is not possible with an iframe, such as better access to local content and the ability to take screenshots.
 
-When you use the WebView control, you get the same web platform that powers Microsoft Edge. 
+When you use the WebView control, you get the same web platform that powers Microsoft Edge.
 
 ![WebView flowchart](https://cloud.githubusercontent.com/assets/7266075/9342671/036d5e70-45b2-11e5-8f01-005dac0f644f.png)
 
@@ -153,17 +153,17 @@ function fileExists(url) {
 // Show the favicon if available
 this.getFavicon = loc => {
   let host = new URI(loc).host;
-  
+
   // Exit for cached ico location
   // ...
-  
+
   let protocol = loc.split(":")[0];
-  
+
   // Hide favicon when the host cannot be resolved or the protocol is not http(s)
   // ...
-  
+
   loc = `${protocol}://${host}/favicon.ico`;
-  
+
   // Check if there is a favicon in the root directory
   fileExists(loc).then(exists => {
     if (exists) {
@@ -175,10 +175,10 @@ this.getFavicon = loc => {
     console.log("Favicon not found in root. Checking the markup...");
     let script = "Object(Array.from(document.getElementsByTagName('link')).find(link => link.rel.includes('icon'))).href";
     let asyncOp = this.webview.invokeScriptAsync("eval", script);
-    
+
     asyncOp.oncomplete = e => {
       loc = e.target.result || "";
-      
+
       if (loc) {
         console.log(`Found favicon in markup: ${loc}`);
         this.favicon.src = loc;
@@ -284,25 +284,25 @@ this.setDefaultAppBarColors = () => {
   Object.assign(this.titleBar, {
     "foregroundColor": BRAND,
     "backgroundColor": BRAND,
-    
+
     "buttonForegroundColor": WHITE,
     "buttonBackgroundColor": BRAND,
-    
+
     "buttonHoverForegroundColor": WHITE,
     "buttonHoverBackgroundColor": GRAY,
-    
+
     "buttonPressedForegroundColor": BRAND,
     "buttonPressedBackgroundColor": WHITE,
-    
+
     "inactiveForegroundColor": BRAND,
     "inactiveBackgroundColor": BRAND,
-    
+
     "buttonInactiveForegroundColor": GRAY,
     "buttonInactiveBackgroundColor": BRAND,
-    
+
     "buttonInactiveHoverForegroundColor": WHITE,
     "buttonInactiveHoverBackgroundColor": BRAND,
-    
+
     "buttonPressedForegroundColor": BRAND,
     "buttonPressedBackgroundColor": BRAND
   });
