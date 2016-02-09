@@ -1,10 +1,10 @@
 #&nbsp;![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser Chrome Edition
-A web browser built with JavaScript &amp; NW.js as a cross-platform app. This is a fork of the [JavaScript Browser](http://microsoftedge.github.io/JSBrowser/) with Microsoft Edge WebView replaced with Google Chrome WebView, which works in Windows/Linux/OS X. This is a pre-release.<br />
+A web browser built with JavaScript &amp; NW.js as a cross-platform app. This is a fork of the [JavaScript Browser](http://microsoftedge.github.io/JSBrowser/) having Microsoft Edge WebView replaced with Google Chrome WebView, which works in Windows/Linux/OS X. This is a pre-release.<br />
 http://niutech.github.io/JSBrowser/
 
 ![JavaScript Browser Chrome Edition](http://i.imgur.com/SDFft2Y.png)
 
-This project is a tutorial demonstrating the capabilities of the web platform. The browser is a sample app built around the Chrome [WebView control](https://developer.chrome.com/apps/tags/webview), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/) and [NW.js](http://nwjs.io/), this is a JavaScript app.
+This project is a tutorial demonstrating the capabilities of the web platform. The browser is a sample app built around the Chrome [WebView control](https://developer.chrome.com/apps/tags/webview), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/) and [NW.js](http://nwjs.io/), this is a JavaScript app. In order to run it, download the latest NW.js v0.13 and drop the `JSBrowser` folder on the `nw.exe` app.
 
 In addition to JavaScript, HTML and CSS are the other core programming languages used. Some C++ code is also included to enable supplemental features, but is not required to create a simple browser.
 
