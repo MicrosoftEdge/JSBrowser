@@ -1,0 +1,14 @@
+{
+    "name": "JavaScript Browser Chrome Edition",
+    "description": "A web browser built with JavaScript and NW.js as a cross-platform app",
+    "version": "1.2",
+    "author": "Microsoft WebApp Demos & Jerzy Głowacki",
+    "main": "default.html",
+    "window": {
+        "height": 600,
+        "width": 1024,
+        "show": true,
+        "title": "JavaScript Browser Chrome Edition",
+        "icon": "images/logo_44x44.png"
+    }
+}
