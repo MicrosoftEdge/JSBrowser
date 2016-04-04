@@ -74,6 +74,7 @@
     <Content Include="js\browser.js" />
     <Content Include="js\components\favorites.js" />
     <Content Include="js\components\navigation.js" />
+    <Content Include="js\components\personalization.js" />
     <Content Include="js\components\settings.js" />
     <Content Include="js\components\title-bar.js" />
     <Content Include="js\components\webview.js" />
