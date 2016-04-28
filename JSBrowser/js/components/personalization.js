@@ -72,10 +72,14 @@
         this.setNavbarToColorBlue.style.display = "none";
        
     });
+    
+    // Navigation Bar -- Set Color From Local Storage
+    this.navbar.style.background = localStorage.getItem("navbarColor");
 
     // Set Navbar To Default Color
     this.defaultnavbarcolor.addEventListener("click", () => {
         this.navbar.style.background = "linear-gradient(to bottom, #3b3b3b 0%, #222 100%)";
+        localStorage.setItem("navbarColor", "linear-gradient(to bottom, #3b3b3b 0%, #222 100%)");
 	
     });
 
@@ -83,6 +87,7 @@
 
     this.setNavbarToColorRed.addEventListener("click", () => {
         this.navbar.style.background = "red";
+        localStorage.setItem("navbarColor", "red");
 
     });
 
@@ -90,6 +95,7 @@
 
     this.setNavbarToColorBlue.addEventListener("click", () => {
         this.navbar.style.background = "blue";
+        localStorage.setItem("navbarColor", "blue");
 
     });
 
