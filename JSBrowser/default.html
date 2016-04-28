@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>JavaScript Browser</title>
+
+    <!-- App references -->
+    <link href="css/browser.css" rel="stylesheet" />
+    <script src="js/browser.js"></script>
+
+    <!-- UI component references -->
+    <script src="js/components/webview.js"></script>
+    <script src="js/components/address-bar.js"></script>
+    <script src="js/components/navigation.js"></script>
+    <script src="js/components/favorites.js"></script>
+    <script src="js/components/settings.js"></script>
+    <script src="js/components/title-bar.js"></script>
+</head>
+<body>
+    <div id="browser" class="perspective effect-moveleft">
+        <div class="container">
+            <div class="wrapper">
+                <div class="navbar">
+                    <button id="backButton" class="navButton backButton" title="Go back"></button>
+                    <button id="forwardButton" class="navButton forwardButton" title="Go forward"></button>
+                    <button id="stopButton" class="navButton stopButton" title="Stop loading"></button>
+                    <label class="icon" for="urlInput">
+                        <span class="ring"></span>
+                        <img id="favicon" src="" />
+                    </label>
+                    <div id="tweet" title="Tweet about this browser"></div>
+                    <div id="urlWrap">
+                        <input id="urlInput" type="text" class="win-textbox" />
+                        <span id="urlDisplay" class="win-textbox" />
+                    </div>
+                    <button id="favButton" class="navButton favButton" title="View favorites"></button>
+                    <button id="settingsButton" class="navButton settingsButton" title="View settings"></button>
+                </div>
+                <x-ms-webview id="WebView"></x-ms-webview>
+            </div>
+        </div>
+        <nav id="favMenu" class="outer-nav right vertical">
+            <div>
+                <h1>Favorites</h1>
+                <a id="addFavButton">Add favorite</a>
+                <hr />
+            </div>
+            <div id="favorites"></div>
+        </nav>
+        <nav id="settingsMenu" class="outer-nav right vertical">
+            <div>
+                <h1>Settings</h1>
+                <a id="goFullscreen"></a>
+                <hr />
+                <a id="clearCacheButton">Clear cache</a>
+                <a id="clearFavButton">Clear favorites</a>
+                <a id="citation">Logo based on trees by Nicholas Menghini from the Noun Project.</a>
+            </div>
+        </nav>
+    </div>
+    <div id="fullscreenMessage">You are now in full screen mode. <a id="hideFullscreen">Click here</a> or press F11 to exit.</div>
+</body>
+</html>

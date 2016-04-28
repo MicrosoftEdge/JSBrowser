@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="62834MicrosoftWebAppDemos.JavaScriptBrowser" Version="1.2.0.0" Publisher="CN=9C9119A4-BA20-4839-A471-5EBF825E0562" />
+  <mp:PhoneIdentity PhoneProductId="42fc11d8-64c6-4967-a15a-dfd787f68766" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>JavaScript Browser</DisplayName>
+    <PublisherDisplayName>Microsoft WebApp Demos</PublisherDisplayName>
+    <Logo>images/logo_store.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" StartPage="default.html">
+      <uap:VisualElements DisplayName="JavaScript Browser" Description="A web browser built with JavaScript as a Windows app" BackgroundColor="#3B3B3B" Square150x150Logo="images/logo_150x150.png" Square44x44Logo="images/logo_44x44.png">
+        <uap:LockScreen Notification="badge" BadgeLogo="images/logo_badge.png" />
+        <uap:DefaultTile Wide310x150Logo="images/logo_310x150.png" ShortName="JSBrowser" Square310x310Logo="images/logo_310x310.png" Square71x71Logo="images/logo_71x71.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="images/logo_splash.png" BackgroundColor="#3B3B3B" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

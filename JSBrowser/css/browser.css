@@ -1,0 +1,525 @@
+﻿*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+#browser {
+    z-index: 1;
+}
+
+.navbar {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px;
+    width: 100%;
+    background: linear-gradient(to bottom, #3b3b3b 0%, #222 100%);
+}
+
+.fullscreen .navbar {
+    display: none;
+}
+#urlWrap {
+    position: relative;
+    margin: 0 0 0 4px;
+    height: 32px;
+    flex-grow: 1;
+    padding-right: 35px;
+}
+
+#urlWrap > * {
+    height: 100%;
+    border-radius: 3px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.333;
+    padding-top: 3px;
+    padding-bottom: 5px;
+    padding-left: 35px;
+    border: 2px solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding-right: 35px;
+}
+
+#urlInput {
+    width: 100%;
+    color: transparent;
+    z-index: 1;
+    border-color: rgba(255, 255, 255, 0.4);
+    background-color: #eee;
+}
+#urlInput:focus {
+    border-color: #0078D7;
+    color: #666;
+}
+#urlInput:focus + #urlDisplay {
+    display: none;
+}
+
+#urlDisplay {
+    width: calc(100% - 35px);
+    color: #777;
+    z-index: 2;
+    pointer-events: none;
+    border-color:  transparent;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#urlDisplay .https {
+    color: #090;
+}
+#urlDisplay .domain {
+    color: #000;
+}
+#urlDisplay .login {
+    color: #006;
+}
+#urlDisplay:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 5%;
+    background-image: linear-gradient(to right, rgba(238,238,238,0) 0%, rgba(238,238,238,1) 100%);
+}
+
+#urlInput:focus,
+.icon:hover ~ #urlDisplay,
+#tweet:hover ~ #urlDisplay {
+    background-color: #fff;
+    color: #222;
+}
+
+.icon,
+.icon img {
+    width: 16px;
+    height: 16px;
+}
+
+.icon {
+    position: absolute;
+    top: 10px;
+    left: 115px;
+    cursor: text;
+    z-index: 3;
+}
+
+.icon img {
+    margin: 2px 0 0 2px;
+}
+
+.icon .ring {
+    position: relative;
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#tweet {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 82px;
+    z-index: 3;
+    width: 20px;
+    height: 20px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAA5FBMVEUAAAD1+v9ar+51vPLk8vz0+v7P6PtKp+1Zru5csO9yu/Frt/Bqt/B9wPKJxfOJxfOWzPWk0/an1Paq1vbA4Pm+3/m/4PjI5Pnj8v3o9P1dsO9Eo+xRqu5dsO9Zru5hsu9fse9esO93vfF3vPFltPBmtPCczvV4vfKn1PZdsO+AwfJis++YzfRvuPGFxPOu1/e63fiw2feg0fXZ7Pve7/zS6fvI5Pnn8/z3+/7e7/z9/v9VrO5Xre45n+tQqu5MqO1Hpu1Do+xYru5Oqe00nOtTq+4ym+sumeo9oewrmOollekgkuij5K+8AAAAO3RSTlMADe/VJwcH/Pjv4uDVurCkmZKHcWlfWlAtFPv7+fbo5OPQzcW+vaelm5ualpGNf3tza2pHPzs1IxgLA03KNI0AAADRSURBVBjTncxFssJQFEXRE8Hd4bu74vA8isx/PuQFCS0arLqtXacuzvP//NQAJmOgWdu3h6WUoVWxbOB1/btttRUlxFHssQV8MK9k65iTRMvku8DAI0yW2z3cuLq5fAak5i+XhLMFzV9zHcVFOorV+6yvF9KnOqoCIp0VpyTBytDemEgq9ZqIfZnuISonFTejoJLh8g9bw0ywe+sEFg5apoh3gWlAS0c3ql7xKImwOEXMrt+pkBFfLDxRx57RrhRzTva21OjhSLf//f750zFw0gYUQyoqC9iHlgAAAABJRU5ErkJggg==);
+    cursor: pointer;
+}
+
+.navButton {
+    margin-left: 4px;
+    border-radius: 3px;    
+    min-height: 0;
+    height: 30px;
+    width: 30px;
+    min-width: 0;
+    min-height: 0;
+    box-shadow: 0 4px 3px -3px #000;
+    color: #dedede;
+}
+
+.navButton,
+.navButton:disabled {
+    border: 0;
+    background: rgba(255,255,255,0.15) url('../images/icons.png') no-repeat;
+}
+
+.navButton:hover {
+    border-color: #000;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.25);
+    color: #fff;
+}
+
+.navButton:active,
+.navButton.open {
+    background-color: rgba(255,255,255,0.35);
+    color: #fff;
+}
+
+.navButton:disabled {
+    cursor: default;
+}
+
+.navButton:disabled:hover,
+.navButton:disabled:active,
+.navButton:disabled:focus {
+    background-color: rgba(255,255,255,0.15);
+}
+
+.backButton {
+    margin-left: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-position: -1px 0;
+}
+
+.backButton:hover,
+.backButton:active {
+    background-position: -31px 0;
+}
+
+.backButton:disabled {
+    background-position: -61px 0;
+}
+
+.forwardButton {
+    margin-left: 2px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-position: 1px -30px;
+}
+
+.forwardButton:hover,
+.forwardButton:active {
+    background-position: -29px -30px;
+}
+
+.forwardButton:disabled {
+    background-position: -59px -30px;
+}
+
+.stopButton {
+    background-position: 0 -60px;
+}
+
+.stopButton:hover,
+.stopButton:active {
+    background-position: -30px -60px;
+}
+
+.refreshButton {
+    background-position: 0 -90px;
+}
+
+.refreshButton:hover,
+.refreshButton:active {
+    background-position: -30px -90px;
+}
+
+.favButton {
+    background-position: 0 -120px;
+}
+
+.favButton:hover,
+.favButton:active {
+    background-position: -30px -120px;
+}
+
+.settingsButton {
+    background-position: 0 -150px;
+}
+
+.settingsButton:hover,
+.settingsButton:active {
+    background-position: -30px -150px;
+}
+
+#favMenu .url {
+    font-size: 12px;
+    color: #666;
+}
+
+#favMenu hr,
+#settingsMenu hr {
+    height: 1px;
+    width: auto;
+    border: 0;
+    padding: 0;
+    margin: 9px 4px;
+    background-color: #ccc;
+    vertical-align: top;
+}
+
+.favorite {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#favorites {
+    height: calc(100% - 168px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#WebView {
+    width: 100%;
+    height: calc(100% - 40px);
+}
+
+.fullscreen #WebView {
+    height: 100%;
+}
+
+.perspective {
+	background: #aaa;
+	position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+	background: #fff;
+	min-height: 100%;
+	position: relative;
+	outline: 1px solid rgba(0,0,0,0);
+	z-index: 10;
+	transform: translateZ(0) translateX(0) rotateY(0deg);
+}
+
+.container::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 0px;
+	opacity: 0;
+	background: rgba(0,0,0,0.2);
+	transition: opacity 0.4s, height 0s 0.4s;
+}
+
+.wrapper {
+	position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.component {
+	margin: 0 auto;
+	width: 60%;
+	text-align: justify;
+	font-size: 1.5em;
+}
+
+/* Modal view */
+.perspective.modalview {
+	position: fixed;
+	perspective: 1500px;
+}
+
+.modalview .container {
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+
+.animate .container::after {
+	opacity: 1;
+	height: 100%;
+	transition: opacity 0.3s;
+}
+
+/* Outer Nav */
+.outer-nav {
+	position: absolute;
+    height: 550px;
+	font-size: 2em;
+    font-family: Segoe UI, sans-serif;
+}
+
+.outer-nav.vertical {
+	top: 50%;
+	transform: translateY(-50%);
+	transform-style: preserve-3d;
+}
+
+.outer-nav.horizontal {
+	left: 50%;
+	width: 75%;
+	max-width: 1000px;
+	text-align: center;
+	transform: translateX(-50%);
+}
+
+.outer-nav.left {
+	left: 25%;
+}
+
+.outer-nav.right {
+	right: 8%;
+    font-size: 15px;
+    width: 50%;
+    height: 75%;
+}
+
+.outer-nav.top {
+	top: 25%;
+}
+
+.outer-nav.bottom {
+	bottom: 25%;
+}
+
+.outer-nav h1 {
+    font-family: Segoe UI Light, sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    margin: 10px 0;
+}
+
+.outer-nav a {
+	display: inline-block;
+	white-space: nowrap;
+	font-weight: normal;
+	margin: 0 0 30px 0;
+	color: #fff;
+	transition: color 0.3s;
+	transform-style: preserve-3d;
+    text-decoration: none;
+}
+
+.outer-nav a:hover {
+	color: #ffdccd;
+}
+
+.outer-nav.vertical a {
+	display: block;
+}
+
+.outer-nav.horizontal a {
+	margin: 15px 20px;
+}
+
+.effect-moveleft {
+    background: #f4f3f1 url("../images/logo_bg.png") no-repeat right bottom;
+}
+
+.effect-moveleft .container {
+    transition: transform 0.4s;
+    transform-origin: 50% 50%;
+}
+
+.effect-moveleft .container::after {
+    background: rgba(255,255,255,0.6);
+}
+
+.effect-moveleft.animate .container {
+    transform: translateX(-50%) rotateY(45deg) translateZ(-50px);
+}
+
+.effect-moveleft.animate .container .wrapper {
+    border: 1px solid #f4f3f1;
+}
+
+.effect-moveleft.animate x-ms-webview {
+    /* Workaround for WebView re-layout bug */
+    transform: rotateY(0deg);
+}
+
+.effect-moveleft .outer-nav * {
+    opacity: 0;
+    transform: translateX(100px) translateZ(-1000px);
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+.effect-moveleft .outer-nav a {
+    color: #666;
+    padding: 15px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.effect-moveleft .outer-nav a#citation {
+    margin-top: 50px;
+    color: #BFBFBF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.effect-moveleft .outer-nav a:hover,
+.effect-moveleft .outer-nav a#citation:hover {
+    color: #222;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.effect-moveleft.animate .outer-nav * {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(2) {
+    transition-delay: 0.03s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(3) {
+    transition-delay: 0.06s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(4) {
+    transition-delay: 0.09s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(5) {
+    transition-delay: 0.12s;
+}
+
+.effect-moveleft.animate .outer-nav *:nth-child(6) {
+    transition-delay: 0.15s;
+}
+
+#fullscreenMessage {
+    display: none;
+    z-index: 10;
+    width: 100%;
+    height: 80px;
+    padding: 32px;
+    position: absolute;
+    top: -80px;
+    left: 0;
+    background-color: #3B3B3B;
+    color: #FFF;
+    font-family: 'Segoe UI', sans-serif;
+    transition: 0.4s ease-in-out;
+}
+
+#fullscreenMessage.show {
+    transform: translateY(80px);
+}
+
+#fullscreenMessage a {
+    text-decoration: underline;
+    cursor: pointer;
+}
