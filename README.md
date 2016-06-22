@@ -314,3 +314,6 @@ The progress indicator, as well as the settings and favorites menus, leverage [C
 
 ## Citations
 The JSBrowser logo is based on [trees by Nicholas Menghini](https://thenounproject.com/term/trees/65621/) from the Noun Project.
+
+## Code of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
