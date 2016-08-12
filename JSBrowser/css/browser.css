@@ -1,4 +1,4 @@
-﻿*,
+*,
 *:before,
 *:after {
   box-sizing: inherit;
@@ -6,6 +6,12 @@
 
 html {
   box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
 #browser {
@@ -282,6 +288,7 @@ html {
 }
 
 #WebView {
+    display: block;
     width: 100%;
     height: calc(100% - 40px);
 }

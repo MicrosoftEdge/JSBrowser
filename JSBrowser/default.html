@@ -1,20 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>JavaScript Browser</title>
-
-    <!-- App references -->
+    <title>JavaScript Browser Chrome Edition</title>
     <link href="css/browser.css" rel="stylesheet" />
-    <script src="js/browser.js"></script>
-
-    <!-- UI component references -->
-    <script src="js/components/webview.js"></script>
-    <script src="js/components/address-bar.js"></script>
-    <script src="js/components/navigation.js"></script>
-    <script src="js/components/favorites.js"></script>
-    <script src="js/components/settings.js"></script>
-    <script src="js/components/title-bar.js"></script>
 </head>
 <body>
     <div id="browser" class="perspective effect-moveleft">
@@ -36,7 +25,7 @@
                     <button id="favButton" class="navButton favButton" title="View favorites"></button>
                     <button id="settingsButton" class="navButton settingsButton" title="View settings"></button>
                 </div>
-                <x-ms-webview id="WebView"></x-ms-webview>
+                <webview id="WebView" partition="persist:jsbrowser"></webview>
             </div>
         </div>
         <nav id="favMenu" class="outer-nav right vertical">
@@ -59,5 +48,18 @@
         </nav>
     </div>
     <div id="fullscreenMessage">You are now in full screen mode. <a id="hideFullscreen">Click here</a> or press F11 to exit.</div>
+    <!-- WinRT shim -->
+    <script src="js/winrt.js"></script>
+    <!-- App references -->
+    <script src="js/browser.js"></script>
+    <!-- UI component references -->
+    <script src="js/components/webview.js"></script>
+    <script src="js/components/address-bar.js"></script>
+    <script src="js/components/navigation.js"></script>
+    <script src="js/components/favorites.js"></script>
+    <script src="js/components/settings.js"></script>
+    <script src="js/components/title-bar.js"></script>
+
+
 </body>
 </html>

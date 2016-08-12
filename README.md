@@ -1,16 +1,14 @@
-#&nbsp;![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser
-A web browser built with JavaScript as a Windows app.<br />
-http://microsoftedge.github.io/JSBrowser/
+#&nbsp;![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser Chrome Edition
+A web browser built with JavaScript &amp; NW.js as a cross-platform app. This is a fork of the [JavaScript Browser](http://microsoftedge.github.io/JSBrowser/) having Microsoft Edge WebView replaced with Google Chrome WebView, which works in Windows/Linux/OS X. This is a pre-release.<br />
+http://niutech.github.io/JSBrowser/
 
-[![badge_windowsstore](https://cloud.githubusercontent.com/assets/7266075/9445327/6a0e1d9e-4a40-11e5-80e9-99b21af35c35.png)](https://www.microsoft.com/store/apps/9NBLGGH1Z7VX)
+![JavaScript Browser Chrome Edition](http://i.imgur.com/SDFft2Y.png)
 
-![JavaScript Browser](https://cloud.githubusercontent.com/assets/3200580/10122615/99850d4a-651f-11e5-8357-e83576384010.png)
-
-This project is a tutorial demonstrating the capabilities of the web platform on Windows 10. The browser is a sample app built around the HTML [WebView control](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/), this is a JavaScript [Universal Windows Platform](https://msdn.microsoft.com/library/windows/apps/dn894631.aspx) (UWP) app.
+This project is a tutorial demonstrating the capabilities of the web platform. The browser is a sample app built around the Chrome [WebView control](https://developer.chrome.com/apps/tags/webview), using primarily JavaScript to light up the user interface. Built using [Visual Studio 2015](https://www.visualstudio.com/) and [NW.js](http://nwjs.io/), this is a JavaScript app. In order to run it, download the latest NW.js v0.13 and drop the `JSBrowser` folder on the `nw.exe` app.
 
 In addition to JavaScript, HTML and CSS are the other core programming languages used. Some C++ code is also included to enable supplemental features, but is not required to create a simple browser.
 
-Additionally, we’re taking advantage of the new [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) (ES2015) support in Chakra, the JavaScript engine behind Microsoft Edge and the WebView control. ES2015 allows us to remove much of the scaffolding and boilerplate code, simplifying our implementation significantly. The following ES2015 features were used in the creation of this app: [Array.from()](http://www.ecma-international.org/ecma-262/6.0/#sec-array.from), [Array.prototype.find()](http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.find), [arrow functions](http://dev.modern.ie/platform/status/arrowfunction/), [method properties](http://dev.modern.ie/platform/status/es6objectliteralenhancements/), [const](http://dev.modern.ie/platform/status/blockbindingsletconstfunction/), [for-of](http://dev.modern.ie/platform/status/jsiteratorsietheforoffeature/), [let](http://dev.modern.ie/platform/status/blockbindingsletconstfunction/), [Map](http://dev.modern.ie/platform/status/map/), [Object.assign()](http://dev.modern.ie/platform/status/objectbuiltinses6/), [Promises](http://dev.modern.ie/platform/status/promiseses6/), [property shorthands](http://dev.modern.ie/platform/status/es6objectliteralenhancements/), [Proxies](http://dev.modern.ie/platform/status/proxieses6/), [spread operator](http://dev.modern.ie/platform/status/spreades6/), [String.prototype.includes()](http://dev.modern.ie/platform/status/stringbuiltinses6/), [String.prototype.startsWith()](http://dev.modern.ie/platform/status/stringbuiltinses6/), [Symbols](http://dev.modern.ie/platform/status/symbols/), [template strings](http://dev.modern.ie/platform/status/templatestringses6/), and [Unicode code point escapes](http://www.ecma-international.org/ecma-262/6.0/#sec-literals-string-literals).
+Additionally, we’re taking advantage of the new [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) (ES2015) support in V8, the JavaScript engine behind Google Chrome and the WebView control. ES2015 allows us to remove much of the scaffolding and boilerplate code, simplifying our implementation significantly. The following ES2015 features were used in the creation of this app: [Array.from()](http://www.ecma-international.org/ecma-262/6.0/#sec-array.from), [Array.prototype.find()](http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.find), [arrow functions](http://dev.modern.ie/platform/status/arrowfunction/), [method properties](http://dev.modern.ie/platform/status/es6objectliteralenhancements/), [const](http://dev.modern.ie/platform/status/blockbindingsletconstfunction/), [for-of](http://dev.modern.ie/platform/status/jsiteratorsietheforoffeature/), [let](http://dev.modern.ie/platform/status/blockbindingsletconstfunction/), [Map](http://dev.modern.ie/platform/status/map/), [Object.assign()](http://dev.modern.ie/platform/status/objectbuiltinses6/), [Promises](http://dev.modern.ie/platform/status/promiseses6/), [property shorthands](http://dev.modern.ie/platform/status/es6objectliteralenhancements/), [Proxies](http://dev.modern.ie/platform/status/proxieses6/), [spread operator](http://dev.modern.ie/platform/status/spreades6/), [String.prototype.includes()](http://dev.modern.ie/platform/status/stringbuiltinses6/), [String.prototype.startsWith()](http://dev.modern.ie/platform/status/stringbuiltinses6/), [Symbols](http://dev.modern.ie/platform/status/symbols/), [template strings](http://dev.modern.ie/platform/status/templatestringses6/), and [Unicode code point escapes](http://www.ecma-international.org/ecma-262/6.0/#sec-literals-string-literals).
 
 ## User interface
 The user interface consists of ten components:
@@ -29,7 +27,7 @@ The user interface consists of ten components:
 
 ## Additional functionality
 There are several additional features implemented to make the browsing experience more pleasant:
-* Keyboard shortcuts - press F11 to toggle fullscreen mode, ESC to exit fullscreen mode, or Ctrl + L to select the address bar
+* <s>Keyboard shortcuts - press F11 to toggle fullscreen mode, ESC to exit fullscreen mode, or Ctrl + L to select the address bar</s> not working yet
 * [CSS transitions](http://www.w3.org/TR/css3-transitions/) for animating the menus
 * Cache management
 * Favorites management
@@ -42,17 +40,15 @@ There are several additional features implemented to make the browsing experienc
 <div class="navbar">
   <!-- ... -->
 </div>
-<x-ms-webview id="WebView"></x-ms-webview>
+<webview id="WebView" partition="persist:jsbrowser"></webview>
 ```
 
-[Introduced](http://blogs.windows.com/buildingapps/2013/07/17/whats-new-in-webview-in-windows-8-1/) for JavaScript apps in Windows 8.1, the WebView control—sometimes referred to by its tag name, [x-ms-webview](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx)—allows you to host web content in your Windows app. Available in both HTML and [XAML](https://en.wikipedia.org/wiki/Extensible_Application_Markup_Language), the x-ms-webview comes with a powerful set of APIs, which overcomes [several of the limitations](http://blogs.windows.com/buildingapps/2013/10/01/blending-apps-and-sites-with-the-html-x-ms-webview/) that encumber an iframe, such as framebusting sites and document loading events. Additionally, the x-ms-webview provides new functionality that is not possible with an iframe, such as better access to local content and the ability to take screenshots.
-
-When you use the WebView control, you get the same web platform that powers Microsoft Edge.
+When you use the WebView control, you get the same web platform that powers Google Chrome.
 
 ![WebView flowchart](https://cloud.githubusercontent.com/assets/7266075/9342671/036d5e70-45b2-11e5-8f01-005dac0f644f.png)
 
 ## Developing the browser
-We will be using fifteen of the x-ms-webview APIs. All but two of these members handle the page navigation in some capacity. Let’s see how we can hook into these APIs to create each UI component.
+We will be using fifteen of the WebView APIs. All but two of these members handle the page navigation in some capacity. Let’s see how we can hook into these APIs to create each UI component.
 
 ### Hooking up the back and forward buttons
 When you invoke a back button, the browser returns to an earlier page in the browser history, if available. Similarly, when you invoke a forward button, the browser returns to a later page in the browser history, if available. In order to implement this logic, we use the [goBack()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301838.aspx) and [goForward()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301839.aspx) methods, respectively. These functions will automatically navigate to the correct page in the navigation stack.
