@@ -77,6 +77,7 @@
             "fullscreenButton": document.querySelector("#goFullscreen"),
             "fullscreenMessage": document.querySelector("#fullscreenMessage"),
             "hideFullscreenLink": document.querySelector("#hideFullscreen"),
+            "navbar": document.querySelector(".navbar"),
             "progressRing": document.querySelector(".ring"),
             "settingsButton": document.querySelector("#settingsButton"),
             "settingsMenu": document.querySelector("#settingsMenu"),
@@ -84,7 +85,18 @@
             "tweetIcon": document.querySelector("#tweet"),
             "urlInput": document.querySelector("#urlInput"),
             "urlDisplay": document.querySelector("#urlDisplay"),
-            "webview": document.querySelector("#WebView")
+            "webview": document.querySelector("#WebView"),
+
+            // Personalization Menu 
+            "personalization": document.querySelector("#personalization"),
+            "coloroptions": document.querySelector("#coloroptions"),
+            "gobackfromnavbarcolor": document.querySelector("#gobackfromnavbarcolor"),
+            "gobackfromcolormenu" : document.querySelector("#gobackfromcolormenu"),
+            "goback": document.querySelector("#goback"),
+            "navbarcolor": document.querySelector("#navbarcolor"),
+            "defaultnavbarcolor": document.querySelector("#defaultnavbarcolor"),
+            "setNavbarToColorRed": document.querySelector("#navbartored"),
+            "setNavbarToColorBlue": document.querySelector("#navbartoblue")
         });
 
         // Apply the fullscreen mode

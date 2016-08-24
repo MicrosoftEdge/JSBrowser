@@ -523,3 +523,41 @@ html {
     text-decoration: underline;
     cursor: pointer;
 }
+
+
+/* Personalization Menu */
+#goback {
+    display: none;
+}
+
+#gobackfromcolormenu {
+    display:none;
+}
+
+#gobackfromnavbarcolor {
+    display: none;
+}
+
+#coloroptions {
+    display: none;
+}
+
+#navbarcolor {
+    display:none;
+}
+
+#defaultnavbarcolor {
+    display:none;
+}
+
+#navbartored {
+    display:none;
+}
+
+#navbartoblue {
+    display:none;
+}
+
+#navbartogreen {
+    display:none;
+}
