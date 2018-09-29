@@ -1,4 +1,4 @@
-#&nbsp;![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser
+# ![Logo](https://cloud.githubusercontent.com/assets/7266075/9254929/15448684-419b-11e5-8110-41757c572fe8.png) JavaScript Browser
 A web browser built with JavaScript as a Windows app.<br />
 http://microsoftedge.github.io/JSBrowser/
 
@@ -73,7 +73,7 @@ this.backButton.addEventListener("click", () => this.webview.goBack());
 this.forwardButton.addEventListener("click", () => this.webview.goForward());
 ```
 
-###Hooking up the refresh and stop buttons
+### Hooking up the refresh and stop buttons
 
 The refresh and stop buttons are slightly different than the rest of the navbar components in that they take up the same space in the UI. When a page is loading, clicking the button will stop the navigation, hide the progress ring, and display a refresh icon. Conversely, when a page is stagnant, clicking the button will refresh the page and (in another part of the code) display a stop icon. We’ll use the [refresh()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301846.aspx) and [stop()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301848.aspx) methods based on the present conditions.
 
