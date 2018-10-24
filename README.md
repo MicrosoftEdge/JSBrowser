@@ -210,9 +210,9 @@ Unlike the features we have already covered, implementing keyboard shortcuts req
 
 ![Keyboard shortcuts flowchart](https://cloud.githubusercontent.com/assets/7266075/9342811/d9948d7a-45b2-11e5-877c-7a4c5e546275.png)
 
-In order to recognize the defined hot keys for particular actions, such as Ctrl + L to select the address bar and F11 to toggle full screen mode, we need to inject script into the WebView control. This is done using the [invokeScriptAsync()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301841.aspx) method we discussed earlier. However, we need some way to communicate the key codes back to the app layer.
+In order to recognize the defined hotkeys for particular actions, such as Ctrl + L to select the address bar and F11 to toggle full-screen mode, we need to inject script into the WebView control. This is done using the [invokeScriptAsync()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301841.aspx) method we discussed earlier. However, we need some way to communicate the key codes back to the app layer.
 
-With the [addWebAllowedObject()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx) method, we can expose a method for the injected script to pass the hot keys back to our app logic in JavaScript. Although, in Windows 10, the WebView control is off-thread. We need to create a dispatcher, which will marshal the event through to the UI thread so that the app layer can receive the notification.
+With the [addWebAllowedObject()](https://msdn.microsoft.com/en-us/library/windows/apps/dn301831.aspx) method, we can expose a method for the injected script to pass the hotkeys back to our app logic in JavaScript. Although, in Windows 10, the WebView control is off-thread. We need to create a dispatcher, which will marshal the event through to the UI thread so that the app layer can receive the notification.
 
 ```c++
 KeyHandler::KeyHandler()
